@@ -20,13 +20,14 @@
 </style>
 </head>
 <body>
-	<div class="pass_chk">
+	<div class="pass_chk disp_hide">
 		<input type="password" placeholder="암호를 입력하세요">
 		<button onclick="chk()">확인</button>
 	</div>
 	<form>
 		<div class="form">
 			<input type="text">
+			<button></button>
 		</div>
 	</form>
 </body>
