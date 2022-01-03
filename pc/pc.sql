@@ -97,4 +97,4 @@ create table reserve_seat(
 	seatno number references seat not null,
 	reserveno number references reserve not null
 )
-
+-----------------------------------------------------(22.01.03)
