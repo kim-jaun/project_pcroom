@@ -26,6 +26,11 @@ public class PcController {
 		return "/member/joinForm";
 	}
 	
+	@RequestMapping("mypageForm")
+	public String mypageForm() {
+		return "/member/mypageForm";
+	}
+	
 	@RequestMapping("registerForm")
 	public String registerForm() {
 		return "/pc/registerForm";
@@ -35,6 +40,5 @@ public class PcController {
 	public String pcMainForm() {
 		return "/pc/pcMainForm";
 	}
-	
 	
 }

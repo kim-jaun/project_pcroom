@@ -12,6 +12,8 @@
 	 <button onclick='location.href = "joinForm.do"'>회원가입</button>
 	 <button onclick='location.href = "registerForm.do"'>가맹점 문의</button>
 	 <button onclick='location.href = "pcMainForm.do"'>pc방</button>
+	 
+	 <button onclick='location.href = "mypageForm.do"'>mypage</button>
 	<!-- map -->
 
 	<div id="map" style="width: 100%; height: 350px;"></div>

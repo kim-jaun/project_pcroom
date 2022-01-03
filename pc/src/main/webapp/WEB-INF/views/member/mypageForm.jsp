@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+	<button onclick='location.href = "updateForm.do"'>회원정보 수정</button>
 </body>
 </html>
