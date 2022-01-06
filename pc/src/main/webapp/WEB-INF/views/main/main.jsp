@@ -10,6 +10,11 @@
 	.mapCenter {
 		display: flex;
 		justify-content: center;
+		position: relative;
+	}
+	#map {
+		width: 80%; 
+		height: 550px;
 	}
 </style>
 <!-- 시/도 ,읍면동 select box -->
@@ -110,13 +115,14 @@ function juso() {
 			<option value="">동/읍/면</option>
 		</select>
 		<input type="submit">		
-	</form>
 		<input type="button" class="pcDetail_btn" name="pcDetail_btn" value="임시 피씨정보">
+	</form>
 	<!-- search 끝-->
-	
 	<!-- map -->
 	<div class="mapCenter">
-		<div id="map" style="width: 80%; height: 350px;"></div>
+		<div id="map">
+		</div>
+		<div id="disp"></div>
 	</div>
 	<!-- map 끝 -->
 
@@ -205,6 +211,6 @@ function juso() {
 		});
 	</script>
 	<!-- map script 끝 -->
-	<div id="disp"></div>
+	
 </body>
 </html>
