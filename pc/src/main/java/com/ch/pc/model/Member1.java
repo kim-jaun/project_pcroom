@@ -2,6 +2,8 @@ package com.ch.pc.model;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 
 public class Member1 {
 	private int mno;
@@ -11,12 +13,15 @@ public class Member1 {
 	private String nick_name;
 	private String phone;
 	private String gender;
-	private int age;
+	private String birth;
 	private String email;
 	private Date reg_date;
     private String del;
     private String blacklist;
     private String identity;
+    private String profile;
+ // upload용
+ 	private MultipartFile file;
 	public int getMno() {
 		return mno;
 	}
@@ -59,11 +64,11 @@ public class Member1 {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public int getAge() {
-		return age;
+	public String getBirth() {
+		return birth;
 	}
-	public void setAge(int age) {
-		this.age = age;
+	public void setBirth(String birth) {
+		this.birth = birth;
 	}
 	public String getEmail() {
 		return email;
@@ -95,5 +100,17 @@ public class Member1 {
 	public void setIdentity(String identity) {
 		this.identity = identity;
 	}
-    
+	public String getProfile() {
+		return profile;
+	}
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+	public MultipartFile getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile file) {
+		this.file = file;
+	}
+ 	
 }
