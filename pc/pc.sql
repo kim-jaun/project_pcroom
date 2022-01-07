@@ -55,7 +55,7 @@ create table pcimage(
 	pcno number references pc(pcno),
 	imagename varchar2(50)
 )
-
+select * from pcimage;
 create sequence pcimage_seq;
 CREATE or replace FUNCTION get_seq
 	RETURN NUMBER
@@ -68,6 +68,7 @@ END;
 
 -----------------------------------------------------(21.12.31)
 select * from member1
+select * from pc;
 drop table pc;
 drop table board;
 drop table member1;
@@ -110,7 +111,6 @@ create table reply_likes(
 	mno number references member1 not null,
 	bno number references board not null
 )
-
 
 
 create table bookmark1(

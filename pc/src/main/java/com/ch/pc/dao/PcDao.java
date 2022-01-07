@@ -18,4 +18,8 @@ public interface PcDao {
 
 	void insertPcimage(List<Pcimage> images);
 
+	Pc select(int pcno);
+
+	List<Pcimage> listPhoto(int pcno);
+
 }

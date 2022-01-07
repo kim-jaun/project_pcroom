@@ -23,5 +23,4 @@ public class Location {
 	public void setDong(String dong) {
 		this.dong = dong;
 	}
-	
 }

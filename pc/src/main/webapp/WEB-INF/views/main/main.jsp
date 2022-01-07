@@ -21,9 +21,10 @@
 <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 <script type="text/javascript">
-$(function() {
-	$('#disp').load('pcDetailForm.do');
-})
+$(function Load() {	
+		$('#disp').load('pcDetailForm.do?pcno=1');
+});
+
 </script>
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -115,13 +116,12 @@ function juso() {
 			<option value="">동/읍/면</option>
 		</select>
 		<input type="submit">		
-		<input type="button" class="pcDetail_btn" name="pcDetail_btn" value="임시 피씨정보">
 	</form>
+	<button class="pcDetail_btn" onclick="Load()" name="pcDetail_btn">테스트</button>
 	<!-- search 끝-->
 	<!-- map -->
 	<div class="mapCenter">
-		<div id="map">
-		</div>
+		<div id="map"></div>
 		<div id="disp"></div>
 	</div>
 	<!-- map 끝 -->

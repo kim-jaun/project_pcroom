@@ -10,11 +10,21 @@
 	.mapCenter {
 		display: flex;
 		justify-content: center;
+		position: relative;
+	}
+	#map {
+		width: 80%; 
+		height: 550px;
 	}
 </style>
 <!-- 시/도 ,읍면동 select box -->
 <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
+<script type="text/javascript">
+$(function Load(pcnum)) {
+	$('#disp').load('pcDetailForm.do?pcno=pcnum');
+})
+</script>
 <script type="text/javascript">
 jQuery(document).ready(function(){
 	  //sido option 추가
@@ -104,13 +114,14 @@ function juso() {
 		<select id="dong" name="dong">
 			<option value="">동/읍/면</option>
 		</select>
-		<input type="submit">
+		<input type="submit">		
 	</form>
+	<button class="pcDetail_btn" onclick="Load(1)"name="pcDetail_btn">테스트</button>
 	<!-- search 끝-->
-	
 	<!-- map -->
 	<div class="mapCenter">
-		<div id="map" style="width: 80%; height: 350px;"></div>
+		<div id="map"></div>
+		<div id="disp"></div>
 	</div>
 	<!-- map 끝 -->
 
@@ -199,5 +210,6 @@ function juso() {
 		});
 	</script>
 	<!-- map script 끝 -->
+	
 </body>
 </html>

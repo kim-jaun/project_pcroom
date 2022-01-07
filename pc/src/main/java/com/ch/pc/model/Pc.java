@@ -3,6 +3,7 @@ package com.ch.pc.model;
 import org.springframework.web.multipart.MultipartFile;
 
 
+
 public class Pc {
 	private int pcno;
 	private String pcbusinessnum;

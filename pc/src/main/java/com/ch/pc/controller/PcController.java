@@ -23,16 +23,14 @@ import com.ch.pc.service.PcService;
 public class PcController {
 	@Autowired
 	private PcService ps;
+	
 	@RequestMapping("registerForm")
 	public String registerForm() {
 		return "/pc/registerForm";
 	}
-	
 	@RequestMapping("register")
-	public String register(Pc pc, Model model, HttpSession session, MultipartHttpServletRequest mr)throws
-	IOException {
+	public String register(Pc pc, Model model, HttpSession session, MultipartHttpServletRequest mr)throws IOException {
 		int result;
-
 		pc.setPcno(ps.givePcno()); // 일련번호 부여
 		List<Pc> pcbnm = ps.selectPcbnm(pc.getPcbusinessnum()); // 중복된 사업자번호 등록 방지
 		List<Pc> pcpno = ps.selectPcpno(pc.getPcpno()); // 중복된 전화번호 등록 방지
@@ -64,9 +62,21 @@ public class PcController {
 	}
 	
 	@RequestMapping("pcMainForm")
-	public String pcMainForm() {
+	public String pcMainForm(int pcno, Model model, HttpSession session) {
+		Pc pc = ps.select(pcno);
+		List<Pcimage> list = ps.listPhoto(pcno);
+		model.addAttribute("pc", pc);
+		model.addAttribute("list", list);
 		return "/pc/pcMainForm";
 	}
-	
-	
+	@RequestMapping("pcDetailForm")
+	public String pcDetailForm(int pcno, Model model) {
+		Pc pc = ps.select(pcno);
+		System.out.println(pcno);
+		List<Pcimage> list = ps.listPhoto(pcno);
+		model.addAttribute("pc", pc);
+		model.addAttribute("list", list);
+		return "/main/pcDetailForm";
+	}
+
 }

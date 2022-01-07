@@ -17,6 +17,7 @@ public class MainController {
 		if(location.getSido() == null) {
 			location.setSido("서울특별시");
 			location.setSigugun("이대역");
+			System.out.println(location);
 		}
 		
 		model.addAttribute("location", location);
@@ -27,9 +28,6 @@ public class MainController {
 	public String sessionChk() {
 		return "/main/sessionChk";
 	}
+
 	
-	@RequestMapping("pcDetailForm")
-	public String pcDetailForm() {
-		return "/main/pcDetailForm";
-	}
 }

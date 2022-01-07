@@ -5,6 +5,7 @@ import java.sql.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 
+
 public class Member1 {
 	private int mno;
 	private String id;
@@ -112,5 +113,4 @@ public class Member1 {
 	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
- 	
 }

@@ -17,6 +17,10 @@ public interface PcService {
 
 	void insertPcimage(List<Pcimage> images);
 
+	Pc select(int pcno);
+
+	List<Pcimage> listPhoto(int pcno);
+
 
 
 

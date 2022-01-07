@@ -27,4 +27,10 @@
 	<insert id="insertPi" parameterType="pcimage">
 		insert into pcimage values(pcimage_seq.nextval, #{pcno},#{imagename})
 	</insert>
+	<select id="select" parameterType="integer" resultType="pc">
+		select * from pc where pcno=#{pcno}
+	</select>
+	<select id="listPhoto" parameterType="integer" resultType="pcimage">
+		select * from pcimage where pcno=#{pcno}
+	</select>
 </mapper>
