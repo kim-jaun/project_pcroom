@@ -72,7 +72,6 @@ public class PcController {
 	@RequestMapping("pcDetailForm")
 	public String pcDetailForm(int pcno, Model model) {
 		Pc pc = ps.select(pcno);
-		System.out.println(pcno);
 		List<Pcimage> list = ps.listPhoto(pcno);
 		model.addAttribute("pc", pc);
 		model.addAttribute("list", list);

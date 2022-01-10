@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>어데 피씹니까?</title>
 <style type="text/css">
 	.mapCenter {
 		display: flex;
@@ -22,7 +22,7 @@
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 <script type="text/javascript">
 $(function Load() {	
-		$('#disp').load('pcDetailForm.do?pcno=1');
+		$('#disp').load('pcDetailForm.do?pcno=5');
 });
 
 </script>

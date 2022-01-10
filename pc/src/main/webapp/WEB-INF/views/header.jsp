@@ -84,7 +84,7 @@ img {
 			<c:if test="${sessionScope.memberSession.id != 'admin'}">
 				${sessionScope.memberSession.nick_name }님 환영합니다
 				<button onclick='location.href = "registerForm.do"'>가맹점 문의</button>
-				<button onclick='location.href = "pcMainForm.do?pcno=2"'>pc방</button>
+				<button onclick='location.href = "pcMainForm.do?pcno=5"'>pc방</button>
 				<div class="nv">
 					<ul>
 						<li>
