@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Seat;
 
 public interface PcDao {
 	List<Pc> selectPcbnm(String pcbusinessnum);
@@ -21,5 +22,7 @@ public interface PcDao {
 	Pc select(int pcno);
 
 	List<Pcimage> listPhoto(int pcno);
+
+	int insertSeat(Seat seat);
 
 }

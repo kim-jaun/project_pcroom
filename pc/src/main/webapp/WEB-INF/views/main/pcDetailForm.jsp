@@ -86,7 +86,9 @@
 				<!-- pc방 헤드라인 -->
 				<div class="pcTitle">
 					<!-- 북마크 -->
+					
 					<span class="pcLikes"><i class="far fa-heart"></i></span>
+					
 					<!-- 북마크 끝 -->
 					<a class="pcName" href="pcMainForm.do?pcno=${pc.pcno }">${pc.pcname}</a>
 					<div class="pcStar">

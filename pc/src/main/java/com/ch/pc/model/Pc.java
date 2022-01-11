@@ -12,10 +12,25 @@ public class Pc {
 	private String pcaddr;
 	private int pclikes;
 	private String pcinfo;
+	private int seatlow;
+	private int seatcol;
 	private int mno;
 	private int feeno;
 	private String imagename;
 	private MultipartFile pcimage;
+	
+	public int getSeatlow() {
+		return seatlow;
+	}
+	public void setSeatlow(int seatlow) {
+		this.seatlow = seatlow;
+	}
+	public int getSeatcol() {
+		return seatcol;
+	}
+	public void setSeatcol(int seatcol) {
+		this.seatcol = seatcol;
+	}
 	public int getPcno() {
 		return pcno;
 	}

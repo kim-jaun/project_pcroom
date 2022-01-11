@@ -8,10 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Seat;
 
 @Repository
-public class PcDaoImpl implements PcDao {
-	
+public class PcDaoImpl implements PcDao {	
 	@Autowired
 	private SqlSessionTemplate sst;
 
@@ -38,6 +38,9 @@ public class PcDaoImpl implements PcDao {
 	}
 	public List<Pcimage> listPhoto(int pcno) {
 		return sst.selectList("pcns.listPhoto", pcno);
+	}
+	public int insertSeat(Seat seat) {
+		return sst.insert("pcns.insertSeat", seat);
 	}
 
 

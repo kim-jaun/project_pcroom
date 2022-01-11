@@ -9,6 +9,29 @@
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
+<style type="text/css">
+ul {
+	background-color: #d5d5d5;
+	width : 150px;
+	list-style-type : none;
+	margin : 0;
+	padding: 0;
+}
+li a {
+	display: block;
+	color: black;
+	padding: 8px;
+	text-align: center;
+	text-decoration: none;
+	font-weight: bold;
+}
+li.current {
+	background-color: white;
+}
+li a:hover:not(.current) {
+	background-color: #d5d5d5;
+}
+</style>
 <script type="text/javascript">
 $(function() {
 	$( "#datepicker" ).datepicker({ maxDate: 0});
@@ -77,6 +100,11 @@ function chk4() { // 이메일 중복체크
 </script>
 </head>
 <body>
+	<ul>
+		<li><a href="updateForm.do">회원정보 수정</a></li>
+		<li><a href="reserveList.do">예매내역</a></li>
+		<li><a href="bookmark.do">즐겨찾기</a></li>
+	</ul>
 	<div class="container" align="center">
 		<div>회원가입</div>
 	<form action="update.do" method="post" name="frm" onsubmit="return chk()"  enctype="multipart/form-data">

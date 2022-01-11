@@ -22,17 +22,7 @@
 	</beans:bean>
 	
 	<context:component-scan base-package="com.ch.pc" />
-	<beans:bean id="lc" class="com.ch.pc.service.LoginChk"></beans:bean>
-	<!-- mapping interceptor할 url을 등록 -->
-	<!-- beans:ref 가로채서 먼저 실행하는 객체 -->
-	<interceptors>
-		<interceptor>
-			<mapping path="/updateForm.do"/>
-			<mapping path="/mypageForm.do"/>
-			<mapping path="/passChkForm.do"/>
-			<beans:ref bean="lc"/>
-		</interceptor>
-	</interceptors>
+	
 	
 	
 </beans:beans>

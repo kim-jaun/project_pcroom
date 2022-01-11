@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>어데 피씹니까?</title>
 <style type="text/css">
 	.mapCenter {
 		display: flex;
@@ -21,9 +21,10 @@
 <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 <script type="text/javascript">
-$(function Load(pcnum)) {
-	$('#disp').load('pcDetailForm.do?pcno=pcnum');
-})
+$(function Load() {	
+		$('#disp').load('pcDetailForm.do?pcno=5');
+});
+
 </script>
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -116,7 +117,7 @@ function juso() {
 		</select>
 		<input type="submit">		
 	</form>
-	<button class="pcDetail_btn" onclick="Load(1)"name="pcDetail_btn">테스트</button>
+	<button class="pcDetail_btn" onclick="Load()" name="pcDetail_btn">테스트</button>
 	<!-- search 끝-->
 	<!-- map -->
 	<div class="mapCenter">

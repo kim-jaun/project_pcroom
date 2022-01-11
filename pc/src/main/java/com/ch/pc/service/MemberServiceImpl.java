@@ -35,4 +35,7 @@ public class MemberServiceImpl implements MemberService {
 	public int update(Member1 member1) {
 		return md.update(member1);
 	}
+	public Member1 selectMno(int mno) {
+		return md.selectMno(mno);
+	}
 }

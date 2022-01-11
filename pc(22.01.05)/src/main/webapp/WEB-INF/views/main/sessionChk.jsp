@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script type="text/javascript"> 
+<script type="text/javascript">
 		alert("로그인 하고 오세요");
 		location.href="loginForm.do";
 </script>

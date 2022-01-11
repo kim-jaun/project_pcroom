@@ -34,5 +34,8 @@ public class MemberDaoImpl implements MemberDao {
 	public int update(Member1 member1) {
 		return sst.update("member1ns.update", member1);
 	}
+	public Member1 selectMno(int mno) {
+		return sst.selectOne("member1ns.selectMno", mno);
+	}
 
 }

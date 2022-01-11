@@ -10,6 +10,9 @@ public class Board {
 	private int likes;
 	private String del;
 	private int mno;
+	private int pcno;
+	// 게시판에 보여주기 위해
+	private String nick_name;
 	public int getBno() {
 		return bno;
 	}
@@ -57,5 +60,17 @@ public class Board {
 	}
 	public void setMno(int mno) {
 		this.mno = mno;
+	}
+	public int getPcno() {
+		return pcno;
+	}
+	public void setPcno(int pcno) {
+		this.pcno = pcno;
+	}
+	public String getNick_name() {
+		return nick_name;
+	}
+	public void setNick_name(String nick_name) {
+		this.nick_name = nick_name;
 	}
 }

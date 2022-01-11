@@ -20,4 +20,6 @@ public interface MemberDao {
 
 	int update(Member1 member1);
 
+	Member1 selectMno(int mno);
+
 }

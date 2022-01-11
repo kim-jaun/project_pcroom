@@ -35,7 +35,7 @@ div.right {
 </style>
 <script type="text/javascript">
 $(function() {	
-	$('#disp').load('reservation.do?pcno=5');
+	$('#disp').load('reservation.do?pcno=2');
 });
 </script>
 </head>
@@ -73,8 +73,9 @@ $(function() {
 		<div>정보</div>
 		<div>${pc.pcinfo }</div>
 	</div>
-	<div class="right">
+	<div class="right" align="center">
 		<div id="disp"></div>
+		<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
 	</div>
 </body>
 </html>

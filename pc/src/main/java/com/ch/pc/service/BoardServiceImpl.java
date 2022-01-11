@@ -13,57 +13,25 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	private BoardDao bd;
 
-	@Override
 	public List<Board> list(int startRow, int endRow) {
-		// TODO Auto-generated method stub
 		return bd.list(startRow, endRow);
 	}
-
-	@Override
-	public int insert(Board board) {
-		// TODO Auto-generated method stub
-		return bd.insert(board);
-	}
-
-	@Override
 	public int getTotal() {
-		// TODO Auto-generated method stub
 		return bd.getTotal();
 	}
-
-	@Override
-	public Board select(int num) {
-		// TODO Auto-generated method stub
-		return bd.select(num);
+	public Board select(int pcno, int bno) {
+		return bd.select(pcno, bno);
 	}
-
-	@Override
-	public void updateReadcount(int num) {
-		bd.updateReadcount(num);
-		
+	public void updateRead_cnt(int pcno, int bno) {
+		bd.updateRead_cnt(pcno, bno);
 	}
-
-	@Override
 	public int update(Board board) {
-		// TODO Auto-generated method stub
 		return bd.update(board);
 	}
-
-	@Override
-	public int delete(int num) {
-		// TODO Auto-generated method stub
-		return bd.delete(num);
+	public int insert(Board board) {
+		return bd.insert(board);
 	}
-
-	@Override
-	public int maxNum() {
-		// TODO Auto-generated method stub
-		return bd.maxNum();
-	}
-
-	@Override
-	public void updateStep(Board board) {
-		// TODO Auto-generated method stub
-		bd.updateStep(board);
+	public int delete(int pcno, int bno) {
+		return bd.delete(pcno, bno);
 	}
 }

@@ -17,7 +17,6 @@ public class MainController {
 		if(location.getSido() == null) {
 			location.setSido("서울특별시");
 			location.setSigugun("이대역");
-			System.out.println(location);
 		}
 		
 		model.addAttribute("location", location);

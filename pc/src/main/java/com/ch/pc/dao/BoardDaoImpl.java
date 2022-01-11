@@ -15,57 +15,37 @@ public class BoardDaoImpl implements BoardDao {
 	@Autowired
 	private SqlSessionTemplate sst;
 
-	@Override
 	public List<Board> list(int startRow, int endRow) {
-		// TODO Auto-generated method stub
-		Map<String , Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("startRow", startRow);
 		map.put("endRow", endRow);
-		return sst.selectList("boardns.list", map);
+	return sst.selectList("boardns.list", map);
 	}
-
-	@Override
-	public int insert(Board board) {
-		// TODO Auto-generated method stub
-		return sst.insert("boardns.insert", board);
-	}
-
-	@Override
 	public int getTotal() {
 		return sst.selectOne("boardns.getTotal");
 	}
-
-	@Override
-	public Board select(int num) {
-		// TODO Auto-generated method stub
-		return sst.selectOne("boardns.select",num);
+	public Board select(int pcno, int bno) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("pcno", pcno);
+		map.put("bno", bno);
+		return sst.selectOne("boardns.select", map);
 	}
-
-	@Override
-	public void updateReadcount(int num) {
-		sst.update("boardns.updateReadcount", num);		
+	public void updateRead_cnt(int pcno, int bno) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("pcno", pcno);
+		map.put("bno", bno);
+		sst.update("boardns.updateRead_cnt", map);		
 	}
-
-	@Override
 	public int update(Board board) {
-		// TODO Auto-generated method stub
-		return sst.update("boardns.update",board);
+		return sst.update("boardns.update", board);
 	}
-
-	@Override
-	public int delete(int num) {
-		// TODO Auto-generated method stub
-		return sst.update("boardns.delete",num);
+	public int insert(Board board) {
+		return sst.insert("boardns.insert", board);
 	}
-
-	@Override
-	public int maxNum() {
-		// TODO Auto-generated method stub
-		return sst.selectOne("boardns.maxNum");
-	}
-
-	@Override
-	public void updateStep(Board board) {
-		sst.update("boardns.updateStep", board);
+	public int delete(int pcno, int bno) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("pcno", pcno);
+		map.put("bno", bno);
+	return sst.update("boardns.delete", map);
 	}
 }

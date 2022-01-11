@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Seat;
 import com.ch.pc.service.PcService;
 
 @Controller
@@ -59,8 +60,7 @@ public class PcController {
 		model.addAttribute("result", result);
 
 		return "/pc/register";
-	}
-	
+	}	
 	@RequestMapping("pcMainForm")
 	public String pcMainForm(int pcno, Model model, HttpSession session) {
 		Pc pc = ps.select(pcno);
@@ -77,18 +77,31 @@ public class PcController {
 		model.addAttribute("list", list);
 		return "/main/pcDetailForm";
 	}
-	
+
 	@RequestMapping("reservation")
-	public String reservation() {
+	public String reservation(int pcno, Model model) {
+		model.addAttribute("pcno", pcno);
 		return "/pc/reservation";
 	}
 	@RequestMapping("seatForm")
-	public String seatForm() {
+	public String seatForm(int pcno, Model model) {
+		model.addAttribute("pcno", pcno);
+		Pc pc = ps.select(pcno);
+		model.addAttribute("pc", pc);
 		return "/pc/seatForm";
 	}
 	@RequestMapping("seatSetting")
-	public String seatSetting() {
-		
+	public String seatSetting(Seat seat, Model model) {
+		int result = 0;
+		if (seat.getSeatposition() == null) {
+			result = 0;
+		} else {			
+			result = ps.insertSeat(seat);
+		}
+		int pcno = seat.getPcno();
+		model.addAttribute("result", result);
+		model.addAttribute("pcno", pcno);
 		return "/pc/seatSetting";
 	}
+	
 }

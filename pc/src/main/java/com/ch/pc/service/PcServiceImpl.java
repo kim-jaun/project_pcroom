@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ch.pc.dao.PcDao;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Seat;
 
 @Service
 public class PcServiceImpl implements PcService {	
@@ -36,6 +37,10 @@ public class PcServiceImpl implements PcService {
 	}
 	public List<Pcimage> listPhoto(int pcno) {
 		return pd.listPhoto(pcno);
+	}
+	@Override
+	public int insertSeat(Seat seat) {
+		return pd.insertSeat(seat);
 	}
 
 

@@ -6,14 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
-<link rel="stylesheet" href="http://code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" type="text/css" /> 
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
-<script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <script type="text/javascript">
-$(function() {
-	$( "#datepicker" ).datepicker({ maxDate: 0});
-	});
-function chk() {
+function chk() { // 중복체크를 하지 않으면 넘어가지 않도록 설정
 	if (frm.idchk.value == 0) {
 		alert("아이디를 확인해주세요.");
 		return false;
@@ -34,7 +28,7 @@ function chk2() { // 아이디 중복체크
 		return false;
 	}
 	$.post('confirmId.do', "id=" + frm.id.value,
-			function(data) {
+			function(data) { //msg
 				if (data == 0) {
 					$('#err').html("이미 사용중인 아이디입니다.");
 					$('#err').css("color", "red");
@@ -148,7 +142,7 @@ function chk4() { // 이메일 중복체크
 			</div>
 			<div>생일</div>
 			<div>
-				<input type="text" name="birth" required="required" id="datepicker">
+				<input type="date" name="birth" required="required">
 			</div>
 			<div>이메일</div>
 			<div>

@@ -8,20 +8,16 @@ public interface BoardService {
 
 	List<Board> list(int startRow, int endRow);
 
-	int insert(Board board);
-
 	int getTotal();
 
-	Board select(int num);
+	Board select(int pcno, int bno);
 
-	void updateReadcount(int num);
+	void updateRead_cnt(int pcno, int bno);
 
 	int update(Board board);
 
-	int delete(int num);
+	int insert(Board board);
 
-	int maxNum();
-
-	void updateStep(Board board);
+	int delete(int pcno, int bno);
 
 }

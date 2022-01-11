@@ -27,6 +27,12 @@
 	<insert id="insertPi" parameterType="pcimage">
 		insert into pcimage values(pcimage_seq.nextval, #{pcno},#{imagename})
 	</insert>
+	<insert id="insertSeat" parameterType="seat">
+		<selectKey keyProperty="seatno" order="BEFORE" resultType="integer">
+			select nvl(max(seatno), 0) + 1 seatno from seat
+		</selectKey>
+		insert into seat values(#{seatno}, #{seatposition}, #{pcno})
+	</insert>
 	<select id="select" parameterType="integer" resultType="pc">
 		select * from pc where pcno=#{pcno}
 	</select>

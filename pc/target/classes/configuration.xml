@@ -4,13 +4,16 @@
 <configuration>
 	<typeAliases>
 		<typeAlias alias="board" type="com.ch.pc.model.Board"/>
+		<typeAlias alias="board_reply" type="com.ch.pc.model.Board_reply"/>
 		<typeAlias alias="fee" type="com.ch.pc.model.Fee"/>
 		<typeAlias alias="member1" type="com.ch.pc.model.Member1"/>
 		<typeAlias alias="pc" type="com.ch.pc.model.Pc"/>
 		<typeAlias alias="pcimage" type="com.ch.pc.model.Pcimage"/>
+		<typeAlias alias="seat" type="com.ch.pc.model.Seat"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="board.xml"/>
+		<mapper resource="board_reply.xml"/>
 		<mapper resource="fee.xml"/>
 		<mapper resource="member1.xml"/>
 		<mapper resource="pc.xml"/>

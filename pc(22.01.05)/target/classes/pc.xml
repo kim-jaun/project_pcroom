@@ -2,5 +2,35 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="pcns">
-
+<select id="selectPcbnm" parameterType="string" resultType="pc">
+		select * from pc where pcbusinessnum = #{pcbusinessnum}
+	</select>
+	
+	<select id="selectPcpno" parameterType="string" resultType="pc">
+		select * from pc where pcpno = #{pcpno}
+	</select>
+	
+	<select id="givePcno" resultType="integer">
+	select nvl(max(pcno),0) + 1 from pc
+	</select>
+	
+	<insert id="insertPc" parameterType="pc">
+		insert into pc (pcno,pcbusinessnum,pcpno,pcname,pcaddr,pcinfo,imagename) values(#{pcno},#{pcbusinessnum}, #{pcpno}, #{pcname}, #{pcaddr}, #{pcinfo}, #{imagename})
+	</insert>
+	<insert id="insertPcimage" parameterType="java.util.List">
+		insert all
+		<foreach collection="list" item="item">
+		into pcimage values (get_seq, ${item.pcno}, '${item.imagename}' )
+		</foreach>
+		select * from dual
+	</insert>
+	<insert id="insertPi" parameterType="pcimage">
+		insert into pcimage values(pcimage_seq.nextval, #{pcno},#{imagename})
+	</insert>
+	<select id="select" parameterType="integer" resultType="pc">
+		select * from pc where pcno=#{pcno}
+	</select>
+	<select id="listPhoto" parameterType="integer" resultType="pcimage">
+		select * from pcimage where pcno=#{pcno}
+	</select>
 </mapper>
