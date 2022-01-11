@@ -77,5 +77,18 @@ public class PcController {
 		model.addAttribute("list", list);
 		return "/main/pcDetailForm";
 	}
-
+	
+	@RequestMapping("reservation")
+	public String reservation() {
+		return "/pc/reservation";
+	}
+	@RequestMapping("seatForm")
+	public String seatForm() {
+		return "/pc/seatForm";
+	}
+	@RequestMapping("seatSetting")
+	public String seatSetting() {
+		
+		return "/pc/seatSetting";
+	}
 }

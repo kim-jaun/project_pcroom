@@ -28,7 +28,16 @@ div.right {
 	display: flex;
 	align-items: center;
 }
+.right {
+	display: flex;
+	justify-content: center;
+}
 </style>
+<script type="text/javascript">
+$(function() {	
+	$('#disp').load('reservation.do?pcno=5');
+});
+</script>
 </head>
 <body>
 	<h3>${pc.pcname }</h3>
@@ -64,6 +73,8 @@ div.right {
 		<div>정보</div>
 		<div>${pc.pcinfo }</div>
 	</div>
-	<div class="right" align="center">오른쪽</div>
+	<div class="right">
+		<div id="disp"></div>
+	</div>
 </body>
 </html>

@@ -22,10 +22,10 @@ th {
 	font-weight: bold;
 }
 
-/* .total {
-	background: #2A557F;
-	opacity: 0.9;
-} */
+ .total {
+	background: #9485aa;
+	opacity: 0.8;
+} 
 
 img {
 	height: 70px;
