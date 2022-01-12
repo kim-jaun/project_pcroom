@@ -24,6 +24,8 @@ public interface PcService {
 
 	int insertSeat(Seat seat);
 
+	List<Seat> listSeat(int pcno);
+
 
 
 

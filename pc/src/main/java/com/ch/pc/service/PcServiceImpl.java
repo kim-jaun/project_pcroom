@@ -38,9 +38,11 @@ public class PcServiceImpl implements PcService {
 	public List<Pcimage> listPhoto(int pcno) {
 		return pd.listPhoto(pcno);
 	}
-	@Override
 	public int insertSeat(Seat seat) {
 		return pd.insertSeat(seat);
+	}
+	public List<Seat> listSeat(int pcno) {
+		return pd.listSeat(pcno);
 	}
 
 

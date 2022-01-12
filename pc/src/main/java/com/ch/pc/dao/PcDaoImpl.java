@@ -42,6 +42,9 @@ public class PcDaoImpl implements PcDao {
 	public int insertSeat(Seat seat) {
 		return sst.insert("pcns.insertSeat", seat);
 	}
+	public List<Seat> listSeat(int pcno) {
+		return sst.selectList("pcns.listSeat", pcno);
+	}
 
 
 

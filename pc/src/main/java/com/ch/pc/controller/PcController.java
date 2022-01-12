@@ -64,9 +64,11 @@ public class PcController {
 	@RequestMapping("pcMainForm")
 	public String pcMainForm(int pcno, Model model, HttpSession session) {
 		Pc pc = ps.select(pcno);
-		List<Pcimage> list = ps.listPhoto(pcno);
+		List<Pcimage> photolist = ps.listPhoto(pcno);
+		List<Seat> seatlist = ps.listSeat(pcno);
 		model.addAttribute("pc", pc);
-		model.addAttribute("list", list);
+		model.addAttribute("photolist", photolist);
+		model.addAttribute("seatlist", seatlist);
 		return "/pc/pcMainForm";
 	}
 	@RequestMapping("pcDetailForm")

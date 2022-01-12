@@ -39,4 +39,7 @@
 	<select id="listPhoto" parameterType="integer" resultType="pcimage">
 		select * from pcimage where pcno=#{pcno}
 	</select>
+	<select id="listSeat" parameterType="integer" resultType="seat">
+		select * from seat where pcno=#{pcno}
+	</select>
 </mapper>

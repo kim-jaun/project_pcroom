@@ -31,15 +31,69 @@ div.right {
 .right {
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+#seatChoice input {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: inherit;
+	height: inherit;
+	margin-bottom: 0;
+	z-index: -1;
+	opacity: 0; 
+}
+.seatLabel2 {
+	font-size: 13px;
+	padding: 3px 0;
+	width: 40px;
+	margin: 2px 2px;
+	border: 1px solid rgba(0, 0, 0, 0.5); 
+}
+.seatLabel2.active{
+	background-color: rgba(255, 255, 255, 0.4);
 }
 </style>
 <script type="text/javascript">
 $(function() {	
 	$('#disp').load('reservation.do?pcno=2');
 });
+
+function seatSize2() {
+	var width = ${pc.seatlow};
+	var height = ${pc.seatcol};
+	for(var i = 1; i < width; i++) {
+		for(var j = 1; j < height; j++) {
+			$("#seatChoice").append('<label class="seatLabel2 btn" for="c' + i +'-' + j +'">' + i +'-' + j +'</lable>');
+			$("#seatChoice").append('<input id="c' + i +'-' + j +'" class="seat2" name="seatposition" type="checkbox" value="'+ i +'-' + j +'"/>');
+		}
+		$("#seatChoice").append('<br>');
+	}
+};
+
+$(function() {
+    $('.seatLabel2').on('click', function(){
+		if ($(this).hasClass("active")) { 
+		// active class 제거
+			$(this).removeClass("active");
+		}
+		else {
+    	// active class 추가
+			$(this).addClass('active');
+		}
+	});
+});
+
+$(function() {
+	var v2 = $('.seatLabel2').val()
+	alert(v2);
+})
+
 </script>
 </head>
-<body>
+<body onload="seatSize2()">
 	<h3>${pc.pcname }</h3>
 	<div class="left" align="center">
 		<div id="carousel-example-generic" class="carousel slide"
@@ -48,9 +102,9 @@ $(function() {
 			<!-- Wrapper for slides -->
 			<div class="carousel-inner" role="listbox">
 				<div class="item active">
-					<img alt="" src="resources/upload/${list[0].imagename }">
+					<img alt="" src="resources/upload/${photolist[0].imagename }">
 				</div>
-				<c:forEach var="photo" items="${list }" begin="1">
+				<c:forEach var="photo" items="${photolist }" begin="1">
 					<div class="item">
 						<img alt="" src="resources/upload/${photo.imagename }">
 					</div>
@@ -74,8 +128,11 @@ $(function() {
 		<div>${pc.pcinfo }</div>
 	</div>
 	<div class="right" align="center">
-		<div id="disp"></div>
-		<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
+		<div>
+			<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
+			<div id="disp"></div>
+		</div>
+		<div id="seatChoice"></div>
 	</div>
 </body>
 </html>
