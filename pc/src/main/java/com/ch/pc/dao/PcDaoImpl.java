@@ -1,6 +1,8 @@
 package com.ch.pc.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,17 @@ public class PcDaoImpl implements PcDao {
 	public int insertSeat(Seat seat) {
 		return sst.insert("pcns.insertSeat", seat);
 	}
-	public List<Seat> listSeat(int pcno) {
-		return sst.selectList("pcns.listSeat", pcno);
+	public Seat selectseat(int pcno) {
+		return sst.selectOne("pcns.selectSeat", pcno);
+	}
+	public int updateseat(Seat seat) {
+		return sst.update("pcns.updateSeat", seat);
+	}
+	public String listSeat(int pcno) {
+		return sst.selectOne("pcns.listSeat", pcno);
+	}
+	public int updateseatform(Pc pc) {
+		return sst.update("pcns.updateseatform", pc);
 	}
 
 

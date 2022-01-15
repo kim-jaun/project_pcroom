@@ -24,7 +24,15 @@ public interface PcService {
 
 	int insertSeat(Seat seat);
 
-	List<Seat> listSeat(int pcno);
+	Seat selectseat(int pcno);
+
+	int updateSeat(Seat seat);
+
+	String listSeat(int pcno);
+
+	int updateSeatform(Pc pc);
+
+
 
 
 

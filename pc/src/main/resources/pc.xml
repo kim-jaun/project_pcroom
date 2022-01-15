@@ -33,13 +33,24 @@
 		</selectKey>
 		insert into seat values(#{seatno}, #{seatposition}, #{pcno})
 	</insert>
+	
 	<select id="select" parameterType="integer" resultType="pc">
 		select * from pc where pcno=#{pcno}
 	</select>
 	<select id="listPhoto" parameterType="integer" resultType="pcimage">
 		select * from pcimage where pcno=#{pcno}
 	</select>
-	<select id="listSeat" parameterType="integer" resultType="seat">
+	<select id="selectSeat" parameterType="integer" resultType="seat">
 		select * from seat where pcno=#{pcno}
 	</select>
+	<select id="listSeat" parameterType="integer" resultType="string">
+		select seatposition from seat where pcno=#{pcno}
+	</select>
+	
+	<update id="updateSeat" parameterType="seat">
+		update seat set seatposition=#{seatposition} where pcno=#{pcno}
+	</update>
+	<update id="updateseatform" parameterType="pc">
+		update pc set seatlow=#{seatlow}, seatcol=#{seatcol} where pcno=#{pcno}
+	</update>
 </mapper>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>어데 피씹니까?</title>
 <style type="text/css">
 	.mapCenter {
 		display: flex;

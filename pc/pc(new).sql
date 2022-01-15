@@ -14,8 +14,18 @@ create table member1(
     blacklist char(4) default 'n' not null,
     identity varchar2(30) not null,
     profile varchar2(300)
-)
-select * from member1
+);
+select * from member1;
+-- fee테이블
+create table fee(
+	feeno number primary key,
+	w1000 number,
+	w3000 number,
+	w5000 number,
+	w10000 number,
+	w50000 number,
+	w100000 number
+);
 -- pc테이블
 create table pc(
 	pcno number primary key,
@@ -28,13 +38,13 @@ create table pc(
 	mno number references member1,
 	feeno number references fee,
 	imagename varchar2(50)
-)
+);
 -- pc방 사진
 create table pcimage(
 	imageno number(10) primary key,
 	pcno number references pc(pcno),
 	imagename varchar2(50)
-)
+);
 select * from pcimage;
 create sequence pcimage_seq;
 CREATE or replace FUNCTION get_seq
@@ -55,7 +65,7 @@ create table board(
 	del char(1) default 'n' not null,
 	mno number references member1 not null,
 	pcno number references pc not null
-)
+);
 -- 댓글
 create table board_reply(
 	rno number primary key,
@@ -66,9 +76,37 @@ create table board_reply(
 	mno number references member1 not null,
 	pcno number references pc not null,
 	bno number references board not null
-)
+);
 --즐겨찾기
 create table bookmark1(
 	mno number references member1 not null,
 	pcno number references pc not null
-)
+);
+
+-----------------------(22.01.11 pc테이블 컬럼, seat테이블 추가)-----------------
+
+create table pc(
+	pcno number primary key,
+	pcbusinessnum varchar2(20) not null,
+	pcpno varchar2(20) not null,
+	pcname varchar2(100) not null,
+	pcaddr varchar2(500) not null,
+	pclikes number,
+	pcinfo varchar2(4000) not null,
+    seatlow number,
+    seatcol number,
+	mno number references member1,
+	feeno number references fee,
+	imagename varchar2(50)
+);
+
+create table seat (
+	seatno number primary key,
+    seatposition varchar2(10000),
+	pcno number references pc not null
+);
+drop table seat;
+commit;
+select * from pc;
+delete from seat where pcno=2;
+update seat set seatcol=10 where pcno=2;

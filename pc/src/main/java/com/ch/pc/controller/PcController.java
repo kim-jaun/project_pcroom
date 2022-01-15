@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -65,10 +66,11 @@ public class PcController {
 	public String pcMainForm(int pcno, Model model, HttpSession session) {
 		Pc pc = ps.select(pcno);
 		List<Pcimage> photolist = ps.listPhoto(pcno);
-		List<Seat> seatlist = ps.listSeat(pcno);
+		String slist = ps.listSeat(pcno);
+		String[] seatlists = slist.split(",");
 		model.addAttribute("pc", pc);
 		model.addAttribute("photolist", photolist);
-		model.addAttribute("seatlist", seatlist);
+		model.addAttribute("seatlists", Arrays.toString(seatlists));
 		return "/pc/pcMainForm";
 	}
 	@RequestMapping("pcDetailForm")
@@ -93,14 +95,18 @@ public class PcController {
 		return "/pc/seatForm";
 	}
 	@RequestMapping("seatSetting")
-	public String seatSetting(Seat seat, Model model) {
+	public String seatSetting(Pc pc, Seat seat, Model model) {
 		int result = 0;
+		int pcno = seat.getPcno();
+		int seatform = ps.updateSeatform(pc);
+		Seat s1 = ps.selectseat(pcno);
 		if (seat.getSeatposition() == null) {
 			result = 0;
-		} else {			
+		} else if(s1 == null){			
 			result = ps.insertSeat(seat);
+		} else {
+			result = ps.updateSeat(seat);
 		}
-		int pcno = seat.getPcno();
 		model.addAttribute("result", result);
 		model.addAttribute("pcno", pcno);
 		return "/pc/seatSetting";

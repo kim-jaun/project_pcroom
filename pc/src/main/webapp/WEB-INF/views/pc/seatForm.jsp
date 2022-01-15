@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 	#seatPosition input {
 		position: absolute;
@@ -26,24 +27,22 @@
 		border: 1px solid rgba(0, 0, 0, 0.5); 
 	}
 	.seatLabel.active{
-		background-color: rgba(255, 255, 255, 0.4);
+		background-color: rgba(255, 255, 255, 0.8);
 	}
 </style>
 <script type="text/javascript">
 function seatSize() {
 	$("#seatPosition").html("");
-	var width = $("select[name=width]").val();
-	var height = $("select[name=height]").val();
-	for(var i = 1; i < width; i++) {
-		for(var j = 1; j < height; j++) {
+	var width = $("select[name=seatlow]").val();
+	var height = $("select[name=seatcol]").val();
+	for(var i = 1; i <= width; i++) {
+		for(var j = 1; j <= height; j++) {
 			$("#seatPosition").append('<label class="seatLabel btn" for="c' + i +'-' + j +'">' + i +'-' + j +'</lable>');
 			$("#seatPosition").append('<input id="c' + i +'-' + j +'" class="seat" name="seatposition" type="checkbox" value="'+ i +'-' + j +'"/>');
 		}
 		$("#seatPosition").append('<br>');
 	}
-};
-$(function() {
-    $('.seatLabel').on('click', function(){
+	$('.seatLabel').on('click', function(){
 		if ($(this).hasClass("active")) { 
 		// active class 제거
 			$(this).removeClass("active");
@@ -53,29 +52,29 @@ $(function() {
 			$(this).addClass('active');
 		}
 	});
-});
-
+};
 </script>
+
 </head>
 <body onload="seatSize()">
+	<form action="seatSetting.do" name="frm" method="post">	
 	<span>피씨방 좌석 구조</span>
-	<select name="width">
+	<select name="seatlow">
  		<option value=${pc.seatlow }>현재 값</option>
 		<c:forTokens var="i" items="10,15,20,25,30" delims=",">
 			<option value=${i }>${i }</option>
 		</c:forTokens>
 	</select>
-	<select name="height">
+	<select name="seatcol">
  		<option value=${pc.seatcol }>현재 값</option>
 		<c:forTokens var="j" items="10,15,20,25,30" delims=",">
 			<option value=${j }>${j }</option>
 		</c:forTokens>
 	</select>
 	<input type="button" onclick="seatSize()" value="좌석 배치">
-	<form action="seatSetting.do?pcno=${pcno }" name="frm" method="post">	
-		<div id="seatPosition"></div>
-		<input type="hidden" name="pcno" value="${pcno }">
-		<input type="submit" value="저장">
+	<div id="seatPosition"></div>
+	<input type="hidden" name="pcno" value="${pcno }">
+	<input type="submit" value="저장">
 	</form>
 </body>
 </html>

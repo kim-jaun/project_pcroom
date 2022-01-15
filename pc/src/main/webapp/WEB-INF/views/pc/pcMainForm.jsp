@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 div.left {
 	width: 50%;
@@ -35,46 +36,59 @@ div.right {
 	flex-direction: column;
 }
 #seatChoice input {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+ 	position: absolute;
+ 	top: 50%; 	
+ 	left: 50%; 	
+ 	transform: translate(-50%, -50%);
 	width: inherit;
 	height: inherit;
 	margin-bottom: 0;
-	z-index: -1;
-	opacity: 0; 
-}
+ 	z-index: -1;
+ 	opacity: 0;
+ }
 .seatLabel2 {
 	font-size: 13px;
 	padding: 3px 0;
 	width: 40px;
 	margin: 2px 2px;
-	border: 1px solid rgba(0, 0, 0, 0.5); 
+	border: 1px solid rgba(0, 0, 0, 0); 
+	opacity: 0;
 }
 .seatLabel2.active{
-	background-color: rgba(255, 255, 255, 0.4);
+	background-color: rgba(255, 255, 255, 0.8);
 }
-</style>
-<script type="text/javascript">
-$(function() {	
-	$('#disp').load('reservation.do?pcno=2');
-});
+.seatLabel2.btn {
+	font-size: 13px;
+	padding: 3px 0;
+	width: 40px;
+	margin: 2px 2px;
+	border: 1px solid rgba(0, 0, 0, 0.5); 
+	opacity: 1;
+}
 
+</style>
+
+<script type="text/javascript">
 function seatSize2() {
 	var width = ${pc.seatlow};
 	var height = ${pc.seatcol};
-	for(var i = 1; i < width; i++) {
-		for(var j = 1; j < height; j++) {
-			$("#seatChoice").append('<label class="seatLabel2 btn" for="c' + i +'-' + j +'">' + i +'-' + j +'</lable>');
-			$("#seatChoice").append('<input id="c' + i +'-' + j +'" class="seat2" name="seatposition" type="checkbox" value="'+ i +'-' + j +'"/>');
+	for(var i = 1; i <= width; i++) {
+		for(var j = 1; j <= height; j++) {
+				$("#seatChoice").append('<label class="seatLabel2 ' + i +'-' + j +'" for="' + i +'-' + j +'">' + i +'-' + j +'</lable>');
+				$("#seatChoice").append('<input id="' + i +'-' + j +'" class="seat2" name="seatposition" type="checkbox" value="'+ i +'-' + j +'" disabled="disabled"/>');
 		}
 		$("#seatChoice").append('<br>');
 	}
-};
-
-$(function() {
-    $('.seatLabel2').on('click', function(){
+ 	var seatlists = "${seatlists}";
+ 	var ss = seatlists.replace('[','');
+ 	var sss = ss.replace(']','');
+ 	var array = sss.split(',');
+ 	for (var s in array) {
+		var trim = array[s].trim();
+		$("." + trim).addClass('btn');
+		$("#" + trim).removeAttr('disabled');	
+	}
+ 	$('.seatLabel2').on('click', function(){
 		if ($(this).hasClass("active")) { 
 		// active class 제거
 			$(this).removeClass("active");
@@ -84,14 +98,9 @@ $(function() {
 			$(this).addClass('active');
 		}
 	});
-});
-
-$(function() {
-	var v2 = $('.seatLabel2').val()
-	alert(v2);
-})
-
+};
 </script>
+
 </head>
 <body onload="seatSize2()">
 	<h3>${pc.pcname }</h3>
@@ -130,9 +139,13 @@ $(function() {
 	<div class="right" align="center">
 		<div>
 			<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
-			<div id="disp"></div>
+			<button onclick="location.href='seatForm.do?pcno=${pc.pcno}'">좌석 배치</button>
 		</div>
-		<div id="seatChoice"></div>
+		<form action="reservation.do" name="frm" method="post">
+			<div id="seatChoice"></div>
+			<input type="submit" value="예약">
+		</form>
+		
 	</div>
 </body>
 </html>

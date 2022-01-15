@@ -25,6 +25,17 @@ public interface PcDao {
 
 	int insertSeat(Seat seat);
 
-	List<Seat> listSeat(int pcno);
+	Seat selectseat(int pcno);
+
+	int updateseat(Seat seat);
+
+	String listSeat(int pcno);
+
+	int updateseatform(Pc pc);
+
+
+
+
+
 
 }
