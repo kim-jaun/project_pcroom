@@ -82,11 +82,6 @@ public class PcController {
 		return "/main/pcDetailForm";
 	}
 
-	@RequestMapping("reservation")
-	public String reservation(int pcno, Model model) {
-		model.addAttribute("pcno", pcno);
-		return "/pc/reservation";
-	}
 	@RequestMapping("seatForm")
 	public String seatForm(int pcno, Model model) {
 		model.addAttribute("pcno", pcno);
@@ -112,4 +107,8 @@ public class PcController {
 		return "/pc/seatSetting";
 	}
 	
+	@RequestMapping("reservation")
+	public String reservation(Model model) {
+		return "/pc/reservation";
+	}
 }
