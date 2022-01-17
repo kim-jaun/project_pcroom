@@ -36,6 +36,7 @@ public class PcController {
 	public String registerForm() {
 		return "/pc/registerForm";
 	}
+	
 	@RequestMapping("register")
 	public String register(Pc pc, Model model, HttpSession session, MultipartHttpServletRequest mr)throws IOException {
 		int result;
@@ -89,9 +90,25 @@ public class PcController {
 	}
 	
 	@RequestMapping("pcDetailForm")
-	public String pcDetailForm(int pcno, Model model) {
+	public String pcDetailForm(int pcno, Model model, HttpSession session) {
 		Pc pc = ps.select(pcno);
 		List<Pcimage> list = ps.listPhoto(pcno);
+		
+		//이 아이디가 북마크 했는지 안했는지 구분
+		String imgSrc = "";
+		Member1 memberSession = (Member1) session.getAttribute("memberSession");
+		if (memberSession != null) {
+			int mno = memberSession.getMno(); 
+			int bookmark = bs.select(mno, pcno);
+			if (bookmark > 0) { // 북마크 한 약품이면
+				imgSrc = "/pc/resources/images/bookmark_on.png";
+
+			} else if (bookmark == 0) { // 북마크 한 약품이 아니면
+				imgSrc = "/pc/resources/images/bookmark_off.png";
+			}
+		}
+		
+		model.addAttribute("imgSrc", imgSrc);
 		model.addAttribute("pc", pc);
 		model.addAttribute("list", list);
 		return "/main/pcDetailForm";

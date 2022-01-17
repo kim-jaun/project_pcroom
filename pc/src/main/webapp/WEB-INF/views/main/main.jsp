@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8" import="com.ch.pc.model.*"%>
 <%@ include file="../header.jsp" %>
 <!DOCTYPE html>
 <html>
@@ -17,15 +17,14 @@
 		height: 550px;
 	}
 </style>
-<!-- 시/도 ,읍면동 select box -->
 <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 <script type="text/javascript">
-$(function Load() {	
-		$('#disp').load('pcDetailForm.do?pcno=2');
-});
-
+$(function Load() {
+	$('#disp').load('pcDetailForm.do?pcno=2');
+})
 </script>
+<!-- 시/도 ,읍면동 select box -->
 <script type="text/javascript">
 jQuery(document).ready(function(){
 	  //sido option 추가
@@ -67,7 +66,7 @@ jQuery(document).ready(function(){
 	    //option의 맨앞에 추가
 	    jQuery('#dong').prepend(fn_option('','선택'));
 	    //option중 선택을 기본으로 선택
-	    jQuery('#dong option:eq("")').attr('selected', 'selected');
+	    jQuery('#dong option:eq("")').attr('selected', 'selected'); 
 	 
 	  });
 	 
@@ -87,15 +86,17 @@ function fn_option(code, name){
 function juso() {
 	var sidoIdx=hangjungdong.sido.findIndex(i=>i.sido==$("#sido").val());
 	var sigugunIdx=hangjungdong.sigugun.findIndex(i=>i.sigugun==$("#sigugun").val()&&i.sido==$("#sido").val());
+	
+	if($("#dong").val() != ''){
 	var dongIdx=hangjungdong.dong.findIndex(i=>i.dong==$("#dong").val()&&i.sigugun==$("#sigugun").val()&&i.sido==$("#sido").val()); 
-			
+	var dong = hangjungdong.dong[dongIdx].codeNm;//동 
+	jQuery('#dong > option:selected').val(dong)
+	}
 	var sido = hangjungdong.sido[sidoIdx].codeNm;//시
 	var sigungu = hangjungdong.sigugun[sigugunIdx].codeNm;//시군구
-	var dong = hangjungdong.dong[dongIdx].codeNm;//동  
-		
+	
 	jQuery('#sido > option:selected').val(sido)
 	jQuery('#sigugun > option:selected').val(sigungu)
-	jQuery('#dong > option:selected').val(dong)
 }
 <!-- 시/도 ,읍면동 select box 끝--> 
 
@@ -115,15 +116,17 @@ function juso() {
 		<select id="dong" name="dong">
 			<option value="">동/읍/면</option>
 		</select>
-		<input type="submit">		
+		<input type="submit">
 	</form>
-	<button class="pcDetail_btn" onclick="Load()" name="pcDetail_btn">테스트</button>
 	<!-- search 끝-->
+	<button class="pcDetail_btn" name="pcDetail_btn">테스트</button>
 	<!-- map -->
 	<div class="mapCenter">
 		<div id="map"></div>
 		<div id="disp"></div>
 	</div>
+	
+
 	<!-- map 끝 -->
 
 	<!-- map script -->
@@ -189,11 +192,14 @@ function juso() {
 		var imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png', // 마커이미지의 주소입니다    
 	    imageSize = new kakao.maps.Size(64, 69), // 마커이미지의 크기입니다
 	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-	      
 		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
+		</script>
+		<!-- map script 끝 -->
+		<!-- 마커생성 -->
+		<c:forEach var="pc" items="${list }">
+		<script type="text/javascript">	
 		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-		    markerPosition = new kakao.maps.LatLng(37.54699, 127.09598); // 마커가 표시될 위치입니다
-	
+		    markerPosition = new kakao.maps.LatLng('${pc.pclati}', '${pc.pclongi}'); // 마커가 표시될 위치입니다
 		// 마커를 생성합니다
 		var marker = new kakao.maps.Marker({
 		    position: markerPosition, 
@@ -202,15 +208,17 @@ function juso() {
 	
 		// 마커가 지도 위에 표시되도록 설정합니다
 		marker.setMap(map); 
+		
+		
 		// 마커에 클릭이벤트를 등록합니다
 		kakao.maps.event.addListener(marker, 'click', function() {
-		// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-		infowindow.setContent('<div style="padding:5px;font-size:12px;">'+ "만든 마커" + '</div>');
-		infowindow.open(map, marker);
-		alert('마커를 클릭했습니다!');
+			$.post('pcDetailForm.do?pcno=${pc.pcno}', function(data) {
+				$('#disp').html(data);
+			});
+		alert("${pc.pcname}");
 		});
-	</script>
-	<!-- map script 끝 -->
-	
+		</script>
+		</c:forEach>
+		<!-- 마커생성끝 -->
 </body>
 </html>

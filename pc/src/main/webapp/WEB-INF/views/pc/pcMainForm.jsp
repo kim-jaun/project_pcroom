@@ -70,45 +70,45 @@ div.right {
 
 <script type="text/javascript">
 $(function() {	
-	$('#disp').load('reservation.do?pcno=2');
+	$('#disp').load('reservationForm.do?pcno=${pc.pcno}');
 });
 
 </script>
 <script type="text/javascript">
-function seatSize2() {
-	var width = ${pc.seatlow};
-	var height = ${pc.seatcol};
-	for(var i = 1; i <= width; i++) {
-		for(var j = 1; j <= height; j++) {
-				$("#seatChoice").append('<label class="seatLabel2 ' + i +'-' + j +'" for="' + i +'-' + j +'">' + i +'-' + j +'</lable>');
-				$("#seatChoice").append('<input id="' + i +'-' + j +'" class="seat2" name="seatposition" type="checkbox" value="'+ i +'-' + j +'" disabled="disabled"/>');
-		}
-		$("#seatChoice").append('<br>');
-	}
- 	var seatlists = "${seatlists}";
- 	var ss = seatlists.replace('[','');
- 	var sss = ss.replace(']','');
- 	var array = sss.split(',');
- 	for (var s in array) {
-		var trim = array[s].trim();
-		$("." + trim).addClass('btn');
-		$("#" + trim).removeAttr('disabled');	
-	}
- 	$('.seatLabel2').on('click', function(){
-		if ($(this).hasClass("active")) { 
-		// active class 제거
-			$(this).removeClass("active");
-		}
-		else {
-    	// active class 추가
-			$(this).addClass('active');
-		}
-	});
-};
+// function seatSize2() {
+// 	var width = ${pc.seatlow};
+// 	var height = ${pc.seatcol};
+// 	for(var i = 1; i <= width; i++) {
+// 		for(var j = 1; j <= height; j++) {
+// 				$("#seatChoice").append('<label class="seatLabel2 ' + i +'-' + j +'" for="' + i +'-' + j +'">' + i +'-' + j +'</lable>');
+// 				$("#seatChoice").append('<input id="' + i +'-' + j +'" class="seat2" name="seatposition" type="checkbox" value="'+ i +'-' + j +'" disabled="disabled"/>');
+// 		}
+// 		$("#seatChoice").append('<br>');
+// 	}
+//  	var seatlists = "${seatlists}";
+//  	var ss = seatlists.replace('[','');
+//  	var sss = ss.replace(']','');
+//  	var array = sss.split(',');
+//  	for (var s in array) {
+// 		var trim = array[s].trim();
+// 		$("." + trim).addClass('btn');
+// 		$("#" + trim).removeAttr('disabled');	
+// 	}
+//  	$('.seatLabel2').on('click', function(){
+// 		if ($(this).hasClass("active")) { 
+// 		// active class 제거
+// 			$(this).removeClass("active");
+// 		}
+// 		else {
+//     	// active class 추가
+// 			$(this).addClass('active');
+// 		}
+// 	});
+// };
 </script>
 
 </head>
-<body onload="seatSize2()">
+<body>
 	<h3>${pc.pcname }</h3>
 	<div class="left" align="center">
 		<div id="carousel-example-generic" class="carousel slide"
@@ -147,10 +147,8 @@ function seatSize2() {
 			<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
 			<button onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
 		</div>
-		<form action="reservation.do">
-			<div id="seatChoice"></div>
-			<input type="submit" value="예약">
-		</form>
+		<div id="disp"></div>
+		
 	</div>
 </body>
 </html>

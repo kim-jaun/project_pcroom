@@ -16,91 +16,88 @@ caption {
 	font-weight: bold;
 }
 
-th {
-	background: green;
+.total {
 	color: white;
-	font-weight: bold;
 }
 
- .total {
-	background: #9485aa;
-	opacity: 0.8;
-} 
-
-img {
-	height: 70px;
+.total img { 
+ 	width: 350px;
 }
-
-.nv {
-	float: right;
+.dropdown {
+	position: relative;
+	display: inline-block;
 }
-
-.nv ul {
-	list-style: none;
+.dropdown-button {
+	padding: 8px;
+	border: none;
+	width: 60px;
 }
-
-.nv li ul {
+.dropdown-content{
 	display: none;
+	position: absolute;
+/* 	background-color: white; */
+	min-width: 160px;
+	padding: 8px;
+	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0,2);
 }
-
-.nv ul li:hover ul {
+.dropdown-content a {
+	color: yellow;
+	padding: 8px;
+	text-decoration: none;
+	display : block;
+}
+.dropdown-content a:hover {
+	background-color: white;
+}
+.dropdown:hover .dropdown-content{
 	display: block;
-}
-
-.profile_box {
-	width: 70px;
-	height: 70px;
-	border-radius: 70%;
-	overflow: hidden;
-}
-
-.profile_box img {
-	width: 80%;
-	height: 80%;
-	object-fit: cover;
 }
 </style>
 <!-- pageContext.request.contextPath : 프로젝트 명 -->
 <c:set var="path" value="${pageContext.request.contextPath }"></c:set>
 <%-- ${path }를 사용하면 패키지의 경올가 절대경로로 변경 --%>
-<link rel="stylesheet" type="text/css"
+<%-- <link rel="stylesheet" type="text/css"
 	href="${path}/resources/bootstrap/css/bootstrap.min.css">
 <script type="text/javascript"
 	src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript"
-	src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
+	src="${path}/resources/bootstrap/js/bootstrap.min.js"></script> --%>
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/pc.css">
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
 	<div class="total">
 		<a href="main.do"><img alt="" src="/pc/resources/images/logo.png"></a>
 
 		<c:if test="${sessionScope.memberSession.id == null }">
-			<button onclick='location.href = "loginForm.do"'>로그인</button>
-			<button onclick='location.href = "joinForm.do"'>회원가입</button>
+			<button class="btn btn-secondary my-2 my-sm-0" onclick='location.href="loginForm.do"'>로그인</button>
+			<button class="btn btn-secondary my-2 my-sm-0"  onclick='location.href="joinForm.do"'>회원가입</button>
 		</c:if>
 		<c:if test="${sessionScope.memberSession.id != null }">
 			<c:if test="${sessionScope.memberSession.id == 'admin'}">
-				<button onclick='location.href="adminMain.do"'>관리자 페이지</button>
+				<button class="btn btn-secondary my-2 my-sm-0" onclick='location.href="memberList.do"'>관리자 페이지</button>
+				<div class="dropdown">
+					<input class="dropdown-button" type="image" src="/pc/resources/upload/${sessionScope.memberSession.profile}" value=" ">
+					<div class="dropdown-content">
+						<a href="logout.do">로그아웃</a>
+					</div>
+				</div>
 			</c:if>
 			<c:if test="${sessionScope.memberSession.id != 'admin'}">
 				${sessionScope.memberSession.nick_name }님 환영합니다
-				<button onclick='location.href = "registerForm.do"'>가맹점 문의</button>
-				<button onclick='location.href = "pcMainForm.do?pcno=2"'>pc방</button>
-				<div class="nv">
-					<ul>
-						<li>
-							<div class="profile_box">
-								<a href="passChkForm.do">
-									<img alt="" src="/pc/resources/upload/${sessionScope.memberSession.profile}">
-								</a>
-							</div>
-							<ul>
-								<li><a href="passChkForm.do">마이페이지</a></li>
-								<li><a href="logout.do">로그아웃</a></li>
-							</ul>
-						</li>
-					</ul>
+				<button class="btn btn-secondary my-2 my-sm-0" onclick='location.href = "registerForm.do"'>가맹점 문의</button>
+				<button class="btn btn-secondary my-2 my-sm-0" onclick='location.href = "pcMainForm.do?pcno=2"'>pc방</button>
+				<div class="dropdown">
+					<input class="dropdown-button" type="image" src="/pc/resources/upload/${sessionScope.memberSession.profile}" value=" ">
+					<div class="dropdown-content">
+						<a href="passChkForm.do">마이페이지</a>
+						<a href="logout.do">로그아웃</a>
+					</div>
 				</div>
 			</c:if>
 		</c:if>
 	</div>
+  </div>
+</nav>
 </body>

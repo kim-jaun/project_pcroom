@@ -62,7 +62,10 @@
 		padding: 15px; 
 	}
 </style>
+<c:set var="path" value="${pageContext.request.contextPath }"></c:set>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
+<script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('.pcDetail_btn').on('click', function() {
@@ -74,6 +77,13 @@
 			$('html body').css('overflow', 'auto');
 		})
 	})
+	function bookmarkClick(pcno) {
+		// 피씨방 북마크 클릭
+		$.post("bookmark.do", "pcno="+pcno, function(data) {
+			var imgSrc = data;
+			$(".bookmark").attr("src", imgSrc);
+		});
+	} 
 </script>
 </head>
 <body>
@@ -86,7 +96,13 @@
 				<!-- pc방 헤드라인 -->
 				<div class="pcTitle">
 					<!-- 북마크 -->
-					<span class="pcLikes"><i class="far fa-heart"></i></span>
+					<div class="pcLikes">
+						<c:if test="${sessionScope.memberSession.id != null}">
+							<c:if test="${sessionScope.memberSession.id != 'admin'}">
+								<img class="bookmark" onclick="bookmarkClick(${pc.pcno})" alt="" src= "${imgSrc}" width="30px" height="30px">
+							</c:if> 
+						</c:if>
+					</div>
 					<!-- 북마크 끝 -->
 					<a class="pcName" href="pcMainForm.do?pcno=${pc.pcno }">${pc.pcname}</a>
 					<div class="pcStar">
