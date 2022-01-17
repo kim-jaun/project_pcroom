@@ -1,6 +1,5 @@
 package com.ch.pc.model;
 
-
 public class Pcimage {
 		private int imageno;
 		private int pcno;

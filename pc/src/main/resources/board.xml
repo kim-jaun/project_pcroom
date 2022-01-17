@@ -3,13 +3,18 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="boardns">
 
-	<select id="list" parameterType="map" resultType="board">
-		select * from(select a.*, rowNum rn from(select * from board order by bno desc)a) 
-			where rn between #{startRow} and #{endRow}
-	</select>
-	
-	<select id="getTotal" resultType="integer">
-		select count(*) from board
+	<select id="list" parameterType="board" resultType="board">
+		select * from (select rowNum rn, a.* from (select b.*, m.nick_name from board b, member1 m where b.mno=m.mno
+			<if test="searchValue != null and searchValue != ''">
+				 and ${searchKey} like '%'||#{searchValue}||'%' and b.del='n'
+			</if>
+		order by b.reg_date desc)a) where rn between #{startRow} and #{endRow} order by bno desc
+	</select>	
+	<select id="getTotal" parameterType="board" resultType="integer">
+		select count(*) from board b, member1 m where b.mno=m.mno
+			<if test="searchValue != null and searchValue != ''">
+				and ${searchKey} like '%'||#{searchValue}||'%' and b.del='n'
+			</if>
 	</select>
 
 	<select id="select" parameterType="board" resultType="board">
@@ -34,5 +39,16 @@
 	<update id="delete" parameterType="integer">
 		update board set del = 'y' where pcno=#{pcno} and bno=#{bno}
 	</update>
-
+	
+	<update id="likesPlus" parameterType="integer">
+		update board set likes = likes + 1 where bno=#{bno}
+	</update>
+	
+	<update id="likesMinus" parameterType="integer">
+		update board set likes = likes - 1 where bno=#{bno}
+	</update>
+	
+	<select id="selectOne" resultType="board">
+		select * from board where bno=#{bno}
+	</select>
 </mapper>

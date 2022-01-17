@@ -53,4 +53,29 @@
 	<update id="updateseatform" parameterType="pc">
 		update pc set seatlow=#{seatlow}, seatcol=#{seatcol} where pcno=#{pcno}
 	</update>
+	<select id="pcList" parameterType="pc" resultType="pc">
+		select * from(select a.*, rowNum rn from(select * from pc 
+		<where>
+			<if test="searchValue!=null and searchValue!=''">
+				${searchKey} like '%'||#{searchValue}||'%'
+			</if>	
+		</where>	
+		order by pcno desc)a) 
+			where rn between #{startRow} and #{endRow}
+	</select>
+	<update id="permit" parameterType="integer">
+		update pc set permit = 'y' where pcno=#{pcno}
+	</update>
+	<select id="getTotal" resultType="integer">
+		select count(*) from pc 
+		<where>
+			<if test="searchValue!=null and searchValue!=''">
+				${searchKey} like '%'||#{searchValue}||'%'
+			</if>	
+		</where>
+	</select>
+	<!-- main에서 좌표를 찍기위해 모든 pc정보를 불러온다 -->
+	<select id="listMap" resultType="pc">
+		select * from pc
+	</select>	
 </mapper>

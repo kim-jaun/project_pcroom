@@ -18,7 +18,60 @@ public class Pc {
 	private int feeno;
 	private String imagename;
 	private MultipartFile pcimage;
+	private float pclati;
+	private float pclongi;
+	//승인확인용
+	private String permit; 
 	
+	//검색용
+ 	private String searchKey;
+ 	private String searchValue;
+ 	//페이징용
+ 	private int startRow;
+ 	private int endRow;
+	
+	public String getPermit() {
+		return permit;
+	}
+	public void setPermit(String permit) {
+		this.permit = permit;
+	}
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	public String getSearchValue() {
+		return searchValue;
+	}
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
+	public int getStartRow() {
+		return startRow;
+	}
+	public void setStartRow(int startRow) {
+		this.startRow = startRow;
+	}
+	public int getEndRow() {
+		return endRow;
+	}
+	public void setEndRow(int endRow) {
+		this.endRow = endRow;
+	}
+	public float getPclati() {
+		return pclati;
+	}
+	public void setPclati(float pclati) {
+		this.pclati = pclati;
+	}
+	public float getPclongi() {
+		return pclongi;
+	}
+	public void setPclongi(float pclongi) {
+		this.pclongi = pclongi;
+	}
 	public int getSeatlow() {
 		return seatlow;
 	}

@@ -13,4 +13,24 @@
 		</selectKey>
 		insert into board_reply values(#{rno},#{content},sysdate,0,'n',#{mno},#{pcno},#{bno})
 	</insert>
+	
+	<update id="update" parameterType="board_reply">
+		update board_reply set content=#{content} where pcno=#{pcno} and bno=#{bno} and rno=#{rno}
+	</update>
+	
+	<update id="delete" parameterType="board_reply">
+		update board_reply set del='y' where pcno=#{pcno} and bno=#{bno} and rno=#{rno}
+	</update>
+	
+	<update id="likesPlus" parameterType="integer">
+		update board_reply set likes = likes + 1 where rno=#{rno}
+	</update>
+	
+	<update id="likesMinus" parameterType="integer">
+		update board_reply set likes = likes - 1 where rno=#{rno}
+	</update>
+	
+	<select id="select" parameterType="integer" resultType="board_reply">
+		select * from board_reply where rno=#{rno}
+	</select>
 </mapper>

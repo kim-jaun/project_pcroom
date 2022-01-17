@@ -13,18 +13,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.ch.pc.model.Member1;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
 import com.ch.pc.model.Seat;
+import com.ch.pc.service.BookmarkService;
 import com.ch.pc.service.PcService;
 
 @Controller
 public class PcController {
 	@Autowired
 	private PcService ps;
+	
+	@Autowired
+	private BookmarkService bs;
 	
 	@RequestMapping("registerForm")
 	public String registerForm() {
@@ -62,17 +68,26 @@ public class PcController {
 
 		return "/pc/register";
 	}	
+	
 	@RequestMapping("pcMainForm")
-	public String pcMainForm(int pcno, Model model, HttpSession session) {
-		Pc pc = ps.select(pcno);
-		List<Pcimage> photolist = ps.listPhoto(pcno);
-		String slist = ps.listSeat(pcno);
+	public String pcMainForm(Pc pc, Model model, HttpSession session, String pageNum) {
+		Member1 member1 = (Member1) session.getAttribute("memberSession");
+		String id = member1.getId();
+		Pc pc2 = ps.select(pc.getPcno());
+		List<Pcimage> photolist = ps.listPhoto(pc2.getPcno());
+		pc2.setSearchKey(pc.getSearchKey());
+		pc2.setSearchValue(pc.getSearchValue());		
+		String slist = ps.listSeat(pc.getPcno());
 		String[] seatlists = slist.split(",");
-		model.addAttribute("pc", pc);
-		model.addAttribute("photolist", photolist);
+		
 		model.addAttribute("seatlists", Arrays.toString(seatlists));
+		model.addAttribute("pc", pc2);
+		model.addAttribute("photolist", photolist);
+		model.addAttribute("pageNum", pageNum);
+		model.addAttribute("id", id);
 		return "/pc/pcMainForm";
 	}
+	
 	@RequestMapping("pcDetailForm")
 	public String pcDetailForm(int pcno, Model model) {
 		Pc pc = ps.select(pcno);
@@ -110,5 +125,26 @@ public class PcController {
 	@RequestMapping("reservation")
 	public String reservation(Model model) {
 		return "/pc/reservation";
+	}
+	
+	@RequestMapping(value = "bookmark", produces = "text/html;charset=utf-8")
+	@ResponseBody
+	public String bookmark(int pcno, Model model, HttpSession session) {
+		
+		Pc pc = ps.select(pcno);
+		Member1 memberSession = (Member1) session.getAttribute("memberSession");
+		int mno = memberSession.getMno();
+		int bookmark = bs.select(mno, pcno);
+		
+		String imgSrc = "";
+		if (bookmark > 0) { // 북마크한 약품이면
+			bs.delete(mno, pcno); // bookmark 테이블에서 데이터 삭제
+			imgSrc = "/pc/resources/images/bookmark_off.png";
+
+		} else if (bookmark == 0) { // 북마크한 약품이 아니면
+			bs.insert(mno, pcno); // bookmark 테이블에 데이터 추가
+			imgSrc = "/pc/resources/images/bookmark_on.png";
+		}
+		return imgSrc;
 	}
 }

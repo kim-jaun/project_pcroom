@@ -42,4 +42,33 @@
 	<select id="selectMno" parameterType="integer" resultType="member1">
 		select * from member1 where mno=#{mno}
 	</select>
+	
+	<!-- 점주관리 -->
+	<select id="memberList" parameterType="member1" resultType="member1">
+		select * from (select a.*, rowNum rn from (select * from member1 
+		<where>
+			<if test="searchValue!=null and searchValue!=''">
+				${searchKey} like '%'||#{searchValue}||'%'
+			</if>	
+		</where>
+		order by mno desc)a) where rn between #{startRow} and #{endRow}
+	</select>
+	<select id="getTotal" parameterType="member1" resultType="integer">
+		select count(*) from member1
+		<where>
+			<if test="searchValue!=null and searchValue!=''">
+				${searchKey} like '%'||#{searchValue}||'%'
+			</if>
+		</where>
+	</select>
+	<update id="blackin" parameterType="member1">
+		update member1 set blacklist = 'y' where mno=#{mno}
+	</update>
+	<update id="blackout" parameterType="member1">
+		update member1 set blacklist = 'n' where mno=#{mno}
+	</update>
+	<update id="memberDelete" parameterType="member1">
+		update member1 set del = 'y' where mno=#{mno}
+	</update>
+	
 </mapper>

@@ -33,7 +33,13 @@ public interface PcDao {
 
 	int updateseatform(Pc pc);
 
+	List<Pc> list(Pc pc);
 
+	int permit(int pcno);
+
+	int getTotal(Pc pc);
+
+	List<Pc> listMap();
 
 
 

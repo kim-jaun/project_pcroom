@@ -60,13 +60,13 @@ function seatSize() {
 	<form action="seatSetting.do" name="frm" method="post">	
 	<span>피씨방 좌석 구조</span>
 	<select name="seatlow">
- 		<option value=${pc.seatlow }>현재 값</option>
+ 		<option value=${pc.seatlow }>현재 값(${pc.seatlow })</option>
 		<c:forTokens var="i" items="10,15,20,25,30" delims=",">
 			<option value=${i }>${i }</option>
 		</c:forTokens>
 	</select>
 	<select name="seatcol">
- 		<option value=${pc.seatcol }>현재 값</option>
+ 		<option value=${pc.seatcol }>현재 값(${pc.seatcol })</option>
 		<c:forTokens var="j" items="10,15,20,25,30" delims=",">
 			<option value=${j }>${j }</option>
 		</c:forTokens>

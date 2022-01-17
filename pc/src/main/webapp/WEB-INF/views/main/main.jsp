@@ -17,16 +17,15 @@
 		height: 550px;
 	}
 </style>
+<!-- 시/도 ,읍면동 select box -->
 <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
-<!-- pc방 팝업창 -->
 <script type="text/javascript">
-$(function Load() {
-	$('#disp').load('pcDetailForm.do?pcno=2');
-})
-</script>
+$(function Load() {	
+		$('#disp').load('pcDetailForm.do?pcno=2');
+});
 
-<!-- 시/도 ,읍면동 select box -->
+</script>
 <script type="text/javascript">
 jQuery(document).ready(function(){
 	  //sido option 추가
@@ -68,7 +67,7 @@ jQuery(document).ready(function(){
 	    //option의 맨앞에 추가
 	    jQuery('#dong').prepend(fn_option('','선택'));
 	    //option중 선택을 기본으로 선택
-	    jQuery('#dong option:eq("")').attr('selected', 'selected'); 
+	    jQuery('#dong option:eq("")').attr('selected', 'selected');
 	 
 	  });
 	 
@@ -116,10 +115,10 @@ function juso() {
 		<select id="dong" name="dong">
 			<option value="">동/읍/면</option>
 		</select>
-		<input type="submit">
+		<input type="submit">		
 	</form>
-	<!-- search 끝-->
 	<button class="pcDetail_btn" onclick="Load()" name="pcDetail_btn">테스트</button>
+	<!-- search 끝-->
 	<!-- map -->
 	<div class="mapCenter">
 		<div id="map"></div>
@@ -212,5 +211,6 @@ function juso() {
 		});
 	</script>
 	<!-- map script 끝 -->
+	
 </body>
 </html>

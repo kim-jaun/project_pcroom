@@ -31,6 +31,14 @@ public interface PcService {
 	String listSeat(int pcno);
 
 	int updateSeatform(Pc pc);
+	
+	int permit(int pcno);
+
+	List<Pc> listMap();
+
+	int getTotal(Pc pc);
+
+	List<Pc> list(Pc pc);
 
 
 

@@ -22,10 +22,10 @@ th {
 	font-weight: bold;
 }
 
-/* .total {
-	background: #2A557F;
-	opacity: 0.9;
-} */
+ .total {
+	background: #9485aa;
+	opacity: 0.8;
+} 
 
 img {
 	height: 70px;
@@ -74,26 +74,12 @@ img {
 		<a href="main.do"><img alt="" src="/pc/resources/images/logo.png"></a>
 
 		<c:if test="${sessionScope.memberSession.id == null }">
-			<button onclick='location.href="loginForm.do"'>로그인</button>
-			<button onclick='location.href="joinForm.do"'>회원가입</button>
+			<button onclick='location.href = "loginForm.do"'>로그인</button>
+			<button onclick='location.href = "joinForm.do"'>회원가입</button>
 		</c:if>
 		<c:if test="${sessionScope.memberSession.id != null }">
 			<c:if test="${sessionScope.memberSession.id == 'admin'}">
 				<button onclick='location.href="adminMain.do"'>관리자 페이지</button>
-				<div class="nv">
-					<ul>
-						<li>
-							<div class="profile_box">
-								<a href="passChkForm.do">
-									<img alt="" src="/pc/resources/upload/${sessionScope.memberSession.profile}">
-								</a>
-							</div>
-							<ul>
-								<li><a href="logout.do">로그아웃</a></li>
-							</ul>
-						</li>
-					</ul>
-				</div>
 			</c:if>
 			<c:if test="${sessionScope.memberSession.id != 'admin'}">
 				${sessionScope.memberSession.nick_name }님 환영합니다

@@ -69,6 +69,12 @@ div.right {
 </style>
 
 <script type="text/javascript">
+$(function() {	
+	$('#disp').load('reservation.do?pcno=2');
+});
+
+</script>
+<script type="text/javascript">
 function seatSize2() {
 	var width = ${pc.seatlow};
 	var height = ${pc.seatcol};
@@ -139,13 +145,12 @@ function seatSize2() {
 	<div class="right" align="center">
 		<div>
 			<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
-			<button onclick="location.href='seatForm.do?pcno=${pc.pcno}'">좌석 배치</button>
+			<button onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
 		</div>
-		<form action="reservation.do" name="frm" method="post">
+		<form action="reservation.do">
 			<div id="seatChoice"></div>
 			<input type="submit" value="예약">
 		</form>
-		
 	</div>
 </body>
 </html>

@@ -4,7 +4,6 @@ package com.ch.pc.model;
 public class Reply_likes {
 	private int mno;
 	private int bno;
-	private int pcno;
 	public int getMno() {
 		return mno;
 	}
@@ -17,11 +16,4 @@ public class Reply_likes {
 	public void setBno(int bno) {
 		this.bno = bno;
 	}
-	public int getPcno() {
-		return pcno;
-	}
-	public void setPcno(int pcno) {
-		this.pcno = pcno;
-	}
-	
 }

@@ -56,7 +56,19 @@ public class PcDaoImpl implements PcDao {
 	public int updateseatform(Pc pc) {
 		return sst.update("pcns.updateseatform", pc);
 	}
-
+	public List<Pc> listMap() {
+		return sst.selectList("pcns.listMap");
+	}
+	//관리자
+	public List<Pc> list(Pc pc) {
+		return sst.selectList("pcns.pcList", pc);
+	}
+	public int permit(int pcno) {
+		return sst.update("pcns.permit", pcno);
+	}
+	public int getTotal(Pc pc) {
+		return sst.selectOne("pcns.getTotal", pc);
+	}
 
 
 }

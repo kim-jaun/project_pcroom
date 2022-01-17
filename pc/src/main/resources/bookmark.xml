@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="bookmarkns">
+	<!-- 회원이 pc방 북마크 했는지 조회 -->
+	<select id="select" parameterType="map" resultType="integer">
+		select count(*) from bookmark1 where mno=#{mno} and pcno=#{pcno}
+	</select>
+	<!-- 회원이 pc방 북마크 취소 -->
+	<delete id="delete" parameterType="map">
+		delete from bookmark1 where mno=#{mno} and pcno=#{pcno}
+	</delete>
+	<!-- 회원이 pc방 북마크 클릭 -->
+	<insert id="insert" parameterType="map">
+		insert into bookmark1 values(#{mno}, #{pcno})
+	</insert>
+</mapper>

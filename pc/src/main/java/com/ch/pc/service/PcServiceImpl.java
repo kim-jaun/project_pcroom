@@ -53,6 +53,18 @@ public class PcServiceImpl implements PcService {
 	public int updateSeatform(Pc pc) {
 		return pd.updateseatform(pc);
 	}
-
+	// 관리자
+	public List<Pc> list(Pc pc) { 
+		return pd.list(pc);
+	}
+	public int permit(int pcno) { 
+		return pd.permit(pcno);
+	}
+	public int getTotal(Pc pc) {
+		return pd.getTotal(pc);
+	}
+	public List<Pc> listMap() {
+		return pd.listMap();
+	} 
 
 }
