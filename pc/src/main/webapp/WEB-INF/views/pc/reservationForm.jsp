@@ -1,13 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 
 <title>Insert title here</title>
+<style type="text/css">
+	.form-control {
+		width: 40%;
+	}
+	.reserveTiem {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+</style>
 <script type="text/javascript">
-function seatSize2() {
+$(function() {
 	var width = ${pc.seatlow};
 	var height = ${pc.seatcol};
 	for(var i = 1; i <= width; i++) {
@@ -36,12 +48,56 @@ function seatSize2() {
 			$(this).addClass('active');
 		}
 	});
-};
+ 	var today = new Date();
+	var hours = today.getHours();
+	var minutes = today.getMinutes();
+	var times = "";
+	if (minutes < 30) {
+		times = houars + ":00";
+	} else {
+		times = houars + ":30";
+	}
+	var start = ""
+	$('#hours').val(times);
+});
 </script>
 </head>
 
-<body onload="seatSize2">
+<body>
 <form action="reservation.do">
+	<div class="reserveTiem">
+		<select id="starttime" name="starttime" class="form-control">
+		<c:set var="breakPoint" value="0" />
+		<c:forEach var="i" begin="${hours }" end="24">
+		    <c:forEach var="j" begin="0" end="1">
+		        <c:if test="${(i == 24) && (j == 1)}">    
+		            <c:set var="breakPoint" value="1" />                                    
+		        </c:if>
+		        <c:if test="${breakPoint == 0}">
+		            <option value="${i}:<fmt:formatNumber pattern="00" value="${j*30}" />">${i}:
+		            <fmt:formatNumber pattern="00" value="${j*30}" />
+		            </option>                                                                            
+		        </c:if>
+		    </c:forEach>
+		</c:forEach>
+		</select>
+		<select id="endtime" name="endtime" class="form-control">
+		<c:set var="breakPoint" value="0" />
+		<c:forEach var="i" begin="${hours }" end="24">
+		    <c:forEach var="j" begin="0" end="1">
+		        <c:if test="${(i == 24) && (j == 1)}">    
+		            <c:set var="breakPoint" value="1" />                                    
+		        </c:if>
+		        <c:if test="${breakPoint == 0}">
+		            <option value="${i}:<fmt:formatNumber pattern="00" value="${j*30}" />">${i}:
+		            <fmt:formatNumber pattern="00" value="${j*30}" />
+		            </option>                                                                            
+		        </c:if>
+		    </c:forEach>
+		</c:forEach>
+		</select>
+	</div>
+	<input type="text" id="hours">
 	<div id="seatChoice"></div>
 	<input type="submit" value="예약">
 </form>

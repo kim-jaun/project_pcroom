@@ -78,15 +78,23 @@ public class PcController {
 		List<Pcimage> photolist = ps.listPhoto(pc2.getPcno());
 		pc2.setSearchKey(pc.getSearchKey());
 		pc2.setSearchValue(pc.getSearchValue());		
-		String slist = ps.listSeat(pc.getPcno());
-		String[] seatlists = slist.split(",");
 		
-		model.addAttribute("seatlists", Arrays.toString(seatlists));
 		model.addAttribute("pc", pc2);
 		model.addAttribute("photolist", photolist);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("id", id);
 		return "/pc/pcMainForm";
+	}
+
+	@RequestMapping("reservationForm")
+	public String reservation(Pc pc, Model model) {
+		Pc pc2 = ps.select(pc.getPcno());
+		String slist = ps.listSeat(pc.getPcno());
+		String[] seatlists = slist.split(",");
+		
+		model.addAttribute("seatlists", Arrays.toString(seatlists));
+		model.addAttribute("pc", pc2);
+		return "/pc/reservationForm";
 	}
 	
 	@RequestMapping("pcDetailForm")
@@ -139,10 +147,7 @@ public class PcController {
 		return "/pc/seatSetting";
 	}
 	
-	@RequestMapping("reservation")
-	public String reservation(Model model) {
-		return "/pc/reservation";
-	}
+	
 	
 	@RequestMapping(value = "bookmark", produces = "text/html;charset=utf-8")
 	@ResponseBody
