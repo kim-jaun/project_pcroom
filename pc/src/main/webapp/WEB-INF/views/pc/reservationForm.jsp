@@ -48,17 +48,37 @@ $(function() {
 			$(this).addClass('active');
 		}
 	});
- 	var today = new Date();
-	var hours = today.getHours();
-	var minutes = today.getMinutes();
-	var times = "";
-	if (minutes < 30) {
-		times = houars + ":00";
-	} else {
-		times = houars + ":30";
-	}
-	var start = ""
-	$('#hours').val(times);
+ 	
+ 	// 현재시간 기준 시작시간
+ 	var hour = ${now_hour};
+ 	var min = ${now_min};
+ 	for (var i = hour; i < 25; i++) {
+ 		if(min == 0) {
+ 			$('#starttime').append('<option value=' + i + ':00/>' + i + ':00');
+ 			$('#starttime').append('<option value=' + i + ':30/>' + i + ':30');
+ 		} else {
+ 			$('#starttime').append('<option value=' + i + ':30/>' + i + ':30');
+ 			$('#starttime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
+ 		}
+ 	}
+ 	
+  	var endhour = hour;
+  	var endmin = min;
+   	if(min == 0) {
+   		endmin = 30;
+   	} else {
+   		endhour = hour + 1;
+   		endmin = 0;
+   	}
+ 	for (var i = endhour; i < 25; i++) {
+ 		if(endmin == 0) {
+ 			$('#endtime').append('<option value=' + i + ':00/>' + i + ':00');
+ 			$('#endtime').append('<option value=' + i + ':30/>' + i + ':30');
+ 		} else {
+ 			$('#endtime').append('<option value=' + i + ':30/>' + i + ':30');
+ 			$('#endtime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
+ 		}
+ 	}
 });
 </script>
 </head>
@@ -66,38 +86,9 @@ $(function() {
 <body>
 <form action="reservation.do">
 	<div class="reserveTiem">
-		<select id="starttime" name="starttime" class="form-control">
-		<c:set var="breakPoint" value="0" />
-		<c:forEach var="i" begin="${hours }" end="24">
-		    <c:forEach var="j" begin="0" end="1">
-		        <c:if test="${(i == 24) && (j == 1)}">    
-		            <c:set var="breakPoint" value="1" />                                    
-		        </c:if>
-		        <c:if test="${breakPoint == 0}">
-		            <option value="${i}:<fmt:formatNumber pattern="00" value="${j*30}" />">${i}:
-		            <fmt:formatNumber pattern="00" value="${j*30}" />
-		            </option>                                                                            
-		        </c:if>
-		    </c:forEach>
-		</c:forEach>
-		</select>
-		<select id="endtime" name="endtime" class="form-control">
-		<c:set var="breakPoint" value="0" />
-		<c:forEach var="i" begin="${hours }" end="24">
-		    <c:forEach var="j" begin="0" end="1">
-		        <c:if test="${(i == 24) && (j == 1)}">    
-		            <c:set var="breakPoint" value="1" />                                    
-		        </c:if>
-		        <c:if test="${breakPoint == 0}">
-		            <option value="${i}:<fmt:formatNumber pattern="00" value="${j*30}" />">${i}:
-		            <fmt:formatNumber pattern="00" value="${j*30}" />
-		            </option>                                                                            
-		        </c:if>
-		    </c:forEach>
-		</c:forEach>
-		</select>
+		<select id="starttime" name="starttime" class="form-control"></select>
+		<select id="endtime" name="endtime" class="form-control"></select>
 	</div>
-	<input type="text" id="hours">
 	<div id="seatChoice"></div>
 	<input type="submit" value="예약">
 </form>

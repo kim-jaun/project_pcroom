@@ -3,8 +3,11 @@ package com.ch.pc.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -91,7 +94,34 @@ public class PcController {
 		Pc pc2 = ps.select(pc.getPcno());
 		String slist = ps.listSeat(pc.getPcno());
 		String[] seatlists = slist.split(",");
+		Calendar now_time = Calendar.getInstance();
 		
+		// now_time을 현재시간 +1로 설정
+		now_time.set(Calendar.HOUR_OF_DAY, now_time.get(Calendar.HOUR_OF_DAY)+1);
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("HH");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("mm");
+		Date now_time1 = now_time.getTime();
+		String min = sdf2.format(now_time1);
+		String hours = sdf.format(now_time1);
+		int hoursI = Integer.parseInt(hours);
+		int minI = Integer.parseInt(min);
+		int AA = 0;
+		int BB = 0;
+		
+		if (minI < 30) {
+			hoursI -= 1;
+			minI = 30;
+			AA = 1;
+		} else {
+			minI = 0;
+			BB = 1;
+		}
+		
+		model.addAttribute("AA", AA);
+		model.addAttribute("BB", BB);
+		model.addAttribute("now_hour", hoursI);
+		model.addAttribute("now_min", minI);
 		model.addAttribute("seatlists", Arrays.toString(seatlists));
 		model.addAttribute("pc", pc2);
 		return "/pc/reservationForm";
