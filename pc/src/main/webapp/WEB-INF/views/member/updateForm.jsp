@@ -101,7 +101,7 @@ function chk4() { // 이메일 중복체크
 	<ul class="sidebar">
 		<li><a href="updateForm.do">회원정보 수정</a></li>
 		<li><a href="reserveList.do">예매내역</a></li>
-		<li><a href="bookmark.do">즐겨찾기</a></li>
+		<li><a href="mybookmark.do">즐겨찾기</a></li>
 	</ul>
 </div>
 	<div class="total_content" align="center">

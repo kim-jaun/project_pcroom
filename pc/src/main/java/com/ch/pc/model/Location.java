@@ -9,7 +9,7 @@ public class Location {
 		return sido;
 	}
 	public void setSido(String sido) {
-		this.sido = sido;
+		this.sido = sido; 
 	}
 	public String getSigugun() {
 		return sigugun;

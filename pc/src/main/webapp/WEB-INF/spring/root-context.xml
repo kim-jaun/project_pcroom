@@ -30,7 +30,7 @@
 		<property name="configLocation"
 			value="classpath:configuration.xml" />
 	</bean>
-	<bean id="session" class="org.mybatis.spring.SqlSessionTemplate">
+	<bean id="session" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg index="0" ref="sqlSessionFactory" />
 	</bean>
 	<!-- DataBase Connection Poll용 -->
@@ -43,8 +43,7 @@
 		<property name="username" value="${userId}" />
 		<property name="password" value="${password}" />
 	</bean>
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
-		destroy-method="close">
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
 		<constructor-arg ref="hikariConfig"></constructor-arg>
 	</bean>
 	<!-- 업로드용 -->

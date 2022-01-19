@@ -2,8 +2,10 @@ package com.ch.pc.dao;
 
 import java.util.List;
 
+import com.ch.pc.model.Fee;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 
 public interface PcDao {
@@ -23,16 +25,6 @@ public interface PcDao {
 
 	List<Pcimage> listPhoto(int pcno);
 
-	int insertSeat(Seat seat);
-
-	Seat selectseat(int pcno);
-
-	int updateseat(Seat seat);
-
-	String listSeat(int pcno);
-
-	int updateseatform(Pc pc);
-
 	List<Pc> list(Pc pc);
 
 	int permit(int pcno);
@@ -41,7 +33,24 @@ public interface PcDao {
 
 	List<Pc> listMap();
 
+	String listSeat(int pcno);
 
+	int updateseatform(Pc pc);
 
+	Seat selectseat(int pcno);
+
+	int insertSeat(Seat seat);
+
+	int updateseat(Seat seat);
+
+	Pc selectMno(int mno);
+
+	int feeInsert(Fee fee);
+
+	Fee selectFee(int pcno);
+
+	int feeUpdate(Fee fee);
+
+	int insertReservation(Reservation reservation);
 
 }

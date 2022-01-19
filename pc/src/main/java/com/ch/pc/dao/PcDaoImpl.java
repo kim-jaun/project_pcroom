@@ -1,15 +1,15 @@
 package com.ch.pc.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.ch.pc.model.Fee;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 
 @Repository
@@ -41,21 +41,7 @@ public class PcDaoImpl implements PcDao {
 	public List<Pcimage> listPhoto(int pcno) {
 		return sst.selectList("pcns.listPhoto", pcno);
 	}
-	public int insertSeat(Seat seat) {
-		return sst.insert("pcns.insertSeat", seat);
-	}
-	public Seat selectseat(int pcno) {
-		return sst.selectOne("pcns.selectSeat", pcno);
-	}
-	public int updateseat(Seat seat) {
-		return sst.update("pcns.updateSeat", seat);
-	}
-	public String listSeat(int pcno) {
-		return sst.selectOne("pcns.listSeat", pcno);
-	}
-	public int updateseatform(Pc pc) {
-		return sst.update("pcns.updateseatform", pc);
-	}
+	@Override
 	public List<Pc> listMap() {
 		return sst.selectList("pcns.listMap");
 	}
@@ -69,6 +55,47 @@ public class PcDaoImpl implements PcDao {
 	public int getTotal(Pc pc) {
 		return sst.selectOne("pcns.getTotal", pc);
 	}
-
+	@Override
+	public String listSeat(int pcno) {
+		return sst.selectOne("pcns.listSeat", pcno);
+	}
+	@Override
+	public int updateseatform(Pc pc) {
+		return sst.update("pcns.updateseatform", pc);
+	}
+	@Override
+	public Seat selectseat(int pcno) {
+		return sst.selectOne("pcns.selectSeat", pcno);
+	}
+	@Override
+	public int insertSeat(Seat seat) {
+		return sst.insert("pcns.insertSeat", seat);
+	}
+	@Override
+	public int updateseat(Seat seat) {
+		return sst.update("pcns.updateSeat", seat);
+	}
+	@Override
+	public Pc selectMno(int mno) {
+		return sst.selectOne("pcns.selectMno", mno);
+	}
+	// 요금설정
+	@Override
+	public int feeInsert(Fee fee) {
+		return sst.insert("feens.feeInsert", fee);
+	}
+	@Override
+	public Fee selectFee(int pcno) {
+		return sst.selectOne("feens.selectFee", pcno);
+	}
+	@Override
+	public int feeUpdate(Fee fee) {
+		return sst.update("feens.feeUpdate", fee);
+	}
+	// 예약 입력
+	@Override
+	public int insertReservation(Reservation reservation) {
+		return sst.insert("reservationns.insertReservation", reservation);
+	}
 
 }

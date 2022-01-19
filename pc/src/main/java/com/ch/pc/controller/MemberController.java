@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ch.pc.model.Member1;
+import com.ch.pc.model.Pc;
 import com.ch.pc.service.MemberService;
+import com.ch.pc.service.PcService;
 
 @Controller
 public class MemberController {
@@ -25,7 +28,29 @@ public class MemberController {
 	private MemberService ms;
 	@Autowired
 	private JavaMailSender jMailSender;
-
+	@Autowired
+	private PcService ps;
+	
+	@RequestMapping("insertMember")
+	public String insertMember(HttpServletRequest request) {
+		for (int i = 0; i < 50; i++) {
+			Member1 member = new Member1();
+			member.setId("아이디"+i);
+			member.setPassword(""+i);
+			member.setName("이름"+i);
+			member.setNick_name("닉네임"+i);
+			member.setPhone(""+i);
+			member.setGender("m");
+			member.setBirth(""+i);
+			member.setEmail(i+"@"+i+".com");
+			member.setIdentity("일반회원");
+			member.setProfile("1.jfif");
+			int result = ms.insert(member);
+		}
+		return "/exInsert/insertMember";
+	}
+	
+	
 	@RequestMapping("joinForm")
 	public String joinForm() { 
 		return "/member/joinForm";
@@ -92,6 +117,15 @@ public class MemberController {
 		}
 		else if (member2.getPassword().equals(member1.getPassword())) {
 			result = 1;
+			//pc방이 승인이 됐는지 안됐는지 확인을 위해
+			Pc pc = ps.selectMno(member2.getMno());
+			if(pc == null) {
+				member2.setPermitConfirm(-1); // 가맹신청을 아직 안했으면 -1
+			}else if(pc.getPermit().equals("y")) {	
+				member2.setPermitConfirm(1);	// 가맹승인이 되면 1
+			}else if(pc.getPermit().equals("n")) {	
+				member2.setPermitConfirm(0);	// 가맹승인이 아직이면 0
+			}
 			session.setAttribute("memberSession", member2);// header출력용
 		}
 		model.addAttribute("result", result);
@@ -237,7 +271,8 @@ public class MemberController {
 			fos.close();
 			member1.setProfile(fileName);
 			result = ms.update(member1);
-			session.setAttribute("memberSession", member1);// header출력용
+			Member1 member3 = ms.select(member1.getId());
+			session.setAttribute("memberSession", member3);// header출력용
 		}
 		model.addAttribute("result", result);
 		return "member/update";

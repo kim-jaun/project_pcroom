@@ -20,7 +20,7 @@
 				<input type="email" name="email" required="required">
 			</div>
 			<div>
-				<input type="submit" value="비밀번호 찾기">
+				<input type="submit" value="확인">
 			</div>
 		</form>
 		<div>

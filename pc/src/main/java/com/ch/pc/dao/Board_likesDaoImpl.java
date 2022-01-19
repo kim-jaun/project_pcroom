@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 public class Board_likesDaoImpl implements Board_likesDao {
 	@Autowired
 	private SqlSessionTemplate sst;
-
+ 
 	public int select(int mno, int bno) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("mno", mno);

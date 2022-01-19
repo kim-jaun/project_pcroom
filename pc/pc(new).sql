@@ -137,7 +137,7 @@ create table pc(
 	mno number references member1,
 	feeno number references fee,
 	imagename varchar2(50)
-);
+);w
 
 create table seat (
 	seatno number primary key,

@@ -20,11 +20,11 @@
 				<input type="tel" name="phone" required="required">
 			</div>
 			<div>
-				<input type="submit" value="아이디 찾기">
+				<input type="submit" value="확인">
 			</div>
 		</form>
 		<div>
-			<button onclick="location.href='findPwForm.do'">비밀번호 찾기</button>
+			<button onclick="location.href='findPwForm.do'" class="btn btn-primary">비밀번호 찾기</button>
 		</div>
 	</div>
 </body>

@@ -1,5 +1,6 @@
 package com.ch.pc.model;
 
+
 public class Pcimage {
 		private int imageno;
 		private int pcno;
@@ -15,7 +16,7 @@ public class Pcimage {
 		}
 		public void setPcno(int pcno) {
 			this.pcno = pcno;
-		}
+		} 
 		public String getImagename() {
 			return imagename;
 		}

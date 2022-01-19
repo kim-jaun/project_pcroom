@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>어데 피씹니까?</title>
+<title>Insert title here</title>
 <style type="text/css">
 	.mapCenter {
 		display: flex;
@@ -19,11 +19,8 @@
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
-<script type="text/javascript">
-$(function Load() {
-	$('#disp').load('pcDetailForm.do?pcno=2');
-})
-</script>
+
+
 <!-- 시/도 ,읍면동 select box -->
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -119,7 +116,6 @@ function juso() {
 		<input type="submit">
 	</form>
 	<!-- search 끝-->
-	<button class="pcDetail_btn" name="pcDetail_btn">테스트</button>
 	<!-- map -->
 	<div class="mapCenter">
 		<div id="map"></div>
@@ -185,7 +181,6 @@ function juso() {
 			// 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
 			infowindow.setContent('<div style="padding:5px;font-size:12px;">'+ place.place_name + '</div>');
 			infowindow.open(map, marker);
-			alert('마커를 클릭했습니다!');
 			});
 		}
 		
@@ -197,27 +192,27 @@ function juso() {
 		<!-- map script 끝 -->
 		<!-- 마커생성 -->
 		<c:forEach var="pc" items="${list }">
-		<script type="text/javascript">	
-		var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
-		    markerPosition = new kakao.maps.LatLng('${pc.pclati}', '${pc.pclongi}'); // 마커가 표시될 위치입니다
-		// 마커를 생성합니다
-		var marker = new kakao.maps.Marker({
-		    position: markerPosition, 
-		    image: markerImage // 마커이미지 설정 
-		});
-	
-		// 마커가 지도 위에 표시되도록 설정합니다
-		marker.setMap(map); 
-		
-		
-		// 마커에 클릭이벤트를 등록합니다
-		kakao.maps.event.addListener(marker, 'click', function() {
-			$.post('pcDetailForm.do?pcno=${pc.pcno}', function(data) {
-				$('#disp').html(data);
+			<script type="text/javascript">	
+			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+			    markerPosition = new kakao.maps.LatLng('${pc.pclati}', '${pc.pclongi}'); // 마커가 표시될 위치입니다
+			// 마커를 생성합니다
+			var marker = new kakao.maps.Marker({
+			    position: markerPosition, 
+			    image: markerImage // 마커이미지 설정 
 			});
-		alert("${pc.pcname}");
-		});
-		</script>
+		
+			// 마커가 지도 위에 표시되도록 설정합니다
+			marker.setMap(map); 
+			
+			
+			// 마커에 클릭이벤트를 등록합니다
+			kakao.maps.event.addListener(marker, 'click', function() {
+				$.post('pcDetailForm.do?pcno=${pc.pcno}', function(data) {
+					$('#disp').html(data);
+				});
+			alert("${pc.pcname}");
+			});
+			</script>
 		</c:forEach>
 		<!-- 마커생성끝 -->
 </body>

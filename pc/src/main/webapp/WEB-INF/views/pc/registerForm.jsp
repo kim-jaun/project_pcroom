@@ -60,7 +60,7 @@ function fn_selectInfo() {
 </head>
 <body>
 <div class="total_content" align="center">
-		<form action="register.do" name="frm" method="post" onsubmit="return upload()" enctype="multipart/form-data">
+	<form action="register.do" name="frm" method="post" onsubmit="return upload()" enctype="multipart/form-data">
 			<div class="join_total">
 			<div class="title_size">가맹점 등록</div>
 				<div class="join_content">

@@ -6,7 +6,7 @@ import java.sql.Date;
 public class Board_reply {
 	private int rno;
 	private String content;
-	private Date reg_date;
+	private Date reg_date; 
 	private int likes;
 	private String del;
 	private int mno;

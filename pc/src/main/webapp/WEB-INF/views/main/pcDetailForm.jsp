@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
@@ -7,65 +7,83 @@
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
 <style type="text/css">
-	.detailForm{
-		display: none;
-		position: absolute;
-		width: 80%;
-		height: 550px;
-		z-index: 100;
-		top: 0;
-		left: 10%;
-	}
-	.detailForm .pcDetail_form {
-		height:100%;
-		width:100%;
-		background-color: rgba(0, 0, 0, 0);
-	}
+.detailForm {
+	position: absolute;
+	width: 80%;
+	height: 550px;
+	z-index: 100;
+	top: 0;
+	left: 10%;
+}
 
-	#carousel-example-generic {
-		height: 190px;
-		display: flex;
-		align-items: center;
-	}
-	.pcDetail_contentInner {
-		position: absolute;
-		top: 0;
-		left: 0;
-		background-color: rgba(255, 255, 255, 0.7);
-		width: 300px;
-		height: 100%;
-	}
-	.pcTitle {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 40px;
-		padding: 0 15px;
-		position: relative;
-		font-size: 20px;
-		margin: 10px 0;
-	}
-	.pcLikes {
-		position: absolute;
-		left: 15px;
-	}
-	.pcName {
-		
-	}
-	.pcStar {
-		position: absolute;
-		right: 15px;
-	}
-	.pcInfo {
-		margin-top: 20px;
-		padding: 15px; 
-	}
+.detailForm .pcDetail_form {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0);
+}
+
+#carousel-example-generic {
+	height: 190px;
+	display: flex;
+	align-items: center;
+}
+
+.pcDetail_contentInner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: rgba(255, 255, 255, 0.7);
+	width: 300px;
+	height: 100%;
+}
+
+.pcTitle {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 40px;
+	padding: 0 15px;
+	position: relative;
+	font-size: 20px;
+	margin: 10px 0;
+}
+
+.pcLikes {
+	position: absolute;
+	left: 15px;
+}
+
+.pcName {
+	
+}
+
+.pcStar {
+	position: absolute;
+	right: 15px;
+}
+
+.pcInfo {
+	margin-top: 20px;
+	padding: 15px;
+}
+
+.item {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+}
 </style>
 <c:set var="path" value="${pageContext.request.contextPath }"></c:set>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
-<script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
-<script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+	integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+	crossorigin="anonymous">
+<script type="text/javascript"
+	src="${path}/resources/bootstrap/js/jquery.js"></script>
+<script type="text/javascript"
+	src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('.pcDetail_btn').on('click', function() {
@@ -99,8 +117,9 @@
 					<div class="pcLikes">
 						<c:if test="${sessionScope.memberSession.id != null}">
 							<c:if test="${sessionScope.memberSession.id != 'admin'}">
-								<img class="bookmark" onclick="bookmarkClick(${pc.pcno})" alt="" src= "${imgSrc}" width="30px" height="30px">
-							</c:if> 
+								<img class="bookmark" onclick="bookmarkClick(${pc.pcno})" alt=""
+									src="${imgSrc}" width="30px" height="30px">
+							</c:if>
 						</c:if>
 					</div>
 					<!-- 북마크 끝 -->
@@ -111,7 +130,8 @@
 				</div>
 				<!-- pc방 헤드라인 끝 -->
 				<!-- pc방 사진 -->
-				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+				<div id="carousel-example-generic" class="carousel slide"
+					data-ride="carousel">
 					<!-- Wrapper for slides -->
 					<div class="carousel-inner" role="listbox">
 						<div class="item active">
@@ -125,20 +145,30 @@
 					</div>
 
 					<!-- Controls -->
-					<a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> 
-						<span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+					<a class="left carousel-control" href="#carousel-example-generic"
+						role="button" data-slide="prev"> <span
+						class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
 						<span class="sr-only">Previous</span>
-					</a> 
-					<a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"> 
-						<span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+					</a> <a class="right carousel-control" href="#carousel-example-generic"
+						role="button" data-slide="next"> <span
+						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						<span class="sr-only">Next</span>
 					</a>
 				</div>
 				<!-- pc방 사진 끝 -->
-				
+
 				<!-- pc방 info -->
 				<div class="pcInfo">
 					<span>${pc.pcinfo }</span>
+				</div>
+				<div>
+				 주소: ${pc.pcaddr }
+				</div>
+				<div>
+					<h3>요금 정보</h3>
+					<span>1000원 ${fee.w1000 }분</span> <span>3000원 ${fee.w3000 }분</span>
+					<span>5000원 ${fee.w5000 }분</span> <span>10000원 ${fee.w10000 }분</span>
+					<span>50000원 ${fee.w50000 }분</span> <span>100000원 ${fee.w100000 }분</span>
 				</div>
 			</div>
 		</div>

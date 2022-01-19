@@ -7,7 +7,7 @@ public class Board {
 	private String content;
 	private Date reg_date;
 	private int read_cnt;
-	private int likes;
+	private int likes; 
 	private String del;
 	private int mno;
 	private int pcno;

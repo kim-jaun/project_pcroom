@@ -1,5 +1,6 @@
 package com.ch.pc.model;
 
+
 public class Seat {
 	private int seatno;
 	private String seatposition;
@@ -11,7 +12,7 @@ public class Seat {
 		this.seatno = seatno;
 	}
 	public String getSeatposition() {
-		return seatposition;
+		return seatposition; 
 	}
 	public void setSeatposition(String seatposition) {
 		this.seatposition = seatposition;
@@ -22,4 +23,5 @@ public class Seat {
 	public void setPcno(int pcno) {
 		this.pcno = pcno;
 	}
+	
 }

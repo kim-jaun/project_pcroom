@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ch.pc.dao.PcDao;
+import com.ch.pc.model.Fee;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 
 @Service
@@ -38,21 +40,7 @@ public class PcServiceImpl implements PcService {
 	public List<Pcimage> listPhoto(int pcno) {
 		return pd.listPhoto(pcno);
 	}
-	public int insertSeat(Seat seat) {
-		return pd.insertSeat(seat);
-	}
-	public Seat selectseat(int pcno) {
-		return pd.selectseat(pcno);
-	}
-	public int updateSeat(Seat seat) {
-		return pd.updateseat(seat);
-	}
-	public String listSeat(int pcno) {
-		return pd.listSeat(pcno);
-	}
-	public int updateSeatform(Pc pc) {
-		return pd.updateseatform(pc);
-	}
+
 	// 관리자
 	public List<Pc> list(Pc pc) { 
 		return pd.list(pc);
@@ -63,8 +51,50 @@ public class PcServiceImpl implements PcService {
 	public int getTotal(Pc pc) {
 		return pd.getTotal(pc);
 	}
+	@Override
 	public List<Pc> listMap() {
 		return pd.listMap();
-	} 
+	}
+	@Override
+	public String listSeat(int pcno) {
+		return pd.listSeat(pcno);
+	}
+	@Override
+	public int updateSeatform(Pc pc) {
+		return pd.updateseatform(pc);
+	}
+	@Override
+	public Seat selectseat(int pcno) {
+		return pd.selectseat(pcno);
+	}
+	@Override
+	public int insertSeat(Seat seat) {
+		return pd.insertSeat(seat);
+	}
+	@Override
+	public int updateSeat(Seat seat) {
+		return pd.updateseat(seat);
+	}
+	@Override
+	public Pc selectMno(int mno) {
+		return pd.selectMno(mno);
+	}
+	@Override
+	public int feeInsert(Fee fee) {
+		return pd.feeInsert(fee);
+	}
+	@Override
+	public Fee selectFee(int pcno) {
+		return pd.selectFee(pcno);
+	}
+	@Override
+	public int feeUpdate(Fee fee) {
+		return pd.feeUpdate(fee);
+	}
+	@Override
+	public int insertReservation(Reservation reservation) {
+		return pd.insertReservation(reservation);
+	}
+
 
 }

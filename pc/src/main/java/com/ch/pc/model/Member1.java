@@ -12,7 +12,7 @@ public class Member1 {
 	private String nick_name;
 	private String phone;
 	private String gender;
-	private String birth;
+	private String birth; 
 	private String email;
 	private Date reg_date;
     private String del;
@@ -27,6 +27,8 @@ public class Member1 {
  	//페이징용
  	private int startRow;
  	private int endRow;
+ 	//인증 대기용
+ 	private int permitConfirm;
 	public int getMno() {
 		return mno;
 	}
@@ -140,5 +142,11 @@ public class Member1 {
 	}
 	public void setEndRow(int endRow) {
 		this.endRow = endRow;
+	}
+	public int getPermitConfirm() {
+		return permitConfirm;
+	}
+	public void setPermitConfirm(int permitConfirm) {
+		this.permitConfirm = permitConfirm;
 	}
 }

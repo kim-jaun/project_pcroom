@@ -15,7 +15,7 @@
 	</select>
 	
 	<insert id="insertPc" parameterType="pc">
-		insert into pc (pcno,pcbusinessnum,pcpno,pcname,pcaddr,pcinfo,imagename) values(#{pcno},#{pcbusinessnum}, #{pcpno}, #{pcname}, #{pcaddr}, #{pcinfo}, #{imagename})
+		insert into pc (pcno,pcbusinessnum,pcpno,pcname,pcaddr,pcinfo,imagename,pclati,pclongi,mno) values(#{pcno},#{pcbusinessnum}, #{pcpno}, #{pcname}, #{pcaddr}, #{pcinfo}, #{imagename},#{pclati},#{pclongi},#{mno})
 	</insert>
 	<insert id="insertPcimage" parameterType="java.util.List">
 		insert all
@@ -27,32 +27,14 @@
 	<insert id="insertPi" parameterType="pcimage">
 		insert into pcimage values(pcimage_seq.nextval, #{pcno},#{imagename})
 	</insert>
-	<insert id="insertSeat" parameterType="seat">
-		<selectKey keyProperty="seatno" order="BEFORE" resultType="integer">
-			select nvl(max(seatno), 0) + 1 seatno from seat
-		</selectKey>
-		insert into seat values(#{seatno}, #{seatposition}, #{pcno})
-	</insert>
-	
 	<select id="select" parameterType="integer" resultType="pc">
 		select * from pc where pcno=#{pcno}
 	</select>
 	<select id="listPhoto" parameterType="integer" resultType="pcimage">
 		select * from pcimage where pcno=#{pcno}
 	</select>
-	<select id="selectSeat" parameterType="integer" resultType="seat">
-		select * from seat where pcno=#{pcno}
-	</select>
-	<select id="listSeat" parameterType="integer" resultType="string">
-		select seatposition from seat where pcno=#{pcno}
-	</select>
 	
-	<update id="updateSeat" parameterType="seat">
-		update seat set seatposition=#{seatposition} where pcno=#{pcno}
-	</update>
-	<update id="updateseatform" parameterType="pc">
-		update pc set seatlow=#{seatlow}, seatcol=#{seatcol} where pcno=#{pcno}
-	</update>
+	<!-- 관리자 -->
 	<select id="pcList" parameterType="pc" resultType="pc">
 		select * from(select a.*, rowNum rn from(select * from pc 
 		<where>
@@ -74,8 +56,38 @@
 			</if>	
 		</where>
 	</select>
+	
 	<!-- main에서 좌표를 찍기위해 모든 pc정보를 불러온다 -->
 	<select id="listMap" resultType="pc">
-		select * from pc
-	</select>	
+		select * from pc where permit = 'y'
+	</select>
+	
+	<!-- 선택한 pc방에 있는 좌석 정보를 불러온다 -->
+	<select id="listSeat" parameterType="integer" resultType="string">
+		select seatposition from seat where pcno=#{pcno}
+	</select>
+	<!-- pc방 좌석의 최대치(네모)를 수정한다 -->
+	<update id="updateseatform" parameterType="pc">
+		update pc set seatlow=#{seatlow}, seatcol=#{seatcol} where pcno=#{pcno}
+	</update>
+	<!-- 선택한 pc방에 seat 정보를 모두 불러온다 -->
+	<select id="selectSeat" parameterType="integer" resultType="seat">
+		select * from seat where pcno=#{pcno}
+	</select>
+	<!-- seat테이블에 seatForm에서 받은 정보를 집어 넣는다 (해당하는 pc에 seat 정보가 없을경우) -->
+	<insert id="insertSeat" parameterType="seat">
+		<selectKey keyProperty="seatno" order="BEFORE" resultType="integer">
+			select nvl(max(seatno), 0) + 1 seatno from seat
+		</selectKey>
+		insert into seat values(#{seatno}, #{seatposition}, #{pcno})
+	</insert>
+	<!-- seat테이블에 seatForm에서 받은 정보를 수정한다 (해당하는 pc에 seat 정보가 있을경우) -->
+	<update id="updateSeat" parameterType="seat">
+		update seat set seatposition=#{seatposition} where pcno=#{pcno}
+	</update>	
+	<!-- 점주의 pc방이 승인이 됐는지 안됐는지 파악하기 위해 -->
+	<select id="selectMno" parameterType="integer" resultType="pc">
+		select * from pc where mno=#{mno}
+	</select>
+	
 </mapper>

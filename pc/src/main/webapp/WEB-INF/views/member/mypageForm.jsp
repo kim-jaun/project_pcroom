@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>어데 피씹니까?</title>
+<title>Insert title here</title>
 </head>
 <body>
 	<button onclick='location.href = "passChkForm.do"'>회원정보 수정</button>

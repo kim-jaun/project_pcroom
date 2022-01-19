@@ -6,6 +6,54 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<script type="text/javascript">
+	// 가맹점 승인(관리자만)
+	function permit(p_pcno){
+		var con = confirm("가맹점 승인하시겠습니까?");
+		if(con){
+			location.href="pcPermit.do?pageNum=${pageNum}&pcno="+p_pcno;
+		}
+	}
+	
+	function seatSize2() {
+		var width = ${pc.seatlow};
+		var height = ${pc.seatcol};
+		for(var i = 1; i <= width; i++) {
+			for(var j = 1; j <= height; j++) {
+					$("#seatChoice").append('<label class="seatLabel2 ' + i +'-' + j +'" for="' + i +'-' + j +'">' + i +'-' + j +'</lable>');
+					$("#seatChoice").append('<input id="' + i +'-' + j +'" class="seat2" name="seatposition" type="checkbox" value="'+ i +'-' + j +'" disabled="disabled"/>');
+			}
+			$("#seatChoice").append('<br>');
+		}
+	 	var seatlists = "${seatlists}";
+	 	var ss = seatlists.replace('[','');
+	 	var sss = ss.replace(']','');
+	 	var array = sss.split(',');
+	 	for (var s in array) {
+			var trim = array[s].trim();
+			$("." + trim).addClass('btn');
+			$("#" + trim).removeAttr('disabled');	
+		}
+	 	$('.seatLabel2').on('click', function(){
+			if ($(this).hasClass("active")) { 
+			// active class 제거
+				$(this).removeClass("active");
+			}
+			else {
+	    	// active class 추가
+				$(this).addClass('active');
+			}
+		});
+	};
+	
+	function bookmarkClick(pcno) {
+		// 피씨방 북마크 클릭
+		$.post("bookmark.do", "pcno="+pcno, function(data) {
+			var imgSrc = data;
+			$(".bookmark").attr("src", imgSrc);
+		});
+	} 
+</script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 div.left {
@@ -23,58 +71,67 @@ div.right {
 	width: 100%;
 	height: 100%:
 }
+
 .item {
 	width: 100%;
 	height: 40%;
 	display: flex;
 	align-items: center;
 }
+
 .right {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
 }
+
 #seatChoice input {
- 	position: absolute;
- 	top: 50%; 	
- 	left: 50%; 	
- 	transform: translate(-50%, -50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 	width: inherit;
 	height: inherit;
 	margin-bottom: 0;
- 	z-index: -1;
- 	opacity: 0;
- }
+	z-index: -1;
+	opacity: 0;
+}
+
 .seatLabel2 {
 	font-size: 13px;
 	padding: 3px 0;
 	width: 40px;
 	margin: 2px 2px;
-	border: 1px solid rgba(0, 0, 0, 0); 
+	border: 1px solid rgba(0, 0, 0, 0);
 	opacity: 0;
 }
-.seatLabel2.active{
+
+.seatLabel2.active {
 	background-color: rgba(255, 255, 255, 0.8);
 }
+
 .seatLabel2.btn {
 	font-size: 13px;
 	padding: 3px 0;
 	width: 40px;
 	margin: 2px 2px;
-	border: 1px solid rgba(0, 0, 0, 0.5); 
+	border: 1px solid rgba(0, 0, 0, 0.5);
 	opacity: 1;
 }
-
 </style>
-<script type="text/javascript">
-$(function() {	
-	$('#disp').load('reservationForm.do?pcno=${pc.pcno}');
-});
-</script>
-
 </head>
-<body>
+<body onload="seatSize2()">
+	<!-- 북마크 -->
+	<div class="pcLikes">
+		<c:if test="${id != null}">
+			<c:if test="${id != 'admin'}">
+				<img class="bookmark" onclick="bookmarkClick(${pc.pcno})" alt=""
+					src="${imgSrc}" width="30px" height="30px">
+			</c:if>
+		</c:if>
+	</div>
+	<!-- 북마크 끝 -->
 	<h3>${pc.pcname }</h3>
 	<div class="left" align="center">
 		<div id="carousel-example-generic" class="carousel slide"
@@ -107,13 +164,46 @@ $(function() {
 		<div>${pc.pcaddr }</div>
 		<div>정보</div>
 		<div>${pc.pcinfo }</div>
+		<c:if test="${id == 'admin'}">
+			<c:if test="${pc.permit == 'n' }">
+				<button onclick="permit(${pc.pcno})">승인</button>
+			</c:if>
+			<c:if test="${pc.permit == 'y' }">
+				<button>승인완료</button>
+			</c:if>
+		</c:if>
 	</div>
 	<div class="right" align="center">
 		<div>
 			<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
 			<button onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
 		</div>
-		<div id="disp"></div>
+		<h2>좌석</h2>
+		<div>
+			<c:if test="${id == 'admin'}">
+				<button onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
+			</c:if>
+		</div>			
+			<div id="seatChoice"></div>
+		<br>
+		<div>
+			<button onclick='location.href="reservationForm.do"'>좌석예약</button>
+		</div>
+		<div>
+			<button onclick='location.href="feeInsertForm.do"'>요금설정</button>
+		</div>
+		<div>
+			<button onclick='location.href="feeUpdateForm.do"'>요금수정</button>
+		</div>
+		<div>
+			<h3>요금 정보</h3>
+			<span>1000원 ${fee.w1000 }분</span>
+			<span>3000원 ${fee.w3000 }분</span>
+			<span>5000원 ${fee.w5000 }분</span>
+			<span>10000원 ${fee.w10000 }분</span>
+			<span>50000원 ${fee.w50000 }분</span>
+			<span>100000원 ${fee.w100000 }분</span>
+		</div>
 	</div>
 </body>
 </html>

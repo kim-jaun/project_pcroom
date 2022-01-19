@@ -5,12 +5,12 @@ public class Board_likes {
 	private int mno;
 	private int rno;
 	public int getMno() {
-		return mno;
-	}
+		return mno; 
+	} 
 	public void setMno(int mno) {
 		this.mno = mno;
 	}
-	public int getRno() {
+	public int getRno() { 
 		return rno;
 	}
 	public void setRno(int rno) {
