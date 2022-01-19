@@ -49,7 +49,7 @@ $(function() {
 		}
 	});
  	
- 	// 현재시간 기준 시간 설정
+ 	// 현재시간 기준 예약 시간 설정
  	var hour = ${now_hour};
  	var min = ${now_min};
  	for (var i = hour; i < 25; i++) {
