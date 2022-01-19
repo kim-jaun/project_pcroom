@@ -106,20 +106,14 @@ public class PcController {
 		String hours = sdf.format(now_time1);
 		int hoursI = Integer.parseInt(hours);
 		int minI = Integer.parseInt(min);
-		int AA = 0;
-		int BB = 0;
 		
 		if (minI < 30) {
 			hoursI -= 1;
 			minI = 30;
-			AA = 1;
 		} else {
 			minI = 0;
-			BB = 1;
 		}
 		
-		model.addAttribute("AA", AA);
-		model.addAttribute("BB", BB);
 		model.addAttribute("now_hour", hoursI);
 		model.addAttribute("now_min", minI);
 		model.addAttribute("seatlists", Arrays.toString(seatlists));

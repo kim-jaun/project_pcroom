@@ -49,34 +49,20 @@ $(function() {
 		}
 	});
  	
- 	// 현재시간 기준 시작시간
+ 	// 현재시간 기준 시간 설정
  	var hour = ${now_hour};
  	var min = ${now_min};
  	for (var i = hour; i < 25; i++) {
  		if(min == 0) {
  			$('#starttime').append('<option value=' + i + ':00/>' + i + ':00');
  			$('#starttime').append('<option value=' + i + ':30/>' + i + ':30');
+ 			$('#endtime').append('<option value=' + (i+1) + ':30/>' + (i+1) + ':30');
+ 			$('#endtime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
  		} else {
  			$('#starttime').append('<option value=' + i + ':30/>' + i + ':30');
  			$('#starttime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
- 		}
- 	}
- 	
-  	var endhour = hour;
-  	var endmin = min;
-   	if(min == 0) {
-   		endmin = 30;
-   	} else {
-   		endhour = hour + 1;
-   		endmin = 0;
-   	}
- 	for (var i = endhour; i < 25; i++) {
- 		if(endmin == 0) {
- 			$('#endtime').append('<option value=' + i + ':00/>' + i + ':00');
- 			$('#endtime').append('<option value=' + i + ':30/>' + i + ':30');
- 		} else {
- 			$('#endtime').append('<option value=' + i + ':30/>' + i + ':30');
  			$('#endtime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
+ 			$('#endtime').append('<option value=' + (i+1) + ':30/>' + (i+1) + ':30');
  		}
  	}
 });
