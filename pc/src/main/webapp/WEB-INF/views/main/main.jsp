@@ -115,6 +115,7 @@ function juso() {
 		</select>
 		<input type="submit">
 	</form>
+	<button onclick="location.href='pcMainForm.do?pcno=1'">pcmain</button>
 	<!-- search 끝-->
 	<!-- map -->
 	<div class="mapCenter">

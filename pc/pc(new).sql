@@ -15,17 +15,8 @@ create table member1(
     identity varchar2(30) not null,
     profile varchar2(300)
 )
-select * from member1
---요금
-create table fee(
-	feeno number primary key,
-	w1000 number,
-	w3000 number,
-	w5000 number,
-	w10000 number,
-	w50000 number,
-	w100000 number
-)
+select * from member1;
+
 -- pc테이블
 drop table pc;
 
@@ -38,12 +29,15 @@ create table pc(
 	pclati decimal(18,10),
 	pclongi decimal(18,10),
 	permit char(1) default 'n' not null,
-	pclikes number,
+	pclikes number, -- 리뷰 키로 바꿔야 될듯(없애도 될듯)
 	pcinfo varchar2(4000),
+	seatlow number,
+    seatcol number,
 	mno number references member1,
-	feeno number references fee,
 	imagename varchar2(50)
-)
+);
+alter table pc add seatlow number;
+alter table pc add seatcol number;
 alter table pc add pclati decimal(18,10);
 alter table pc add pclongi decimal(18,10);
 alter table pc add permit char(1) default 'n' not null;
@@ -67,6 +61,21 @@ BEGIN
 	RETURN pcimage_seq.nextval;
 END;
 /
+
+--요금
+drop table fee;
+
+create table fee(
+	pcno number references pc not null,
+	w1000 number,
+	w3000 number,
+	w5000 number,
+	w10000 number,
+	w50000 number,
+	w100000 number
+)
+
+select * from fee;
 
 --즐겨찾기
 drop table bookmark1;
@@ -92,7 +101,7 @@ create table board(
 )
 
 --게시판 좋아요
-drop table board_likes
+drop table board_likes;
 
 create table board_likes(
 	mno number references member1 not null,
@@ -121,32 +130,29 @@ create table reply_likes(
 	rno number references board_reply not null
 )
 
-
------------------------(22.01.11 pc테이블 컬럼, seat테이블 추가)-----------------
-
-create table pc(
-	pcno number primary key,
-	pcbusinessnum varchar2(20) not null,
-	pcpno varchar2(20) not null,
-	pcname varchar2(100) not null,
-	pcaddr varchar2(500) not null,
-	pclikes number,
-	pcinfo varchar2(4000) not null,
-    seatlow number,
-    seatcol number,
-	mno number references member1,
-	feeno number references fee,
-	imagename varchar2(50)
-);w
+-- 좌석
+drop table seat;
 
 create table seat (
 	seatno number primary key,
-    seatposition varchar2(10000),
+    seatposition varchar2(3000),
 	pcno number references pc not null
 );
-drop table seat;
-commit;
-select * from pc;
-delete from seat where pcno=2;
-update seat set seatcol=10 where pcno=2;
+select * from seat;
+
+
+-- 예약
+drop table reservation;
+create table reservation(
+	reserveno number primary key,
+	mno number references member1 not null,
+	pcno number references pc not null,
+	reservetime number not null,	-- 몇시간동안 사용할건지
+	starttime varchar2(50) not null,
+	reserveSeatPosition varchar2(3000),
+	expiration char(1) default 'n' not null
+)
+select * from reservation;
+alter table reservation add expiration char(1) default 'n' not null;
+
 

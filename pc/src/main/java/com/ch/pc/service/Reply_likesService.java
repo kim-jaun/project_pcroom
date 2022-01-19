@@ -6,6 +6,6 @@ public interface Reply_likesService {
 
 	void insert(int mno, int rno); 
 
-	void delete(int mno, int rno);
+	void delete(int mno, int rno); 
 
 }
