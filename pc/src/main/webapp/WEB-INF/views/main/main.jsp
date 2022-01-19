@@ -20,7 +20,11 @@
 <script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 
-
+<script type="text/javascript">
+	$(function() {
+		$('#disp').load('search.do');
+	})
+</script>
 <!-- 시/도 ,읍면동 select box -->
 <script type="text/javascript">
 jQuery(document).ready(function(){
@@ -216,5 +220,15 @@ function juso() {
 			</script>
 		</c:forEach>
 		<!-- 마커생성끝 -->
+	<form action="search.do">
+		<label class="keyword" for="print">프린트</label>
+		<input type="checkbox" id="print" class="keywordbox" name="pcinfo" value="프린트">
+		<label class="keyword" for="duel">듀얼모니터</label>
+		<input type="checkbox" id="duel" class="keywordbox" name="pcinfo" value="듀얼모니터">
+		<label class="keyword" for="curve">커브드모니터</label>
+		<input type="checkbox" id="curve" class="keywordbox" name="pcinfo" value="커브드모니터">
+		<input type="submit" value="찾기">
+	</form>
+	<div id="disp"></div>
 </body>
 </html>

@@ -53,4 +53,9 @@ public interface PcDao {
 
 	int insertReservation(Reservation reservation);
 
+	List<Pc> searchpc(String a1, String a2, String a3);
+
+	List<Pc> searchpc1(String a1);
+
+
 }

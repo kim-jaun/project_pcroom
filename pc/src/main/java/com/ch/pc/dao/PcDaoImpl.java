@@ -1,6 +1,8 @@
 package com.ch.pc.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -96,6 +98,17 @@ public class PcDaoImpl implements PcDao {
 	@Override
 	public int insertReservation(Reservation reservation) {
 		return sst.insert("reservationns.insertReservation", reservation);
+	}
+	public List<Pc> searchpc(String a1, String a2, String a3) {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("a1", a1);
+		map.put("a2", a2);
+		map.put("a3", a3);
+		return sst.selectOne("pcns.searchpc", map);
+	}
+	@Override
+	public List<Pc> searchpc1(String a1) {
+		return sst.selectOne("pcns.searchpc1", a1);
 	}
 
 }

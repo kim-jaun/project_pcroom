@@ -89,5 +89,14 @@
 	<select id="selectMno" parameterType="integer" resultType="pc">
 		select * from pc where mno=#{mno}
 	</select>
-	
+
+	<select id="searchpc" parameterType="string" resultType="integer">
+		select pcno from pc where pcinfo = '%'||#{a1}||'%'
+			<if test="a2 != null and a2 !=''">
+				and '%'||#{a2}||'%'
+			</if>
+			<if test="a3 != null and a3 !=''">
+				and '%'||#{a3}||'%'
+			</if>
+	</select>
 </mapper>

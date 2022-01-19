@@ -95,6 +95,13 @@ public class PcServiceImpl implements PcService {
 	public int insertReservation(Reservation reservation) {
 		return pd.insertReservation(reservation);
 	}
+	public List<Pc> searchpc(String a1, String a2, String a3) {
+		return pd.searchpc(a1, a2, a3);
+	}
+	@Override
+	public List<Pc> searchpc1(String a1) {
+		return pd.searchpc1(a1);
+	}
 
 
 }
