@@ -3,6 +3,7 @@ package com.ch.pc.service;
 import java.util.List;
 
 import com.ch.pc.model.Fee;
+import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
 import com.ch.pc.model.Reservation;
@@ -52,14 +53,6 @@ public interface PcService {
 
 	int insertReservation(Reservation reservation);
 
-	List<Pc> searchpc(String a1, String a2, String a3);
-
-	List<Pc> searchpc1(String a1);
-
-
-
-
-
-
+	List<Pc> searchpc(Keyword keyword);
 
 }

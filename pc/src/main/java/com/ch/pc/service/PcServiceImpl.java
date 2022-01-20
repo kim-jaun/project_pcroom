@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.ch.pc.dao.PcDao;
 import com.ch.pc.model.Fee;
+import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
 import com.ch.pc.model.Reservation;
@@ -95,13 +96,8 @@ public class PcServiceImpl implements PcService {
 	public int insertReservation(Reservation reservation) {
 		return pd.insertReservation(reservation);
 	}
-	public List<Pc> searchpc(String a1, String a2, String a3) {
-		return pd.searchpc(a1, a2, a3);
+	public List<Pc> searchpc(Keyword keyword) {
+		return pd.searchpc(keyword);
 	}
-	@Override
-	public List<Pc> searchpc1(String a1) {
-		return pd.searchpc1(a1);
-	}
-
 
 }

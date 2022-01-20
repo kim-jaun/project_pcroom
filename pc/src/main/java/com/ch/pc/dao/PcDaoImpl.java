@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.pc.model.Fee;
+import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
 import com.ch.pc.model.Reservation;
@@ -99,16 +100,8 @@ public class PcDaoImpl implements PcDao {
 	public int insertReservation(Reservation reservation) {
 		return sst.insert("reservationns.insertReservation", reservation);
 	}
-	public List<Pc> searchpc(String a1, String a2, String a3) {
-		Map<String, String> map = new HashMap<String, String>();
-		map.put("a1", a1);
-		map.put("a2", a2);
-		map.put("a3", a3);
-		return sst.selectOne("pcns.searchpc", map);
-	}
 	@Override
-	public List<Pc> searchpc1(String a1) {
-		return sst.selectOne("pcns.searchpc1", a1);
+	public List<Pc> searchpc(Keyword keyword) {
+		return sst.selectList("pcns.searchpc", keyword);
 	}
-
 }

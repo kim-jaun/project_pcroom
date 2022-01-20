@@ -90,13 +90,34 @@
 		select * from pc where mno=#{mno}
 	</select>
 
-	<select id="searchpc" parameterType="string" resultType="integer">
-		select pcno from pc where pcinfo = '%'||#{a1}||'%'
-			<if test="a2 != null and a2 !=''">
-				and '%'||#{a2}||'%'
+	<select id="searchpc" parameterType="keyword" resultType="pc">
+		select * from pc
+		<where>
+				permit = 'y'
+			<if test="print != null and print != ''">
+				and pcinfo like '%'||#{print}||'%'
 			</if>
-			<if test="a3 != null and a3 !=''">
-				and '%'||#{a3}||'%'
+			<if test="duel != null and duel != ''">
+				and pcinfo like '%'||#{duel}||'%'
+			</if> 
+			<if test="curve != null and curve != ''">
+				and pcinfo like '%'||#{curve}||'%'
+			</if> 
+			<if test="crt != null and crt != ''">
+				and pcinfo like '%'||#{crt}||'%'
+			</if> 
+			<if test="atm != null and atm != ''">
+				and pcinfo like '%'||#{atm}||'%'
+			</if> 
+			<if test="air != null and air != ''">
+				and pcinfo like '%'||#{air}||'%'
+			</if> 
+			<if test="battery != null and battery != ''">
+				and pcinfo like '%'||#{battery}||'%'
+			</if> 
+			<if test="game != null and game != ''">
+				and pcinfo like '%'||#{game}||'%'
 			</if>
+		</where>
 	</select>
 </mapper>

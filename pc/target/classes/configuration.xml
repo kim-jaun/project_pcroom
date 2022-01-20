@@ -14,6 +14,7 @@
 		<typeAlias alias="bookmark" type="com.ch.pc.model.Bookmark"/>
 		<typeAlias alias="seat" type="com.ch.pc.model.Seat"/>
 		<typeAlias alias="reservation" type="com.ch.pc.model.Reservation"/>
+		<typeAlias alias="keyword" type="com.ch.pc.model.Keyword"/>
 	</typeAliases>
 	<mappers>
 		<mapper resource="board.xml"/>

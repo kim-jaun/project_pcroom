@@ -21,9 +21,7 @@
 <script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 
 <script type="text/javascript">
-	$(function() {
-		$('#disp').load('search.do');
-	})
+
 </script>
 <!-- 시/도 ,읍면동 select box -->
 <script type="text/javascript">
@@ -220,15 +218,31 @@ function juso() {
 			</script>
 		</c:forEach>
 		<!-- 마커생성끝 -->
-	<form action="search.do">
+	<form action="">
 		<label class="keyword" for="print">프린트</label>
-		<input type="checkbox" id="print" class="keywordbox" name="pcinfo" value="프린트">
+		<input type="checkbox" id="print" class="keywordbox" name="print" value="프린트">
 		<label class="keyword" for="duel">듀얼모니터</label>
-		<input type="checkbox" id="duel" class="keywordbox" name="pcinfo" value="듀얼모니터">
+		<input type="checkbox" id="duel" class="keywordbox" name="duel" value="듀얼모니터">
 		<label class="keyword" for="curve">커브드모니터</label>
-		<input type="checkbox" id="curve" class="keywordbox" name="pcinfo" value="커브드모니터">
+		<input type="checkbox" id="curve" class="keywordbox" name="curve" value="커브모니터">
+		<label class="keyword" for="crt">CRT모니터</label>
+		<input type="checkbox" id="crt" class="keywordbox" name="crt" value="CRT모니터">
+		<label class="keyword" for="atm">ATM기기</label>
+		<input type="checkbox" id="atm" class="keywordbox" name="atm" value="ATM기기">
+		<label class="keyword" for="air">공기청정기</label>
+		<input type="checkbox" id="air" class="keywordbox" name="air" value="공기청정기">
+		<label class="keyword" for="battery">스마트폰충전</label>
+		<input type="checkbox" id="battery" class="keywordbox" name="battery" value="스마트폰충전">
+		<label class="keyword" for="game">모바일게임</label>
+		<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임">
 		<input type="submit" value="찾기">
 	</form>
-	<div id="disp"></div>
+	<div id="disp">
+	<c:if test="${not empty listsearch }">
+		<c:forEach var="i" items="${listsearch }">
+			<span>${i.pcno }</span>
+		</c:forEach>
+	</c:if>
+	</div>
 </body>
 </html>
