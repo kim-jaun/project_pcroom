@@ -6,7 +6,7 @@ public class Keyword {
 	private String curve;
 	private String crt;
 	private String atm;
-	private String air;
+	private String air; 
 	private String battery;
 	private String game;
 	public String getPrint() {

@@ -11,15 +11,7 @@
 	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
 	integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
 	crossorigin="anonymous">
-<!-- pageContext.request.contextPath : 프로젝트 명 -->
-<c:set var="path" value="${pageContext.request.contextPath }"></c:set>
-<%-- ${path }를 사용하면 패키지의 경올가 절대경로로 변경 --%>
-<link rel="stylesheet" type="text/css"
-	href="${path}/resources/bootstrap/css/bootstrap.min.css">
-<script type="text/javascript"
-	src="${path}/resources/bootstrap/js/jquery.js"></script>
-<script type="text/javascript"
-	src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
 .font_family {
 	font-family: InfinitySans-RegularA1;

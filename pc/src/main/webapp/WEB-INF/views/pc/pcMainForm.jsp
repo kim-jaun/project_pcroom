@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
+<script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
 	// 가맹점 승인(관리자만)
 	function permit(p_pcno){
@@ -14,7 +17,6 @@
 			location.href="pcPermit.do?pageNum=${pageNum}&pcno="+p_pcno;
 		}
 	}
-	
 	function seatSize2() {
 		var width = ${pc.seatlow};
 		var height = ${pc.seatcol};
@@ -45,7 +47,6 @@
 			}
 		});
 	};
-	
 	function bookmarkClick(pcno) {
 		// 피씨방 북마크 클릭
 		$.post("bookmark.do", "pcno="+pcno, function(data) {
@@ -53,6 +54,10 @@
 			$(".bookmark").attr("src", imgSrc);
 		});
 	} 
+	$(function() {
+		// 현재 게시글에 해당하는 댓글을 가져와서 보여줘라
+		$('#review').load('reviewList.do?pcno=${pc.pcno}&pcname=${pc.pcname }&pageNum=${pageNum}');
+	});
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <style type="text/css">
@@ -66,7 +71,10 @@ div.right {
 	width: 50%;
 	float: right;
 }
-
+.carousel {
+	width: 500px;
+	height: 300px;
+}
 .carousel-inner img {
 	width: 100%;
 	height: 100%:
@@ -74,7 +82,7 @@ div.right {
 
 .item {
 	width: 100%;
-	height: 40%;
+	height: 100%;
 	display: flex;
 	align-items: center;
 }
@@ -119,9 +127,27 @@ div.right {
 	border: 1px solid rgba(0, 0, 0, 0.5);
 	opacity: 1;
 }
+	body {
+		background-color: #2c3e50;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+		padding-left: 0;
+	}  
 </style>
 </head>
 <body onload="seatSize2()">
+<div class="content_center">
+<div class="total_content">
 	<!-- 북마크 -->
 	<div class="pcLikes">
 		<c:if test="${id != null}">
@@ -175,35 +201,23 @@ div.right {
 	</div>
 	<div class="right" align="center">
 		<div>
+			<div id="view"></div>
+			<button onclick='location.href="reviewList.do?pcno=${pc.pcno}&pcname=${pc.pcname }"'>리뷰</button>
 			<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
-			<button onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
+			<button onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치
+				수정</button>
 		</div>
-		<h2>좌석</h2>
 		<div>
 			<c:if test="${id == 'admin'}">
 				<button onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
 			</c:if>
-		</div>			
+		</div>
+		<form action="reservation.do">
 			<div id="seatChoice"></div>
-		<br>
-		<div>
-			<button onclick='location.href="reservationForm.do"'>좌석예약</button>
-		</div>
-		<div>
-			<button onclick='location.href="feeInsertForm.do"'>요금설정</button>
-		</div>
-		<div>
-			<button onclick='location.href="feeUpdateForm.do"'>요금수정</button>
-		</div>
-		<div>
-			<h3>요금 정보</h3>
-			<span>1000원 ${fee.w1000 }분</span>
-			<span>3000원 ${fee.w3000 }분</span>
-			<span>5000원 ${fee.w5000 }분</span>
-			<span>10000원 ${fee.w10000 }분</span>
-			<span>50000원 ${fee.w50000 }분</span>
-			<span>100000원 ${fee.w100000 }분</span>
-		</div>
+			<input type="submit" value="예약">
+		</form>
 	</div>
+</div>
+</div>
 </body>
 </html>

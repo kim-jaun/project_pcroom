@@ -1,8 +1,6 @@
 package com.ch.pc.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +10,6 @@ import com.ch.pc.model.Fee;
 import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
-import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 
 @Repository
@@ -31,9 +28,6 @@ public class PcDaoImpl implements PcDao {
 	}
 	public int givePcno() {
 		return sst.selectOne("pcns.givePcno");
-	}
-	public void insertPcimage(List<Pcimage> images) {
-		sst.insert("pcns.insertPcimage", images);
 	}
 	public void insertPi(Pcimage pi) {
 		sst.insert("pcns.insertPi", pi);
@@ -82,6 +76,18 @@ public class PcDaoImpl implements PcDao {
 	public Pc selectMno(int mno) {
 		return sst.selectOne("pcns.selectMno", mno);
 	}
+	@Override
+	public int updatePc(Pc pc) {
+		return sst.update("pcns.updatePc", pc);
+	}
+	@Override
+	public void deletePi(Pcimage pi) {
+		sst.delete("pcns.deletePi", pi);
+	}
+	@Override
+	public List<Pc> searchpc(Keyword keyword) {
+		return sst.selectList("pcns.searchpc", keyword);
+	}
 	// 요금설정
 	@Override
 	public int feeInsert(Fee fee) {
@@ -94,14 +100,5 @@ public class PcDaoImpl implements PcDao {
 	@Override
 	public int feeUpdate(Fee fee) {
 		return sst.update("feens.feeUpdate", fee);
-	}
-	// 예약 입력
-	@Override
-	public int insertReservation(Reservation reservation) {
-		return sst.insert("reservationns.insertReservation", reservation);
-	}
-	@Override
-	public List<Pc> searchpc(Keyword keyword) {
-		return sst.selectList("pcns.searchpc", keyword);
 	}
 }

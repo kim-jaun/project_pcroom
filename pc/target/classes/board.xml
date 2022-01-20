@@ -4,14 +4,14 @@
 <mapper namespace="boardns">
 
 	<select id="list" parameterType="board" resultType="board">
-		select * from (select rowNum rn, a.* from (select b.*, m.nick_name from board b, member1 m where b.mno=m.mno
+		select * from (select rowNum rn, a.* from (select b.*, m.nick_name from board b, member1 m where b.mno=m.mno and pcno=#{pcno}
 			<if test="searchValue != null and searchValue != ''">
 				 and ${searchKey} like '%'||#{searchValue}||'%' and b.del='n'
 			</if>
 		order by b.reg_date desc)a) where rn between #{startRow} and #{endRow} order by bno desc
 	</select>	
 	<select id="getTotal" parameterType="board" resultType="integer">
-		select count(*) from board b, member1 m where b.mno=m.mno
+		select count(*) from board b, member1 m where b.mno=m.mno and pcno=#{pcno}
 			<if test="searchValue != null and searchValue != ''">
 				and ${searchKey} like '%'||#{searchValue}||'%' and b.del='n'
 			</if>

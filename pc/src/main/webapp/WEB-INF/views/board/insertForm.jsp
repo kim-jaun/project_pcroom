@@ -6,12 +6,32 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<style type="text/css">
+
+body {
+		background-color: #2c3e50;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		position: relative;
+		}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+		padding-left: 0;
+	}
+</style>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/insertForm.css">
 <link rel="stylesheet" href="${path}/resources/ckeditor/contents.css">
 <script type="text/javascript" src="${path}/resources/ckeditor/ckeditor.js" ></script>
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
 </head>
 <body>
-<div class="total_content" align="center">
+<div class="content_center">
+<div class="total_content">
 	<form action="insert.do" method="post">
 		<input type="hidden" name="pcno" value="${board.pcno}">
 		<input type="hidden" name="bno" value="${board.bno}">
@@ -33,6 +53,7 @@
 			<input type="submit" value="확인" class="btn btn-primary">
 		</div>
 	</form>
+</div>
 </div>
 </body>
 </html>

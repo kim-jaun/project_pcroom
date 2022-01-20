@@ -8,6 +8,25 @@
 <title>어데 피씹니까?</title>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/content.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<style type="text/css">
+
+ 	body {
+		background-color: #2c3e50;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+		padding-left: 0;
+	}  
+</style>
 <script type="text/javascript">
 	function del(del_bno) {
 		var con = confirm("삭제하시겠습니까?");
@@ -37,13 +56,15 @@
 		});
 	}
 </script>
+
 </head>
 <body>
-<div class="total_content" align="center">
+<div class="content_center">
+<div class="total_content">
 <div class="table">
 <div class="table_form1">
 	<div class="first">${board.subject }</div>
-	<div class="second">| ${board.nick_name }</div>
+	<div class="second">| ${nick_name }</div>
 	<div class="fourth">조회수 : ${board.read_cnt }</div>
 	<div class="third">${board.reg_date }</div>
 </div>
@@ -53,18 +74,19 @@
 		<img class="likes" alt="" src="${imgSrc }" onclick="likesClick(${board.bno})"><span class="likes_cnt">${board.likes }</span>
 	</div>
 	</div>
+
 	<a href="boardList.do?pcno=${board.pcno}&pageNum=${pageNum }&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-primary">목록</a>
 	<div>
 		<c:if test="${memberSession.id == 'admin'}">
 			<a onclick="del('${board.bno}')" class="btn btn-danger">삭제</a>
 		</c:if>
-  		<c:if test="${memberSession.nick_name == board.nick_name}"> 
+  		<c:if test="${memberSession.nick_name == nick_name}"> 
 			<a href="boardUpdateForm.do?pcno=${board.pcno}&bno=${board.bno}&pageNum=${pageNum}&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-primary">수정</a>
 			<a onclick="del('${board.bno}')" class="btn btn-danger">삭제</a>
   		</c:if> 
 	</div>
 </div>
-	<div align="center">
+	<div>
 		<form action="" name="frm1" id="frm1">
 			<input type="hidden" name="pcno" value="${board.pcno }">
 			<input type="hidden" name="bno" value="${board.bno }">
@@ -79,5 +101,6 @@
 	</div>
 	<br>
 <div id="disp"></div>
+</div>
 </body>
 </html>

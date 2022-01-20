@@ -6,7 +6,6 @@ import com.ch.pc.model.Fee;
 import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
-import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 
 public interface PcDao {
@@ -19,8 +18,6 @@ public interface PcDao {
 	int givePcno();
 
 	void insertPi(Pcimage pi);
-
-	void insertPcimage(List<Pcimage> images);
 
 	Pc select(int pcno);
 
@@ -46,15 +43,16 @@ public interface PcDao {
 
 	Pc selectMno(int mno);
 
+	int updatePc(Pc pc);
+
+	void deletePi(Pcimage pi);
+
+	List<Pc> searchpc(Keyword keyword);
+	
 	int feeInsert(Fee fee);
 
 	Fee selectFee(int pcno);
 
 	int feeUpdate(Fee fee);
-
-	int insertReservation(Reservation reservation);
-
-	List<Pc> searchpc(Keyword keyword);
-
 
 }

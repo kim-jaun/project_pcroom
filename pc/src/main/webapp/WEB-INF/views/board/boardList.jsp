@@ -6,12 +6,50 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<style type="text/css">
+.paging {
+	display: flex;
+	justify-content: center;
+}
+body {
+		background-color: #2c3e50;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		position: relative;
+		}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+		padding-left: 50px;
+	}
+		.form-control {
+	width: 200px;
+}
+
+	.paging {
+	display: flex;
+	justify-content: center;
+}
+.join_content {
+	display: flex;
+		justify-content: flex-end;
+}
+.btn_ok{
+	margin: 30px;
+}
+</style>
 </head>
 <body>
-<div class="search_form">
+<div class="content_center">
+<div class="total_content">
 <form action="boardList.do">
 	<input type="hidden" name="pageNum" value="1">
-	<select name="searchKey">
+	<div class="join_content">
+	<select name="searchKey" style="margin:5px;">
 		<c:forTokens var="search" items="subject,nick_name,content" delims="," varStatus="i">
 			<c:if test="${search == board.searchKey }">
 				<option value="${search }" selected="selected">${title[i.index] }</option>
@@ -23,9 +61,9 @@
 	</select>
 		<input type="text" name="searchValue" value="${board.searchValue }" class="form-control" placeholder="검색어를 입력하세요.">
 		<input type="submit" value="검색" class="btn btn-primary">
+	</div>
 </form>
-</div>
-<div class="total_content">
+<div class="form_line">
 	<table class="table table-hover">
 		<tr class="table-primary"><th>번호</th><th>제목</th><th>작성자</th><th>작성일</th><th>조회수</th><th>좋아요</th></tr>
 		<c:if test="${empty list }">
@@ -33,22 +71,25 @@
 		</c:if>
 		<c:if test="${not empty list }">
 			<c:forEach var="board2" items="${list }">
-				<tr onclick="location.href='content.do?pcno=${board2.pcno}&bno=${board2.bno}&pageNum=${pb.currentPage}&searchKey=${board.searchKey}&searchValue=${board.searchValue}'" style="cursor:hand">
-					<td>${board2.bno }</td>
 				<c:if test="${board2.del == 'y' }">
+				<tr>
+					<td>${board2.bno }</td>
 					<td colspan="5">삭제된 글입니다</td>
+				</tr>
 				</c:if>
 				<c:if test="${board2.del != 'y' }">
+				<tr onclick="location.href='content.do?pcno=${board2.pcno}&bno=${board2.bno}&pageNum=${pb.currentPage}&searchKey=${board.searchKey}&searchValue=${board.searchValue}'" style="cursor:hand">
+					<td>${board2.bno }</td>
 					<td title="${board.content }">${board2.subject }</td>
 					<td>${board2.nick_name }</td>
 					<td>${board2.reg_date }</td>
 					<td>${board2.read_cnt }</td>
-					<td>${board2.likes }</td>
+					<td>${board2.likes }</td></tr>
 				</c:if>
 			</c:forEach>
 		</c:if>
 	</table>
-	<div align="center">
+	<div class="paging">
 	<ul class="pagination">
 	<!-- 시작 페이지가 pagePerBlock보다 크면 앞에 보여줄 것이 있다 -->
 		<c:if test="${pb.startPage > pb.pagePerBlock }">
@@ -75,6 +116,8 @@
 	</ul>
 </div>
 </div>
-<button class="btn btn-primary" onclick='location.href="insertForm.do?pcno=${board.pcno}&bno=0&pageNum=1"'>글쓰기</button>
+<button class="btn btn-primary btn_ok" onclick='location.href="insertForm.do?pcno=${board.pcno}&bno=0&pageNum=1"'>글쓰기</button>
+</div>
+</div>
 </body>
 </html>

@@ -6,6 +6,31 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<style type="text/css">
+	body {
+		background-color: #2c3e50;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		position: relative;
+		}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+	}
+	.btn-primary{
+		margin: 0 5px;
+	}
+	.btn_ok {
+		margin: 30px;
+	}
+	.form-control {
+		width: 335px;
+	}
+</style>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 function chk() { // 중복체크를 하지 않으면 넘어가지 않도록 설정
@@ -102,6 +127,7 @@ function chk4() { // 이메일 중복체크
 </script>
 </head>
 <body>
+<div class="content_center">
 	<div class="total_content">
 	<form class="join_form" action="join.do" method="post" name="frm" onsubmit="return chk()" enctype="multipart/form-data">
 		<input type="hidden" name="idchk" value="0"> 
@@ -111,32 +137,33 @@ function chk4() { // 이메일 중복체크
 		<div class="title_size">회원가입</div>
 			<div style="display:block;">
 			<div class="form-group">
-				<input type="file" name="file" class="form-control">
+				<input type="file" name="file" class="form-control" style="width:340px;">
 			</div>
 			</div>
 			<div class="join_content content_id">
-				<input type="text" name="id" required="required" autofocus="autofocus" placeholder="ID" class="form-control" style="width:335px;">
-				<input class="btn btn-primary btn_size" type="button" onclick="chk2()" value="중복체크">
+				<input type="text" name="id" required="required" autofocus="autofocus" placeholder="ID" class="form-control">
+				<input class="btn btn-primary" type="button" onclick="chk2()" value="중복체크">
 			</div>
 			<div id="err" class="err_form"></div>
 			<div class="join_content">
-				<input type="password" name="password" required="required" placeholder="암호" class="form-control" style="width:340px;">
+				<input type="password" name="password" required="required" placeholder="암호" class="form-control">
 			</div>
 			<div class="join_content">
-				<input type="password" name="password2" required="required" onchange="pass_chk()" placeholder="암호확인" class="form-control" style="width:340px;">
+				<input type="password" name="password2" required="required" onchange="pass_chk()" placeholder="암호확인" class="form-control">
 			</div>
 			<div id="same" class="err_form"></div>
 			<div class="join_content">
-				<input type="text" name="name" required="required" placeholder="이름" class="form-control" style="width:340px;">
+				<input type="text" name="name" required="required" placeholder="이름" class="form-control">
 			</div>
+			<p>
 			<div class="join_content content_id">
-				<input type="text" name="nick_name" required="required" placeholder="닉네임" class="form-control" style="width:335px;">
-				<input class="btn btn-primary btn_size" type="button" onclick="chk3()" value="중복체크">
+				<input type="text" name="nick_name" required="required" placeholder="닉네임" class="form-control">
+				<input class="btn btn-primary" type="button" onclick="chk3()" value="중복체크">
 			</div>
 			<div id="err2" class="err_form"></div>
 			<div class="join_content">
 				<input type="tel" name="phone" required="required" pattern="010-\d{3,4}-\d{4}"
-						placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control" style="width:340px;">
+						placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control">
 			</div>
 			<div>성별</div>
 				<div class="form-check">
@@ -152,9 +179,10 @@ function chk4() { // 이메일 중복체크
 			           document.getElementById('currentDate').max = new Date().toISOString().substring(0, 10);
 			       </script>
 			</div>
+			<p>
 			<div class="join_content content_id">
-				<input type="email" name="email" required="required" placeholder="이메일" class="form-control" style="width:335px;">
-				<input type="button" onclick="chk4()" value="중복체크" class="btn btn-primary btn_size">
+				<input type="email" name="email" required="required" placeholder="이메일" class="form-control">
+				<input type="button" onclick="chk4()" value="중복체크" class="btn btn-primary">
 			</div>
 			<div id="err3" class="err_form"></div>
 			<div style="display:inline">
@@ -164,9 +192,10 @@ function chk4() { // 이메일 중복체크
 					<option>점주</option>
 				</select>
 			</div>
-			<div><input type="submit" value="회원가입" class="btn btn-primary btn_size"></div>
+			<div><input type="submit" value="회원가입" class="btn btn-primary btn_ok"></div>
 		</div>
 	</form>
+	</div>
 	</div>
 </body>
 </html>

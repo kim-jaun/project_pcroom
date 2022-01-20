@@ -3,11 +3,8 @@ package com.ch.pc.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -21,11 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ch.pc.model.Bookmark;
-import com.ch.pc.model.Fee;
 import com.ch.pc.model.Member1;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
-import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 import com.ch.pc.service.BookmarkService;
 import com.ch.pc.service.PageBean;
@@ -52,8 +47,7 @@ public class PcController {
 		pc.setPcno(ps.givePcno()); // 일련번호 부여
 		List<Pc> pcbnm = ps.selectPcbnm(pc.getPcbusinessnum()); // 중복된 사업자번호 등록 방지
 		List<Pc> pcpno = ps.selectPcpno(pc.getPcpno()); // 중복된 전화번호 등록 방지
-		String real = 
-				session.getServletContext().getRealPath("/resources/upload");
+		String real = session.getServletContext().getRealPath("/resources/upload");
 		if (pcbnm.isEmpty() && pcpno.isEmpty()) {			
 			List<MultipartFile> list = mr.getFiles("pcimage");
 			List<Pcimage> images = new ArrayList<Pcimage>();
@@ -63,9 +57,9 @@ public class PcController {
 				pi.setPcno(pc.getPcno()); 
 				pi.setImagename(fileName);
 				images.add(pi);
-				FileOutputStream fos = 
-						new FileOutputStream(new File(real+"/"+fileName));
-				fos.write(mf.getBytes()); fos.close();
+				FileOutputStream fos = new FileOutputStream(new File(real+"/"+fileName));
+				fos.write(mf.getBytes()); 
+				fos.close();
 				pc.setImagename(fileName);
 			}
 			pc.setMno(memberSession.getMno());
@@ -82,8 +76,7 @@ public class PcController {
 			}
 			session.setAttribute("memberSession", memberSession);
 			
-		} else
-			result = 0;
+		} else result = 0;
 
 		model.addAttribute("result", result);
 
@@ -115,8 +108,6 @@ public class PcController {
 			seatlists = slist.split(",");
 			}
 		session.setAttribute("pcnoSession", pcno);
-		Fee fee = ps.selectFee(pcno);
-		model.addAttribute("fee", fee);
 		model.addAttribute("imgSrc", imgSrc);
 		model.addAttribute("seatlists", Arrays.toString(seatlists));
 		model.addAttribute("pc", pc);
@@ -144,8 +135,7 @@ public class PcController {
 				imgSrc = "/pc/resources/images/bookmark_off.png";
 			}
 		}
-		Fee fee = ps.selectFee(pcno);
-		model.addAttribute("fee", fee);
+		
 		model.addAttribute("imgSrc", imgSrc);
 		model.addAttribute("pc", pc);
 		model.addAttribute("list", list);
@@ -177,9 +167,10 @@ public class PcController {
 		return "/pc/seatSetting";
 	}
 	
-	
-	
-	
+	@RequestMapping("reservation")
+	public String reservation(Model model) {
+		return "/pc/reservation";
+	}
 
 
 	@RequestMapping(value = "bookmark", produces = "text/html;charset=utf-8")
@@ -222,58 +213,37 @@ public class PcController {
 		model.addAttribute("total", total);
 		return "/member/mybookmark";
 	}
-	
-	@RequestMapping("reservationForm")
-	public String reservationForm(Model model, HttpSession session) {
-		int pcno = (Integer) session.getAttribute("pcnoSession");
-		String slist = ps.listSeat(pcno);
-		String[] seatlists = null;
-		if(slist != null) {
-			seatlists = slist.split(",");
-			}
-		
-		Calendar now_time = Calendar.getInstance();
-		
-		// now_time을 현재시간 +1로 설정
-		now_time.set(Calendar.HOUR_OF_DAY, now_time.get(Calendar.HOUR_OF_DAY)+1);
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("HH");
-		SimpleDateFormat sdf2 = new SimpleDateFormat("mm");
-		Date now_time1 = now_time.getTime();
-		String min = sdf2.format(now_time1);
-		String hours = sdf.format(now_time1);
-		int hoursI = Integer.parseInt(hours);
-		int minI = Integer.parseInt(min);
-		
-		if (minI < 30) {
-			hoursI -= 1;
-			minI = 30;
-		} else {
-			minI = 0;
-		}
-		
-		Pc pc = ps.select(pcno);
-		Fee fee = ps.selectFee(pcno);
-
-		model.addAttribute("now_hour", hoursI);
-		model.addAttribute("now_min", minI);
-		model.addAttribute("fee", fee);
-		model.addAttribute("seatlists", Arrays.toString(seatlists));
+	@RequestMapping("mypcUpdateForm")
+	public String mypcUpdateForm(HttpSession session, Model model) {
+		Member1 memberSession = (Member1)session.getAttribute("memberSession");
+		int mno = memberSession.getMno();
+		Pc pc = ps.selectMno(mno);
+		model.addAttribute("mno", mno);
 		model.addAttribute("pc", pc);
-		return "/pc/reservationForm";
+		return "/pc/mypcUpdateForm";
 	}
-	
-	@RequestMapping("reservation")
-	public String reservation(Reservation reservation, Model model, HttpSession session) {
-		int pcno = (Integer) session.getAttribute("pcnoSession");
-		Member1 member1 = (Member1) session.getAttribute("memberSession");
-		reservation.setPcno(pcno);
-		System.out.println(reservation.getReserveSeatPosition());
-		reservation.setMno(member1.getMno());
+	@RequestMapping("mypcUpdate")
+	public String mypcUpdate(HttpSession session, Model model, Pc pc, MultipartHttpServletRequest mhr) throws IOException {
 		int result = 0;
-		result = ps.insertReservation(reservation);
-		
+		String real=session.getServletContext().getRealPath("/resources/upload");
+		// 파일 여러개를 저장할 list만들고 pcimage를 생성해서 하나씩 저장
+		List<MultipartFile> list = mhr.getFiles("pcimage");
+		// list의 사진을 한장씩 뽑아서 images에 저장
+		List<Pcimage> images = new ArrayList<Pcimage>();
+		for (MultipartFile mf : list) {
+			Pcimage pi = new Pcimage();
+			String fileName = mf.getOriginalFilename();
+			pi.setPcno(pc.getPcno()); 
+			pi.setImagename(fileName);
+			images.add(pi);
+			FileOutputStream fos = new FileOutputStream(new File(real+"/"+fileName));
+			fos.write(mf.getBytes()); 
+			fos.close();
+		}
+		result = ps.updatePc(pc);
+		ps.deletePcimage(images);
+		ps.insertPcimage(images);
 		model.addAttribute("result", result);
-		return "/pc/reservation";
+		return "/pc/mypcUpdate";
 	}
 }

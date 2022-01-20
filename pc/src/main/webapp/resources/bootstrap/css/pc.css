@@ -97,13 +97,11 @@ h2 {
 	margin: 0 0 20px 50px;
 }
 .sidebar {
-	background-color: #d5d5d5;
-	width: 150px;
+/* 	background-color: #d5d5d5; */
+	width: 100%;
 	list-style-type: none;
-	margin: 0;
 	padding: 0;
 }
-
 .sidebar li a {
 	display: block;
 	color: black;
@@ -114,10 +112,10 @@ h2 {
 }
 
 .sidebar li.current {
-	background-color: white;
+	background-color: yellow;
 }
 .sidebar li a:hover:not(.current) {
-	background-color: #d5d5d5;
+ 	background-color: #d5d5d5; 
 }
 .navi_admin{
 	float: left;

@@ -1,30 +1,127 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.ch.pc.model.*"%>
-<%@ include file="../header.jsp" %>
+<%@ include file="../header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>어데 피씹니까?</title>
 <style type="text/css">
-	.mapCenter {
-		display: flex;
-		justify-content: center;
-		position: relative;
-	}
-	#map {
-		width: 80%; 
-		height: 550px;
-	}
+.mapCenter {
+	display: flex;
+	justify-content: center;
+	position: relative;
+	height: 600px;
+}
+
+#map {
+	width: 85%;
+	height: 550px;
+	border-radius: 20px;
+}
+
+body {
+	background-color: #2c3e50;
+}
+
+.slide-div {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	width: 250px;
+	height: 550px;
+	background: rgba(255, 255, 255, 0.6);
+	z-index: 100;
+	padding: 20px;
+	border-radius: 0 10px 10px 0;
+}
+
+.button-div {
+	position: absolute;
+	left: 250px;
+	top: 30px;
+	width: 30px;
+	height: 90px;
+	background: #2C3D4F;
+	z-index: 100;
+	border-radius: 0 10px 10px 0;
+}
+
+.button-open {
+	width: 0px;
+	height: 0px;
+	border-top: 20px solid transparent;
+	border-right: 25px solid #E5BF20;
+	border-bottom: 20px solid transparent;
+	z-index: 100;
+	margin: 25px 2.5px;
+}
+
+.button-close {
+	width: 0px;
+	height: 0px;
+	border-top: 20px solid transparent;
+	border-left: 25px solid #E5BF20;
+	border-bottom: 20px solid transparent;
+	z-index: 100;
+	margin: 25px 2.5px;
+}
+.keywordbox {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: inherit;
+	height: inherit;
+	margin-bottom: 0;
+	z-index: -1;
+	opacity: 0; 
+}
+.checking {
+	border: 1px solid;
+	border-radius: 10px;
+	width: 60px;
+	margin: 2.5px;
+}
+.btn {
+	z-index: 100;
+	background-color: rgba(255, 255, 255, 0.5);
+}
+.checked {
+	border-color: rgba(255, 0, 0, 0.5);
+}
 </style>
-<script src="https://code.jquery.com/jquery-latest.min.js" type="application/javascript"></script>
-<script type="application/javascript" src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
+<script src="https://code.jquery.com/jquery-latest.min.js"
+	type="application/javascript"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="application/javascript"
+	src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
 
-<script type="text/javascript">
-
-</script>
 <!-- 시/도 ,읍면동 select box -->
 <script type="text/javascript">
+$(function() {	
+	$(".button-div").click(function(){
+	  $(this).toggleClass("div-close");
+	  
+	  if ($(this).hasClass("div-close")) {
+	    $(".slide-div").animate({ left: "-230px"}, 800);  
+	    $(".button-div").animate({ left: "20px"}, 800);
+	    $(this).find(".button-open").attr("class", "button-close");
+	  } else {
+	    $(".slide-div").animate({ left: "0px"}, 800);  
+	    $(".button-div").animate({ left: "250px"}, 800);
+	    $(this).find(".button-close").attr("class", "button-open");
+	  }
+	});
+	$('.checking').click(function() {
+		if($(this).hasClass("checked")) {
+			$(this).removeClass("checked");
+		} else {
+			$(this).addClass("checked");
+		}
+	})
+});
 jQuery(document).ready(function(){
 	  //sido option 추가
 	  jQuery.each(hangjungdong.sido, function(idx, code){
@@ -99,37 +196,68 @@ function juso() {
 }
 <!-- 시/도 ,읍면동 select box 끝--> 
 
-
+</script>
+<script type="text/javascript">
 </script>
 </head>
 <body>
 
-	<!-- search -->
-	<form action="main.do" name="frm" onsubmit="return juso()">
-		<select id="sido" name="sido">
-			<option value="">특별시/도</option>
-		</select> 
-		<select id="sigugun" name="sigugun">
-			<option value="">시/군/구</option>
-		</select> 
-		<select id="dong" name="dong">
-			<option value="">동/읍/면</option>
-		</select>
-		<input type="submit">
-	</form>
-	<button onclick="location.href='pcMainForm.do?pcno=1'">pcmain</button>
-	<!-- search 끝-->
 	<!-- map -->
 	<div class="mapCenter">
+		<!-- search -->
+		<div class="slide-div">
+			<form action="main.dp" name="frm" onsubmit="return juso()">
+				<select id="sido" name="sido">
+					<option value="">특별시/도</option>
+				</select> 
+				<select id="sigugun" name="sigugun">
+					<option value="">시/군/구</option>
+				</select> 
+				<select id="dong" name="dong">
+					<option value="">동/읍/면</option>
+				</select> 
+				<input type="submit">
+			</form>
+			<form action="" class="keyword">
+				<label class="keyword" for="print"><img class="checking" alt="" src="/pc/resources/images/print.png"/></label> 
+				<input type="checkbox" id="print" class="keywordbox" name="print" value="프린트"> 
+				<label class="keyword" for="duel"><img class="checking" alt="" src="/pc/resources/images/dual.png"/></label>
+				<input type="checkbox" id="duel" class="keywordbox" name="duel" value="듀얼모니터"> 
+				<label class="keyword" for="curve"><img class="checking" alt="" src="/pc/resources/images/curve.png"/></label>
+				<input type="checkbox" id="curve" class="keywordbox" name="curve" value="커브모니터"> 
+				<label class="keyword" for="crt"><img class="checking" alt="" src="/pc/resources/images/crt.png"/></label>
+				<input type="checkbox" id="crt" class="keywordbox" name="crt" value="CRT모니터"> 
+				<label class="keyword" for="atm"><img class="checking" alt="" src="/pc/resources/images/atm.png"/></label>
+				<input type="checkbox" id="atm" class="keywordbox" name="atm" value="ATM기기"> 
+				<label class="keyword" for="air"><img class="checking" alt="" src="/pc/resources/images/air.png"/></label>
+				<input type="checkbox" id="air" class="keywordbox" name="air" value="공기청정기"> 
+				<label class="keyword" for="battery"><img class="checking" alt="" src="/pc/resources/images/battery.png"/></label>
+				<input type="checkbox" id="battery" class="keywordbox" name="battery" value="스마트폰충전"> 
+				<label class="keyword" for="game"><img class="checking" alt="" src="/pc/resources/images/game.png"/></label> 
+				<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임"> 
+				<br>	
+				<input type="submit" class="btn" value="찾기">
+			</form>
+			<div id="dispww">
+				<c:if test="${not empty listsearch }">
+					<c:forEach var="i" items="${listsearch }">
+						<span>${i.pcno }</span>
+					</c:forEach>
+				</c:if>
+			</div>
+		</div>
+		<div class="button-div div-close">
+			<div class="button-open"></div>
+		</div>
+		<!-- search 끝-->
 		<div id="map"></div>
 		<div id="disp"></div>
 	</div>
-	
-
 	<!-- map 끝 -->
 
 	<!-- map script -->
-	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f32d148d5a0f1b0127e3645366eccc05&libraries=services"></script>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f32d148d5a0f1b0127e3645366eccc05&libraries=services"></script>
 	<script>
 		// 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
 		var infowindow = new kakao.maps.InfoWindow({
@@ -192,10 +320,10 @@ function juso() {
 	    imageOption = {offset: new kakao.maps.Point(27, 69)}; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
 		// 마커의 이미지정보를 가지고 있는 마커이미지를 생성합니다
 		</script>
-		<!-- map script 끝 -->
-		<!-- 마커생성 -->
-		<c:forEach var="pc" items="${list }">
-			<script type="text/javascript">	
+	<!-- map script 끝 -->
+	<!-- 마커생성 -->
+	<c:forEach var="pc" items="${list }">
+		<script type="text/javascript">	
 			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
 			    markerPosition = new kakao.maps.LatLng('${pc.pclati}', '${pc.pclongi}'); // 마커가 표시될 위치입니다
 			// 마커를 생성합니다
@@ -213,36 +341,9 @@ function juso() {
 				$.post('pcDetailForm.do?pcno=${pc.pcno}', function(data) {
 					$('#disp').html(data);
 				});
-			alert("${pc.pcname}");
 			});
 			</script>
-		</c:forEach>
-		<!-- 마커생성끝 -->
-	<form action="">
-		<label class="keyword" for="print">프린트</label>
-		<input type="checkbox" id="print" class="keywordbox" name="print" value="프린트">
-		<label class="keyword" for="duel">듀얼모니터</label>
-		<input type="checkbox" id="duel" class="keywordbox" name="duel" value="듀얼모니터">
-		<label class="keyword" for="curve">커브드모니터</label>
-		<input type="checkbox" id="curve" class="keywordbox" name="curve" value="커브모니터">
-		<label class="keyword" for="crt">CRT모니터</label>
-		<input type="checkbox" id="crt" class="keywordbox" name="crt" value="CRT모니터">
-		<label class="keyword" for="atm">ATM기기</label>
-		<input type="checkbox" id="atm" class="keywordbox" name="atm" value="ATM기기">
-		<label class="keyword" for="air">공기청정기</label>
-		<input type="checkbox" id="air" class="keywordbox" name="air" value="공기청정기">
-		<label class="keyword" for="battery">스마트폰충전</label>
-		<input type="checkbox" id="battery" class="keywordbox" name="battery" value="스마트폰충전">
-		<label class="keyword" for="game">모바일게임</label>
-		<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임">
-		<input type="submit" value="찾기">
-	</form>
-	<div id="disp">
-	<c:if test="${not empty listsearch }">
-		<c:forEach var="i" items="${listsearch }">
-			<span>${i.pcno }</span>
-		</c:forEach>
-	</c:if>
-	</div>
+	</c:forEach>
+	<!-- 마커생성끝 -->
 </body>
 </html>

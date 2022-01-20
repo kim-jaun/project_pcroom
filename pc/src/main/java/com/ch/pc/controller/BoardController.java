@@ -54,13 +54,17 @@ public class BoardController {
 		return "/board/boardList";
 	}
 	@RequestMapping("content")
-	public String content(Board board, String pageNum, Model model, HttpSession session) {
+	public String content(Member1 member1, Board board, String pageNum, Model model, HttpSession session) {
 		bs.updateRead_cnt(board.getPcno(), board.getBno());      // 조회수 증가
 		Board board2 = bs.select(board.getPcno(), board.getBno());
 		board2.setSearchKey(board.getSearchKey());
 		board2.setSearchValue(board.getSearchValue());
 		Member1 memberSession = (Member1)session.getAttribute("memberSession");
-		board2.setNick_name(memberSession.getNick_name());
+
+		int mno1 = board2.getMno();
+		Member1 member2 = ms.selectMno(mno1);
+		String nick_name = member2.getNick_name(); 	
+		
 		String imgSrc = "";
 			int mno = memberSession.getMno();
 			int bno = board.getBno();
@@ -74,6 +78,7 @@ public class BoardController {
 		model.addAttribute("board", board2);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("imgSrc", imgSrc);
+		model.addAttribute("nick_name", nick_name);
 		return "/board/content";
 	}
 	@RequestMapping("insertForm")

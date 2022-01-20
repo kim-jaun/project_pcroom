@@ -6,12 +6,12 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
- 
+
 @Repository
 public class Board_likesDaoImpl implements Board_likesDao {
 	@Autowired
 	private SqlSessionTemplate sst;
- 
+
 	public int select(int mno, int bno) {
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("mno", mno);

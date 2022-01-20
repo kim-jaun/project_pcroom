@@ -8,6 +8,45 @@
 <title>어데 피씹니까?</title>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/registerForm.css">
 <script type="text/javascript" src="resources/bootstrap/js/jquery.js"></script>
+<style type="text/css">
+ 	input[type="image"] { 
+		border: 1px solid;
+		width: 100px;
+		height: 120px;
+	}
+	.color {
+		color:red;
+	}
+	.a {
+		display: inline-block
+	}
+	.b {
+		display: inline-block
+	}
+	.c {
+		display: inline-block
+	}
+	body {
+		background-color: #2c3e50;
+	}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		position: relative;
+		}
+	.btn_ok{
+		margin: 30px;
+	}
+	.form-control {
+		width: 500px;
+	}
+</style>
 <script type="text/javascript">
 function upload() { // 업로드 안했을경우
 	if (!frm.pcimage.value) {
@@ -30,19 +69,19 @@ $(document).ready(function() {
 });
 
 function fn_chkInfo(obj) {
-	if(obj.attr("class") == "_checked") {
-		obj.removeClass("_checked");
+	if(obj.attr("class") == "_checked color") {
+		obj.removeClass("_checked color");
 	} else {
-		obj.addClass("_checked");
+		obj.addClass("_checked color");
 	}
 }
 
 function fn_selectInfo() {
 	var str = "";
 	var strId = "";
-	
+
 	$("input[name='info']").each(function(index, element) {
-		if($(this).attr("class") == "_checked") {
+		if($(this).attr("class") == "_checked color") {
 			str += ((str.length>0) ? "," : "") + $(this).val().trim();
 			strId +=((strId.length>0) ? "," : "") + $(this).attr("id");
 		}
@@ -55,36 +94,36 @@ function fn_selectInfo() {
 	document.getElementById("pcinfo").value = selectContent;
 	/* $("#divInfoLayer").hide();  */
 }
-
 </script>
 </head>
 <body>
+<div class="content_center">
 <div class="total_content" align="center">
 	<form action="register.do" name="frm" method="post" onsubmit="return upload()" enctype="multipart/form-data">
 			<div class="join_total">
 			<div class="title_size">가맹점 등록</div>
 				<div class="join_content">
-					<input placeholder="사업자등록번호" type="text" name="pcbusinessnum" required="required" class="form-control" style="width:335px;">
+					<input placeholder="사업자등록번호" type="text" name="pcbusinessnum" required="required" class="form-control" style="width:500px;">
 				</div>
 				<p>
 				<div class="join_content">
-					<input placeholder="pc방 이름" type="text" name="pcname" required="required" class="form-control" style="width:335px;">
+					<input placeholder="pc방 이름" type="text" name="pcname" required="required" class="form-control" style="width:500px;">
 				</div>
 				<p>
 				<div class="join_content">
-					<input placeholder="pc방 내부사진" type="file" name="pcimage" required="required" multiple="multiple" readonly="readonly" class="form-control">
+					<input placeholder="pc방 내부사진" type="file" name="pcimage" required="required" multiple="multiple" readonly="readonly" class="form-control" style="width:500px;">
 				</div>
 				<p>
 				<div class="join_content">
-					<input type="text" name="pcpno" required="required" title="전화형식 3-3,4-4" pattern="\d{3}-\d{3,4}-\d{4}" placeholder="010-1111-1111" class="form-control" style="width:335px;">
+					<input type="text" name="pcpno" required="required" title="전화형식 3-3,4-4" pattern="\d{3}-\d{3,4}-\d{4}" placeholder="010-1111-1111" class="form-control" style="width:500px;">
 				</div>
 				<p>
 				<div>
 				<div class="join_content content_id">
-					<input type="text" name="pcaddr" id="pcaddr" required="required" placeholder="주소" style="width:300px" readonly="readonly" class="form-control">
-					<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-primary btn_size"><br>
+					<input type="text" name="pcaddr" id="pcaddr" required="required" placeholder="주소" style="width:500px" readonly="readonly" class="form-control">
+					<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-primary"><br>
 				</div>
-					<div id="map" style="width:300px;height:300px;margin-top:10px;display:block;"></div>
+					<div id="map" style="width:500px;height:300px;margin-top:10px;display:block;"></div>
 				</div>
 				<p>
 				<div class="join_content">
@@ -94,15 +133,52 @@ function fn_selectInfo() {
 							<strong id="selectInfoList"></strong>
 						</a>
 						<div id="divInfoLayer" class="layer-service">
-							<p>정보 선택</p>
-							<input type="button" value="프린트" name="info">
-							<input type="button" value="듀얼모니터" name="info">
-							<input type="button" value="커브모니터" name="info">
+							<p>정보 선택</p>	
+							<div class="a">									
+							<input type="image" src="/pc/resources/images/print.png" name="info" value="프린트">
+							<p>
+							프린트
+							</div>	
+							<div class="a">	
+							<input type="image" src="/pc/resources/images/dual.png" name="info" value="듀얼모니터">
+							<p>
+							듀얼모니터
+							</div>	
+							<div class="a">	
+							<input type="image" src="/pc/resources/images/curve.png" name="info" value="커브모니터">
+							<p>
+							커브모니터
+							</div>	
+							<div class="b">	
+							<input type="image" src="/pc/resources/images/crt.png" name="info" value="CRT모니터">
+							<p>
+							CRT모니터
+							</div>	
+							<div class="b">	
+							<input type="image" src="/pc/resources/images/atm.png" name="info" value="ATM기기">
+							<p>
+							ATM기기
+							</div>	
+							<div class="b">	
+							<input type="image" src="/pc/resources/images/air.png" name="info" value="공기청정기">
+							<p>
+							공기청정기
+							</div>	
+							<div class="c">	
+							<input type="image" src="/pc/resources/images/battery.png" name="info" value="스마트폰충전">
+							<p>
+							스마트폰충전
+							</div>	
+							<div class="c">	
+							<input type="image" src="/pc/resources/images/game.png" name="info" value="모바일게임">
+							<p>
+							모바일게임
+							</div>	
 							<div>
 								<span>
 									
 								</span>
-								<button type="button" onclick="fn_selectInfo()" class="btn btn-primary btn_size">확인</button>
+								<button type="button" onclick="fn_selectInfo()" class="btn btn-primary btn_size btn_ok">확인</button>
 							</div>
 						</div>
 					</div>
@@ -114,9 +190,10 @@ function fn_selectInfo() {
 				</div>
 			</div>
 			<div align="center">
-			<button id="submit" type="submit" class="btn btn-primary btn_size">확인</button>
+			<button id="submit" type="submit" class="btn btn-primary btn_ok">확인</button>
 			</div>
 		</form>
+		</div>
 </div>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f32d148d5a0f1b0127e3645366eccc05&libraries=services"></script>

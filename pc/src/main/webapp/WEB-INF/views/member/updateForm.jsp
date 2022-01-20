@@ -10,7 +10,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script> 
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 <style type="text/css">
-ul {
+/* ul {
 	background-color: #d5d5d5;
 	width : 150px;
 	list-style-type : none;
@@ -30,7 +30,59 @@ li.current {
 }
 li a:hover:not(.current) {
 	background-color: #d5d5d5;
+} */
+/* 프로필 */
+#image_container {
+	width: 150px;
+	height: 150px;
 }
+
+#image_container img{
+	width:100%; 
+	height:100%;
+	border-radius: 100px;
+	object-fit: cover;
+}
+
+.profile{
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+}
+	body {
+		background-color: #2c3e50;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		position: relative;
+		}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+	}
+	.btn-primary{
+		margin: 0 20px;
+	}
+	.form_line {
+		display: flex;
+		justify-content: center;
+	}
+	.form-control {
+	width: 335px;
+	border: none;
+	background-color: white;
+	border-bottom: 1px solid #2c3e50;
+	margin-bottom: 10px;
+}
+	h3 {
+	margin-bottom: 20px;
+	}
+	.btn_ok {
+		margin: 30px;
+	}
 </style>
 <script type="text/javascript">
 function chk() {
@@ -94,9 +146,26 @@ function chk4() { // 이메일 중복체크
 		}
 	});
 }
+// 프로필 미리보기
+/* function setProfile(event) {
+ 	var reader = new FileReader();
+	
+	reader.onload = function(event) {
+		var img = document.creatElement("img");
+		img.setAttribute("src", event.target.result);
+		img.setAttribute("width",200);
+		img.setAttribute("height",200);
+		
+		$("#image_container img").remove();
+		document.querySelector("div#image_container").appendChild(img);
+	};
+	reader.readAsDataURL(event.target.files[0]);
+} */
 </script>
 </head>
 <body>
+<div class="content_center">
+<div class="total_content" align="center">
 <div class="navi_admin"> 
 	<ul class="sidebar">
 		<li><a href="updateForm.do">회원정보 수정</a></li>
@@ -104,42 +173,48 @@ function chk4() { // 이메일 중복체크
 		<li><a href="mybookmark.do">즐겨찾기</a></li>
 	</ul>
 </div>
-	<div class="total_content" align="center">
+<div class="form_line">
 	<form class="join_form" action="update.do" method="post" name="frm" onsubmit="return chk()"  enctype="multipart/form-data">
 		<input type="hidden" name="nick_namechk" value="0"> 
 		<input type="hidden" name="emailchk" value="0">
 		<div class="join_total">
-		<div class="title_size">회원정보 수정</div>
+		<h3>회원정보 수정</h3>
+			<div class="profile">
+				<div id="image_container" style="border: 1px;">
+					<img alt="" src="/pc/resources/upload/${member.profile}">
+				</div>
+				${member.profile }
 			<div class="form_group">
-				<input class="form-control" type="file" name="file">
+				<input class="form-control" type="file" name="file" id="f1" onchange="setProfile(event)">
+			</div>
 			</div>
 			<div>아이디</div>
-			<div class="join_content content_id">
-				<input type="text" name="id" value="${member.id }" readonly="readonly" class="form-control" style="width:335px;">
+			<div class="join_content">
+				<input type="text" name="id" value="${member.id }" readonly="readonly" class="form-control">
 			</div>
 			<div>암호</div>
 			<div class="join_content">
-				<input type="password" name="password" required="required" class="form-control" style="width:335px;">
+				<input type="password" name="password" required="required" class="form-control">
 			</div>
 			<div>암호확인</div>
 			<div class="join_content">
-				<input type="password" name="password2" required="required" onchange="pass_chk()" class="form-control" style="width:335px;">
+				<input type="password" name="password2" required="required" onchange="pass_chk()" class="form-control">
 			</div>
 			<div id="same"></div>
 			<div>이름</div>
 			<div class="join_content">
-				<input type="text" name="name" value="${member.name }" required="required" class="form-control" style="width:335px;">
+				<input type="text" name="name" value="${member.name }" required="required" class="form-control">
 			</div>
 			<div>닉네임</div>
 			<div class="join_content content_id">
-				<input type="text" name="nick_name" value="${member.nick_name }" required="required" class="form-control" style="width:335px;">
-				<input type="button" onclick="chk3()" value="중복체크" class="btn btn-primary btn_size">
+				<input type="text" name="nick_name" value="${member.nick_name }" required="required" class="form-control">
+				<input type="button" onclick="chk3()" value="중복체크" class="btn btn-primary">
 			</div>
 			<div id="err2"></div>
 			<div>연락처</div>
 			<div class="join_content">
 				<input type="tel" name="phone" required="required" value="${member.phone }" pattern="010-\d{3,4}-\d{4}"
-						placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control" style="width:335px;">
+						placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control">
 			</div>
 			<div>성별</div>
 			<div>
@@ -155,8 +230,8 @@ function chk4() { // 이메일 중복체크
 			</div>
 			<div>이메일</div>
 			<div class="join_content content_id">
-				<input type="email" name="email" value="${member.email }" required="required" class="form-control" style="width:335px;">
-				<input type="button" onclick="chk4()" value="중복체크" class="btn btn-primary btn_size">
+				<input type="email" name="email" value="${member.email }" required="required" class="form-control">
+				<input type="button" onclick="chk4()" value="중복체크" class="btn btn-primary">
 			</div>
 			<div id="err3"></div>
 			<div>회원식별</div>
@@ -164,9 +239,11 @@ function chk4() { // 이메일 중복체크
 					<option>일반회원</option>
 					<option>점주</option>
 				</select>
-			<div><input type="submit" value="수정완료" class="btn btn-primary btn_size"></div>
+			<div><input type="submit" value="수정완료" class="btn btn-primary btn_ok"></div>
 		</div>
 	</form>
+	</div>
+	</div>
 	</div>
 </body>
 </html>

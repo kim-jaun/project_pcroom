@@ -11,7 +11,7 @@
 <c:if test="${result > 0 }">
 	<script type="text/javascript">
 		alert("회원정보가 수정되었습니다.");
-		location.href="mypageForm.do";
+		location.href="main.do";
 	</script>
 </c:if>
 <c:if test="${result == 0 }">

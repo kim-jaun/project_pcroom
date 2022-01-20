@@ -10,7 +10,6 @@ import com.ch.pc.model.Fee;
 import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
-import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 
 @Service
@@ -52,33 +51,43 @@ public class PcServiceImpl implements PcService {
 	public int getTotal(Pc pc) {
 		return pd.getTotal(pc);
 	}
-	@Override
 	public List<Pc> listMap() {
 		return pd.listMap();
 	}
-	@Override
+	
+	//좌석예약
 	public String listSeat(int pcno) {
 		return pd.listSeat(pcno);
 	}
-	@Override
 	public int updateSeatform(Pc pc) {
 		return pd.updateseatform(pc);
 	}
-	@Override
 	public Seat selectseat(int pcno) {
 		return pd.selectseat(pcno);
 	}
-	@Override
 	public int insertSeat(Seat seat) {
 		return pd.insertSeat(seat);
 	}
-	@Override
 	public int updateSeat(Seat seat) {
 		return pd.updateseat(seat);
 	}
-	@Override
 	public Pc selectMno(int mno) {
 		return pd.selectMno(mno);
+	}
+	
+	//pc방 수정
+	public int updatePc(Pc pc) {
+		return pd.updatePc(pc);
+	}
+
+	@Override
+	public void deletePcimage(List<Pcimage> images) {
+		for(Pcimage pi : images) {
+			pd.deletePi(pi);
+		}
+	}
+	public List<Pc> searchpc(Keyword keyword) {
+		return pd.searchpc(keyword);
 	}
 	@Override
 	public int feeInsert(Fee fee) {
@@ -92,12 +101,6 @@ public class PcServiceImpl implements PcService {
 	public int feeUpdate(Fee fee) {
 		return pd.feeUpdate(fee);
 	}
-	@Override
-	public int insertReservation(Reservation reservation) {
-		return pd.insertReservation(reservation);
-	}
-	public List<Pc> searchpc(Keyword keyword) {
-		return pd.searchpc(keyword);
-	}
+
 
 }

@@ -126,6 +126,7 @@ public class MemberController {
 			}else if(pc.getPermit().equals("n")) {	
 				member2.setPermitConfirm(0);	// 가맹승인이 아직이면 0
 			}
+			
 			session.setAttribute("memberSession", member2);// header출력용
 		}
 		model.addAttribute("result", result);
@@ -228,6 +229,7 @@ public class MemberController {
 	@RequestMapping("updateForm")
 	public String updateForm(Model model, HttpSession session) {
 		Member1 member = (Member1)session.getAttribute("memberSession");
+
 		model.addAttribute("member", member);
 		return "/member/updateForm";
 	}
@@ -265,11 +267,13 @@ public class MemberController {
 			result = -1;	// 회원정보 없음
 		} else {
 			String fileName = member1.getFile().getOriginalFilename();
-			String real = session.getServletContext().getRealPath("/resources/upload");
-			FileOutputStream fos=new FileOutputStream(new File(real+"/"+fileName));
-			fos.write(member1.getFile().getBytes());
-			fos.close();
-			member1.setProfile(fileName);
+			if(fileName != null && !fileName.equals("")) { // 값이 새로 들어오면
+				member1.setProfile(fileName);
+				String real = session.getServletContext().getRealPath("/resources/upload");
+				FileOutputStream fos = new FileOutputStream(new File(real+"/"+fileName));
+				fos.write(member1.getFile().getBytes());
+				fos.close();
+			}
 			result = ms.update(member1);
 			Member1 member3 = ms.select(member1.getId());
 			session.setAttribute("memberSession", member3);// header출력용

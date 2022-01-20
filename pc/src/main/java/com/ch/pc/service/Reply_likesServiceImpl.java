@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.ch.pc.dao.Reply_likesDao;
 
-
-
 @Service
 public class Reply_likesServiceImpl implements Reply_likesService {
 	@Autowired
@@ -15,13 +13,10 @@ public class Reply_likesServiceImpl implements Reply_likesService {
 	public int select(int mno, int rno) {
 		return rld.select(mno, rno);
 	}
-
 	public void insert(int mno, int rno) {
 		rld.insert(mno, rno);
 	}
-
 	public void delete(int mno, int rno) {
 		rld.delete(mno, rno);
 	}
-	
 }
