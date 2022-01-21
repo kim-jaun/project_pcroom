@@ -201,6 +201,11 @@ function fn_selectInfo() {
 				</div>
 			</div>
 			</div>
+			<p>
+			<div class="form-group">
+				<div>pc방 이름</div>
+				<textarea rows="7" cols="50" name="pcintro" class="form-control" required="required">${pc.pcintro }</textarea>
+			</div>
 			<div>
 				<input type="hidden" name="pclati" id="pclati"> 
 				<input type="hidden" name="pclongi" id="pclongi"> 

@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
 <script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/pcMainForm.css">
 <script type="text/javascript">
 	// 가맹점 승인(관리자만)
 	function permit(p_pcno){
@@ -58,97 +60,17 @@
 		// 현재 게시글에 해당하는 댓글을 가져와서 보여줘라
 		$('#review').load('reviewList.do?pcno=${pc.pcno}&pcname=${pc.pcname }&pageNum=${pageNum}');
 	});
+	$(function() {
+		$('#seatCurrent').load('seatCurrent.do')
+	});
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<style type="text/css">
-div.left {
-	width: 50%;
-	float: left;
-	border-right: 1px solid black;
-}
-
-div.right {
-	width: 50%;
-	float: right;
-}
-.carousel {
-	width: 500px;
-	height: 300px;
-}
-.carousel-inner img {
-	width: 100%;
-	height: 100%:
-}
-
-.item {
-	width: 100%;
-	height: 100%;
-	display: flex;
-	align-items: center;
-}
-
-.right {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-}
-
-#seatChoice input {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	width: inherit;
-	height: inherit;
-	margin-bottom: 0;
-	z-index: -1;
-	opacity: 0;
-}
-
-.seatLabel2 {
-	font-size: 13px;
-	padding: 3px 0;
-	width: 40px;
-	margin: 2px 2px;
-	border: 1px solid rgba(0, 0, 0, 0);
-	opacity: 0;
-}
-
-.seatLabel2.active {
-	background-color: rgba(255, 255, 255, 0.8);
-}
-
-.seatLabel2.btn {
-	font-size: 13px;
-	padding: 3px 0;
-	width: 40px;
-	margin: 2px 2px;
-	border: 1px solid rgba(0, 0, 0, 0.5);
-	opacity: 1;
-}
-	body {
-		background-color: #2c3e50;
-	}
-	.content_center{
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-direction: column;
-		}
-	.total_content{
-		width: 90%; 
-		height: 90%;
-		border-radius: 20px;
-		background-color: white;
-		padding-left: 0;
-	}  
-</style>
 </head>
 <body onload="seatSize2()">
 <div class="content_center">
 <div class="total_content">
 	<!-- 북마크 -->
+	<div class="bookmark_pcname">
 	<div class="pcLikes">
 		<c:if test="${id != null}">
 			<c:if test="${id != 'admin'}">
@@ -158,7 +80,8 @@ div.right {
 		</c:if>
 	</div>
 	<!-- 북마크 끝 -->
-	<h3>${pc.pcname }</h3>
+	<h3>${pc.pcname }&nbsp;&nbsp;${avgRating }</h3>
+	</div>
 	<div class="left" align="center">
 		<div id="carousel-example-generic" class="carousel slide"
 			data-ride="carousel">
@@ -190,32 +113,35 @@ div.right {
 		<div>${pc.pcaddr }</div>
 		<div>정보</div>
 		<div>${pc.pcinfo }</div>
+		<div>pc방 소개</div>
+		<div>${pc.pcintro }</div>
 		<c:if test="${id == 'admin'}">
 			<c:if test="${pc.permit == 'n' }">
-				<button onclick="permit(${pc.pcno})">승인</button>
+				<button onclick="permit(${pc.pcno})" class="btn btn-primary">승인</button>
 			</c:if>
 			<c:if test="${pc.permit == 'y' }">
-				<button>승인완료</button>
+				<button class="btn btn-primary">승인완료</button>
 			</c:if>
+		</c:if>
+		<div>
+			<button class="btn btn-primary" onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
+			<button class="btn btn-primary" onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
+			<div>
+				<c:if test="${id == 'admin'}">
+					<button class="btn btn-primary" onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
+				</c:if>
+			</div>
+		</div>
+		<div>
+			<button onclick='location.href="reservationForm.do"'>좌석예약</button>
+		</div>
+		<c:if test="${memberSession.mno == pc.mno }">
+			<button class="btn btn-primary" onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
+			<button class="btn btn-primary" onclick='location.href="feeUpdateForm.do"'>요금수정</button>
 		</c:if>
 	</div>
 	<div class="right" align="center">
-		<div>
-			<div id="view"></div>
-			<button onclick='location.href="reviewList.do?pcno=${pc.pcno}&pcname=${pc.pcname }"'>리뷰</button>
-			<button onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
-			<button onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치
-				수정</button>
-		</div>
-		<div>
-			<c:if test="${id == 'admin'}">
-				<button onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
-			</c:if>
-		</div>
-		<form action="reservation.do">
-			<div id="seatChoice"></div>
-			<input type="submit" value="예약">
-		</form>
+		<div id="review"></div>		
 	</div>
 </div>
 </div>

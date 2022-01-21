@@ -28,7 +28,6 @@ public class ReplyController {
 	public String replyList(Board_reply board_reply, String pageNum, Model model, HttpSession session) {
 		Member1 memberSession = (Member1) session.getAttribute("memberSession");
 		List<Board_reply> list = brs.list(board_reply.getPcno(), board_reply.getBno());
-		String imgSrc = "";
 		for (Board_reply reply : list) {
 			Member1 member1 = ms.selectMno(reply.getMno());
 			reply.setNick_name(member1.getNick_name());
@@ -43,11 +42,9 @@ public class ReplyController {
 			else if (reply_likes == 0) { // 추천 안했으면 
 				reply.setLikesConfirm(0);
 			}	
-			System.out.println(reply.getLikesConfirm());
 			/*-----------댓글 추천유무 구현 끝-----------------*/
 		}
 		
-		model.addAttribute("imgSrc", imgSrc);
 		model.addAttribute("memberSession", memberSession);
 		model.addAttribute("pageNum", pageNum);
 		model.addAttribute("list", list);

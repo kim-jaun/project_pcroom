@@ -23,6 +23,7 @@
 	
 	<context:component-scan base-package="com.ch.pc" />
 	<beans:bean id="lc" class="com.ch.pc.service.LoginChk"></beans:bean>
+	<beans:bean id="er" class="com.ch.pc.service.ExpiredReservation"></beans:bean>
 	<!-- mapping interceptor할 url을 등록 -->
 	<!-- beans:ref 가로채서 먼저 실행하는 객체 -->
 	<interceptors>
@@ -32,6 +33,10 @@
 			<mapping path="/passChkForm.do"/>
 			<mapping path="/pcMainForm.do"/>
 			<beans:ref bean="lc"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/main.do"/>
+			<beans:ref bean="er"/>
 		</interceptor>
 	</interceptors>
 	

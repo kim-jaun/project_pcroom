@@ -22,6 +22,9 @@
 	font-size: 12px;
 	height: 25px;
 	margin: 0 1px;
+	border-radius: 4px;
+
+	border: 0;
 }
 .reply_list{
 	display: flex;
@@ -43,6 +46,15 @@
 	margin-left: 5px;
 	font-size: 4px;
 }
+.container {
+	margin-top: -30px;
+}
+.btn_likes{
+	margin: 2px 5px;
+}
+.btn-primary {
+	margin: 5px;
+}
 </style>
 <script type="text/javascript">
 function rDelete(pcno,bno,rno) {
@@ -57,9 +69,9 @@ function rUpdate(pcno,bno,rno) {
 	$('#td_'+rno).html("<textarea rows='3' cols='50' id='rt_"+rno+"'>" +
 			txt+"</textarea>");
 	$('#btn_'+rno).html("<button onclick='up("+pcno+","+bno+","+rno+")'"+
-		" class='reply_likes'><i class='far fa-check-circle'></i></button> "+
+		" class='reply_likes btn-primary'><i class='far fa-check-circle'></i></button> "+
 		"<button onclick='lst("+pcno+","+bno+")'" +
-		" class='reply_likes'><i class='far fa-times-circle'></i></button>");
+		" class='reply_likes btn-danger'><i class='far fa-times-circle'></i></button>");
 }
 function lst(pcno,bno) {
 	$('#disp').load('replyList.do?pcno='+pcno+'&bno='+bno);
@@ -105,12 +117,12 @@ function rLikes(pcno,bno,rno) {
 								<div class="reply_btn">
 									<!-- 추천을 안한 사람 일 때 -->
  									<c:if test="${board_reply.likesConfirm == 0}"> 
- 										<button class="reply_likes"
+ 										<button class="reply_likes btn-secondary btn_likes"
  											onclick="rLikes(${board_reply.pcno},${board_reply.bno},${board_reply.rno})"><i class="far fa-thumbs-up"></i>${board_reply.likes }</button>
 									</c:if>
 									<!-- 추천을 한 사람 일때 -->
 									<c:if test="${board_reply.likesConfirm == 1}">
-										<button class="reply_likes" 
+										<button class="reply_likes btn-secondary btn_likes" 
 											onclick="rLikes(${board_reply.pcno},${board_reply.bno},${board_reply.rno})"><i class="fas fa-thumbs-up"></i>${board_reply.likes }</button>
 									</c:if> 
 									<!-- 수정/삭제 -->
@@ -118,9 +130,9 @@ function rLikes(pcno,bno,rno) {
 										test="${memberSession.mno == board_reply.mno || memberSession.id == 'admin'}">
 										<div id="btn_${board_reply.rno }">
 											<c:if test="${memberSession.mno == board_reply.mno }">
-												<button class="reply_likes"	onclick="rUpdate(${board_reply.pcno},${board_reply.bno},${board_reply.rno})"><i class="far fa-edit"></i></button>
+												<button class="reply_likes btn btn-primary"	onclick="rUpdate(${board_reply.pcno},${board_reply.bno},${board_reply.rno})"><i class="far fa-edit"></i></button>
 											</c:if>
-											<button class="reply_likes" onclick="rDelete(${board_reply.pcno},${board_reply.bno},${board_reply.rno})"><i class="far fa-trash-alt"></i></button>
+											<button class="reply_likes btn btn-danger" onclick="rDelete(${board_reply.pcno},${board_reply.bno},${board_reply.rno})"><i class="far fa-trash-alt"></i></button>
 										</div>
 									</c:if>
 								</div>

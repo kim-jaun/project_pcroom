@@ -183,6 +183,10 @@ function fn_selectInfo() {
 						</div>
 					</div>
 				</div>	
+				<p>
+				<div class="form-group">
+					<textarea rows="7" cols="50" name="pcintro" placeholder="pc방을 소개해주세요~" class="form-control" required="required"></textarea>
+				</div>
 				<div>
 					<input type="hidden" name="pclati" id="pclati">
 					<input type="hidden" name="pclongi" id="pclongi">

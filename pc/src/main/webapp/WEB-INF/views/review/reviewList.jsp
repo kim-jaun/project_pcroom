@@ -1,11 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+	integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+	crossorigin="anonymous">
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#popup_open").click(function() {
@@ -23,8 +30,7 @@
 			var sendData = $('#frm1').serialize();
 			$.post('wInsert.do',sendData, function(data) {
 				alert("댓글이 작성 되었습니다");
-				$('#mask').html(data);
-				location.reload();
+				$('#review').html(data);
 				frm1.content.value="";// 작성했던 댓글 삭제
 			});	 	 
 			$('#popup_wrap').css("display", "none");
@@ -37,35 +43,48 @@
 		var sendData = 'pcno='+pcno+'&rno='+rno;
 		$.post('wDelete.do', sendData, function(data) {
 			alert("리뷰가 삭제 되었습니다");
-			location.reload();
+			$('#review').html(data);
 		});
 	}
 	function wUpdate(pcno,rno) {
-		var txt = $('#td_'+rno).text().trim();	
-		alert(txt);
+		var txt = $('#td_'+rno).text().trim();
 		$("#popup_wrap").css("display", "block");
 		$("#mask").css("display", "block");
 		$('#tr_a').html("<textarea align='center' rows='5' cols='40' id='rt_"+rno+"'>" +
 				txt+"</textarea>");
+		$('#tr_c').html("<div class=star-rating id='pre-rating'>"+"<input type='radio' id='5-stars' name='rating' value='5' onclick='strnum(5)'/>"+
+				  "<label for='5-stars' class='star'>&#9733</label>"+
+				"<input type='radio' id='4-stars' name='rating' value='4' onclick='strnum(4)'/>"+
+				  "<label for='4-stars' class='star'>&#9733</label>"+
+				 "<input type='radio' id='3-stars' name='rating' value='3' onclick='strnum(3)'/>"+
+				  "<label for='3-stars' class='star'>&#9733</label>"+
+				 "<input type='radio' id='2-stars' name='rating' value='2' onclick='strnum(2)'/>"+
+				  "<label for='2-stars' class='star'>&#9733</label>"+
+				 "<input type='radio' id='1-stars' name='rating' value='1' onclick='strnum(1)'/>"+
+				  "<label for='1-stars' class='star'>&#9733</label>"+"</div>");		
 		$('#btn_b').html("<button onclick='up("+pcno+","+rno+")'"+
-			" class='review_likes'>수정<i class='far fa-check-circle'></i></button> "+
+			" class='review_likes btn-primary'>수정</button> "+
 			"<button onclick='lst("+pcno+")'" +
-			" class='review_likes'>취소<i class='far fa-times-circle'></i></button>");
+			" class='review_likes btn-danger'>취소</button>");
 	}
+	function strnum(num) {
+		$('#pre-rating').val(num);
+	}
+	
 	function lst(pcno) {
 		$('#mask').load('reviewList.do?pcno='+pcno);
 	}
 	function up(pcno,rno) {
-		var sendData = "content="+$('#rt_'+rno).val()+"&pcno="+pcno+"&rno="+rno;
+		var sendData = "content="+$('#rt_'+rno).val()+"&pcno="+pcno+"&rno="+rno+"&rating="+$('#pre-rating').val();
 		$.post("wUpdate.do", sendData, function(data) {
-			alert("댓글 수정 되었습니다");
-			location.reload();
+			alert("리뷰 수정 되었습니다");
+			$('#review').html(data);
 		});
 	} 
 	function wLikes(pcno,rno) {
 		var sendData = 'pcno='+pcno+'&rno='+rno;
 		$.post('review_likes.do', sendData, function(data) {
-			location.reload();
+			$('#review').html(data);
 		});
 	}
 	
@@ -149,7 +168,7 @@
 }
 .review_likes{
 	width: 45px;
-	font-size: 12px;
+/* 	font-size: 12px; */
 	height: 25px;
 	margin: 0 1px;
 }
@@ -168,16 +187,41 @@
 	display:flex;
 	width: 100%;
 	align-items: flex-end;
+/* 	fonr-size: 6px; */
 }
 .review_reg_date{
 	margin-left: 5px;
-	font-size: 4px;
+/* 	font-size: 4px; */
+}
+ .reviewList {
+  	width: 90%;  
+ } 
+.review_nick{
+	color: black;
+	font-weight: bold;
+	font-size: 10px;
+}
+.btn_size {
+	width: 35px;
+	height: 23px;
+}
+.paging {
+	display: flex;
+	justify-content: center;
+}
+.review_star_on {
+   color:#f90;
+   font-size:13px;
+}
+
+.review_star_off {
+     color:#ccc;
+     font-size:13px;
 }
 </style>
 </head>
 <body>
 	<div>
-		<button id="popup_open">리뷰 등록</button>
 		<!-- 레이어 팝업 -->
 		<div id="popup_wrap">
 			<div class="popup-cont01" align="center" id="popup-cont">
@@ -189,7 +233,7 @@
 						<strong>평점 등록</strong>
 					</div>
 					<div class="input_star" align="center">
-						<div class="star-rating">
+						<div class="star-rating" id="tr_c">
 							  <input type="radio" id="5-stars" name="rating" value="5"/>
 							  <label for="5-stars" class="star">&#9733;</label>
 							  <input type="radio" id="4-stars" name="rating" value="4"/>
@@ -216,41 +260,38 @@
 				</form>
 			</div>
 		</div>
-		<div>
-			<div>
+		<h4>리뷰</h4>
+		<div class="reviewList">
 				<c:if test="${empty list }">
 					<div>댓글이 없습니다.</div>
 				</c:if>
 				<c:if test="${not empty list }">
 					<c:forEach var="review" items="${list }">
-						<hr>
 						<div class="review_update">
 							<c:if test="${review.del == 'y' }">
 								<div>
-									<br> <span>삭제된 댓글입니다.</span><br>
+									<br><span>삭제된 댓글입니다.</span><br>
 								</div>
 							</c:if>
 							<c:if test="${review.del != 'y' }">
 								<div class="review_list">
 									<div class="review_writer">
-										<div style="color: black;">${review.nick_name}</div>
-										<div>${review.rating }</div>
+										<div class="review_nick">${review.nick_name}</div>
+										<c:forEach var="rating" varStatus="status" begin="1" end="${ review.rating }"><div class="review_star_on">&#9733</div></c:forEach>
+                             			<c:forEach var="rating" varStatus="status" begin="${ review.rating }" end="4"><div class="review_star_off">&#9734</div></c:forEach>
 										<div class="review_reg_date">
-											<fmt:formatDate value="${review.reg_date }"
-												pattern="yyyy.MM.dd E a HH:mm:ss" />
+											<fmt:formatDate value="${review.reg_date }" pattern="yyyy.MM.dd E a HH:mm:ss" />
 										</div>
 									</div>
 									<div class="review_btn">
 										<!-- 추천을 안한 사람 일 때 -->
 										<c:if test="${review.likesConfirm == 0}">
-											<button class="review_likes"
-												onclick="wLikes(${review.pcno},${review.rno})">
+											<button class="review_likes btn-secondary btn_size" onclick="wLikes(${review.pcno},${review.rno})">
 												<i class="far fa-thumbs-up"></i>${review.likes }</button>
 										</c:if>
 										<!-- 추천을 한 사람 일때 -->
 										<c:if test="${review.likesConfirm == 1}">
-											<button class="review_likes"
-												onclick="wLikes(${review.pcno},${review.rno})">
+											<button class="review_likes btn-secondary btn_size" onclick="wLikes(${review.pcno},${review.rno})">
 												<i class="fas fa-thumbs-up"></i>${review.likes }</button>
 										</c:if>
 										<!-- 수정/삭제 -->
@@ -258,14 +299,12 @@
 											test="${memberSession.mno == review.mno || memberSession.id == 'admin'}">
 											<div>
 												<c:if test="${memberSession.mno == review.mno }">
-													<button class="review_likes"
-														onclick="wUpdate(${review.pcno},${review.rno})">
-														수정 <i class="far fa-edit"></i>
+													<button class="review_likes btn-primary btn_size" onclick="wUpdate(${review.pcno},${review.rno})">
+														<i class="far fa-edit"></i>
 													</button>
 												</c:if>
-												<button class="review_likes"
-													onclick="wDelete(${review.pcno},${review.rno})">
-													삭제 <i class="far fa-trash-alt"></i>
+												<button class="review_likes btn-danger btn_size" onclick="wDelete(${review.pcno},${review.rno})">
+													<i class="far fa-trash-alt"></i>
 												</button>
 											</div>
 										</c:if>
@@ -277,40 +316,39 @@
 								</div>
 							</c:if>
 						</div>
+						<hr>
 						<br>
 					</c:forEach>
 					<br>
 					<br>
 				</c:if>
-			</div>
 		</div>
 	</div>
-	<div align="center">
-	<ul class="pagination">
+	<ul class="pagination paging">
 	<!-- 시작 페이지가 pagePerBlock보다 크면 앞에 보여줄 것이 있다 -->
 		<c:if test="${pb.startPage > pb.pagePerBlock }">
-			<li><a class="btn btn-outline-primary" href="reviewList.do?pcno=${review.pcno}&pageNum=1">
+			<li><a class="btn btn-outline-primary" href="pcMainForm.do?pcno=${review.pcno}&pageNum=1">
 				<span class="glyphicon glyphicon-backward"></span></a></li>
-			<li><a class="btn btn-outline-primary" href="reviewList.do?pcno=${review.pcno}&pageNum=${pb.startPage-1}">
+			<li><a class="btn btn-outline-primary" href="pcMainForm.do?pcno=${review.pcno}&pageNum=${pb.startPage-1}">
 				<span class="glyphicon glyphicon-triangle-left"></span></a></li>
 		</c:if>
 		<c:forEach var="i" begin="${pb.startPage }" end="${pb.endPage }">
 			<c:if test="${pb.currentPage==i }">
-				<li><a class="btn btn-outline-primary active" href="reviewList.do?pcno=${review.pcno}&pageNum=${i}">${i}</a></li>
+				<li><a class="btn btn-outline-primary active" href="pcMainForm.do?pcno=${review.pcno}&pageNum=${i}">${i}</a></li>
 			</c:if>
 			<c:if test="${pb.currentPage!=i }">
-				<li><a class="btn btn-outline-primary" href="reviewList.do?pcno=${review.pcno}&pageNum=${i}">${i}</a></li>
+				<li><a class="btn btn-outline-primary" href="pcMainForm.do?pcno=${review.pcno}&pageNum=${i}">${i}</a></li>
 			</c:if>
 		</c:forEach>
 		<!-- 보여줄 것이 남아있는 경우에는 endPage보다 totalPage가 큰경우 -->
 		<c:if test="${pb.endPage < pb.totalPage }">
-			<li><a class="btn btn-outline-primary" href="reviewList.do?pcno=${review.pcno}&pageNum=${pb.endPage+1}">
+			<li><a class="btn btn-outline-primary" href="pcMainForm.do?pcno=${review.pcno}&pageNum=${pb.endPage+1}">
 				<span class="glyphicon glyphicon-triangle-right"></span></a></li>
-			<li><a class="btn btn-outline-primary" href="reviewList.do?pcno=${review.pcno}&pageNum=${pb.totalPage}">
+			<li><a class="btn btn-outline-primary" href="pcMainForm.do?pcno=${review.pcno}&pageNum=${pb.totalPage}">
 				<span class="glyphicon glyphicon-forward"></span></a></li>
 		</c:if>
 	</ul>
-</div>
 	<div id="mask"></div>
+	<button id="popup_open" class="btn btn-primary">리뷰 등록</button>
 </body>
 </html>

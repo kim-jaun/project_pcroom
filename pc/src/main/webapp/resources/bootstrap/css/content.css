@@ -46,14 +46,14 @@ h3 {
 	text-align: left;
 }
 
-.btn-primary {
-	margin-bottom: 15px;
-}
+/* .btn-primary { */
+/* 	margin-bottom: 15px; */
+/* } */
 
 .likes {
-	margin-top: 10px;
+	margin: 10px;
 	width: 50px;
 }
 .reply_title{
-	font-size: 30px;
+	font-size: 20px;
 }

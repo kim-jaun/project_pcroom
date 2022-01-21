@@ -2,7 +2,7 @@ package com.ch.pc.model;
 
 import org.springframework.web.multipart.MultipartFile;
 
- 
+
 public class Pc {
 	private int pcno;
 	private String pcbusinessnum;
@@ -11,8 +11,8 @@ public class Pc {
 	private String pcaddr;
 	private int pclikes;
 	private String pcinfo;
+	private String pcintro;
 	private int mno;
-	private int feeno;
 	private String imagename;
 	private MultipartFile pcimage;
 	private float pclati;
@@ -71,17 +71,17 @@ public class Pc {
 	public void setPcinfo(String pcinfo) {
 		this.pcinfo = pcinfo;
 	}
+	public String getPcintro() {
+		return pcintro;
+	}
+	public void setPcintro(String pcintro) {
+		this.pcintro = pcintro;
+	}
 	public int getMno() {
 		return mno;
 	}
 	public void setMno(int mno) {
 		this.mno = mno;
-	}
-	public int getFeeno() {
-		return feeno;
-	}
-	public void setFeeno(int feeno) {
-		this.feeno = feeno;
 	}
 	public String getImagename() {
 		return imagename;

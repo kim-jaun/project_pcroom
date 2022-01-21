@@ -38,4 +38,8 @@ public class ReviewServiceImpl implements ReviewService {
 	public int getTotal(Review review) {
 		return rd.getTotal(review);
 	}
+
+	public double avgRating(int pcno) {
+		return rd.avgRating(pcno);
+	}
 }

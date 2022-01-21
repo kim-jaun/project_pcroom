@@ -38,4 +38,8 @@ public class ReviewDaoImpl implements ReviewDao {
 	public int getTotal(Review review) {
 		return sst.selectOne("reviewns.getTotal", review);
 	}
+
+	public double avgRating(int pcno) {
+		return sst.selectOne("reviewns.avgRating", pcno);
+	}
 }

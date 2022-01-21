@@ -2,8 +2,6 @@ package com.ch.pc.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Location;
-import com.ch.pc.model.Member1;
 import com.ch.pc.model.Pc;
 import com.ch.pc.service.PcService;
 

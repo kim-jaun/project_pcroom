@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ include file="../header.jsp" %>
+   <%@ include file="../header.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -61,7 +61,28 @@ function seatSize() {
 
 </head>
 <body onload="seatSize()">
-	<form action="seatSetting.do" name="frm" method="post">	
+	<form action="seatInsert.do" name="frm" method="post">	
+	<h2>요금설정</h2>
+				<div>
+					1000원 <input type="number" placeholder="" name="w1000">분
+				</div>
+				<div>
+					3000원 <input type="number" placeholder="" name="w3000">분
+				</div>
+				<div>
+					5000원 <input type="number" placeholder="" name="w5000">분
+				</div>
+				<div>
+					10000원 <input type="number" placeholder="" name="w10000">분
+				</div>
+				<div>
+					50000원 <input type="number" placeholder="" name="w50000">분
+				</div>
+				<div>
+					100000원 <input type="number" placeholder="" name="w100000">분
+				</div>
+	
+	<h2>좌석설정</h2>
 	<span>피씨방 좌석 구조</span>
 	<select name="seatlow">
  		<option value=${pc.seatlow }>현재 값(${pc.seatlow })</option>
@@ -78,6 +99,8 @@ function seatSize() {
 	<input type="button" onclick="seatSize()" value="좌석 배치">
 	<div id="seatPosition"></div>
 	<input type="hidden" name="pcno" value="${pcno }">
+	
+	
 	<input type="submit" value="저장">
 	</form>
 </body>

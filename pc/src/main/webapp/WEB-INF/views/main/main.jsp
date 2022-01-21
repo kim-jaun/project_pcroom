@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.ch.pc.model.*"%>
-<%@ include file="../header.jsp"%>
+<%@ include file="../header.jsp"%><%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -99,7 +99,7 @@ body {
 	width: 100%;
 	margin-bottom: 5px;
 }
-.main_btn {
+.btn_main {
 	z-index: 100;
 	background-color: rgba(44, 61, 79, 0.3);
 	border: 3px solid rgba(0, 0, 0, 0.2);
@@ -251,7 +251,7 @@ function juso() {
 					<select id="dong" class="btn-group" name="dong">
 						<option class="btn btn-primary" value="">동/읍/면</option>
 					</select> 
-					<input type="submit" class="btn main_btn">
+					<input type="submit" class="btn btn_main">
 				</form>
 			</div>
 				<h4>키워드 검색</h4>
@@ -275,7 +275,7 @@ function juso() {
 						<label class="keyword" for="game"><img class="checking" alt="" src="/pc/resources/images/game.png"/></label> 
 						<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임"> 
 					</div>
-					<input type="submit" class="btn main_btn" value="찾기">
+					<input type="submit" class="btn btn_main" value="찾기">
 				</form>
 			</div>
 			<div id="dispww">

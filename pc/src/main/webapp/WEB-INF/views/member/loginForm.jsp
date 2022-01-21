@@ -29,7 +29,7 @@
 </head>
 <body>
 <div class="content_center">
-<div class="total_content">
+<div class="total_content ">
 	<div class="login_dis">
 		<div class="jumbotron">
 			<form action="login.do" method="post" name="frm">

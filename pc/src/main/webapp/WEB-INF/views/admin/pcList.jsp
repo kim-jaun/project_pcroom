@@ -81,17 +81,22 @@
 			<c:forEach var="pc2" items="${pcList }">
 				<tr onclick="location.href='pcMainForm.do?pcno=${pc2.pcno}&pageNum=${pb.currentPage}&searchKey=${pc.searchKey}&searchValue=${pc.searchValue}'" style="cursor:hand">
 					<td>${pc2.pcno }</td>
-					<td>${pc2.pcname }</a></td>
+					<td>${pc2.pcname }</td>
 					<td>${pc2.pcaddr }</td>
-					<td>${pc2.permit }
+					<td>
+						<c:if test="${pc2.permit == 'n' }">
+							승인 대기중
+						</c:if>
+						<c:if test="${pc2.permit == 'y' }">
+							승인완료
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
 		</c:if>
 	</table>
 </div>
-	<div class="paging">
-	<ul class="pagination">
+	<ul class="pagination paging">
 	<!-- 시작 페이지가 pagePerBlock보다 크면 앞에 보여줄 것이 있다 -->
 		<c:if test="${pb.startPage > pb.pagePerBlock }">
 			<li><a class="btn btn-outline-primary" href="pcList.do?pageNum=1&searchKey=${pc.searchKey}&searchValue=${pc.searchValue}">
@@ -115,7 +120,6 @@
 				<span class="glyphicon glyphicon-forward"></span></a></li>
 		</c:if>
 	</ul>
-</div>
 </div>
 </div>
 </body>

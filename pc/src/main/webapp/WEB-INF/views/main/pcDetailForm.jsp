@@ -9,16 +9,18 @@
 <style type="text/css">
 	.detailForm{
 		position: absolute;
-		width: 80%;
+		width: 300px;
 		height: 700px;
 		z-index: 100;
 		top: 0;
-		left: 10%;
+		right: 7.5%;
+		
 	}
 	.detailForm .pcDetail_form {
 		height:100%;
-		width:100%;
-		background-color: rgba(0, 0, 0, 0);
+		width:300px;
+		right:0;
+		background-color: rgba(0, 0, 0, 0.5);
 	}
 
 	#carousel-example-generic {
@@ -33,6 +35,7 @@
 		background-color: rgba(255, 255, 255, 0.7);
 		width: 300px;
 		height: 100%;
+		border-radius: 20px;
 	}
 	.pcTitle {
 		display: flex;
@@ -49,12 +52,18 @@
 		position: absolute;
 		left: 15px;
 	}
-	.pcName {
-		
+	.close {
+		position: absolute; 
+		height: 20px;
+		width: 20px;
+		top: 0;
+		right: 5;
+		margin-top: -7px;
 	}
 	.pcStar {
 		position: absolute;
-		right: 15px;
+		right: 10%;
+		bottom: 10px;
 	}
 	.pcInfo {
 		margin-top: 20px;
@@ -65,7 +74,10 @@
 	height: 100%;
 	display: flex;
 	align-items: center;
-}
+	}
+	.startpoint {
+		font-size: 15px;
+	}
 </style>
 <c:set var="path" value="${pageContext.request.contextPath }"></c:set>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
@@ -93,11 +105,10 @@
 </head>
 <body>
 	<form class="detailForm" action="pcDetail.do" method="post" name="frm">
-		<div class="pcDetail_form"></div>
-		<div class="pcDetail_content"></div>
-		<div class="close"></div>
+<!-- 		<div class="pcDetail_form"></div> -->
+<!-- 		<div class="pcDetail_content"></div> -->
 		<div class="pcDetail_contentInner">
-			<div>
+				
 				<!-- pc방 헤드라인 -->
 				<div class="pcTitle">
 					<!-- 북마크 -->
@@ -109,10 +120,11 @@
 						</c:if>
 					</div>
 					<!-- 북마크 끝 -->
-					<a class="pcName" href="pcMainForm.do?pcno=${pc.pcno }">${pc.pcname}</a>
+					<a class="pcName nav-link" href="pcMainForm.do?pcno=${pc.pcno }">${pc.pcname}</a>
 					<div class="pcStar">
-						<span><i class="far fa-star"></i>${pc.pclikes }</span>
+						<span class="startpoint"><i class="fas fa-star"></i> ${pc.pclikes }</span>
 					</div>
+					<div class="close"><i class="fas fa-times"></i></div>
 				</div>
 				<!-- pc방 헤드라인 끝 -->
 				<!-- pc방 사진 -->
@@ -145,7 +157,6 @@
 				<div class="pcInfo">
 					<span>${pc.pcinfo }</span>
 				</div>
-			</div>
 		</div>
 	</form>
 </body>

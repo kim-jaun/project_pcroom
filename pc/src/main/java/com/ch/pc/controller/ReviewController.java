@@ -41,16 +41,15 @@ public class ReviewController {
 				Member1 member1 = ms.selectMno(reviews.getMno());
 				reviews.setNick_name(member1.getNick_name());
 				int mno = memberSession.getMno(); 
-				int rno = review.getRno(); 
+				int rno = reviews.getRno(); 
 				int review_likes = rls.select(mno, rno); 
 				
 				if(review_likes > 0) { // 추천 했으면
-					review.setLikesConfirm(1);
+					reviews.setLikesConfirm(1);
 				} 
 				else if (review_likes == 0) { // 추천 안했으면 
-					review.setLikesConfirm(0);
+					reviews.setLikesConfirm(0);
 				}	
-				System.out.println(review.getLikesConfirm());
 			}
 			
 			model.addAttribute("list", list);

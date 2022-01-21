@@ -15,7 +15,7 @@
 	</select>
 	
 	<insert id="insertPc" parameterType="pc">
-		insert into pc (pcno,pcbusinessnum,pcpno,pcname,pcaddr,pcinfo,imagename,pclati,pclongi,mno) values(#{pcno},#{pcbusinessnum}, #{pcpno}, #{pcname}, #{pcaddr}, #{pcinfo}, #{imagename},#{pclati},#{pclongi},#{mno})
+		insert into pc (pcno,pcbusinessnum,pcpno,pcname,pcaddr,pcinfo,pcintro,imagename,pclati,pclongi,mno) values(#{pcno},#{pcbusinessnum}, #{pcpno}, #{pcname}, #{pcaddr}, #{pcinfo}, #{pcintro}, #{imagename},#{pclati},#{pclongi},#{mno})
 	</insert>
 	<insert id="insertPi" parameterType="pcimage">
 		insert into pcimage values(pcimage_seq.nextval, #{pcno},#{imagename})
@@ -89,14 +89,13 @@
 	</select>
 	
 	<update id="updatePc" parameterType="pc">
-		update pc set pcpno=#{pcpno},pcname=#{pcname},pcaddr=#{pcaddr},pclati=#{pclati},pclongi=#{pclongi},pcinfo=#{pcinfo},seatlow=#{seatlow},seatcol=#{seatcol}
+		update pc set pcpno=#{pcpno},pcname=#{pcname},pcaddr=#{pcaddr},pclati=#{pclati},pclongi=#{pclongi},pcinfo=#{pcinfo},pcintro=#{pcintro},seatlow=#{seatlow},seatcol=#{seatcol}
 		 where pcno=#{pcno}
 	</update>
 	<delete id="deletePi" parameterType="pcimage">
 		delete from pcimage where pcno=#{pcno}
 	</delete>
-
-
+	<!-- 키워드 검색 -->
 	<select id="searchpc" parameterType="keyword" resultType="pc">
 		select * from pc
 		<where>

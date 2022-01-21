@@ -194,8 +194,7 @@ display: flex;
 			</c:if>
 		</table>
 	</div>
-	<div class="paging">
-		<ul class="pagination">
+		<ul class="pagination paging">
 			<!-- 시작 페이지가 pagePerBlock보다 크면 앞에 보여줄 것이 있다 -->
 			<c:if test="${pb.startPage > pb.pagePerBlock }">
 				<li><a class="btn btn-outline-primary" href="memberList.do?pageNum=1&searchKey=${member1.searchKey}&searchValue=${member1.searchValue}"> 
@@ -219,7 +218,6 @@ display: flex;
 						class="glyphicon glyphicon-forward"></span></a></li>
 			</c:if>
 		</ul>
-	</div>
 </div>
 </div>
 </body>

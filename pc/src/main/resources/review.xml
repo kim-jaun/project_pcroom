@@ -15,8 +15,9 @@
 	<select id="getTotal" parameterType="review" resultType="integer">
 		select count(*) from review r, member1 m where r.mno=m.mno and pcno=#{pcno}
 	</select>
+	
 	<update id="update" parameterType="review">
-		update review set content=#{content} where pcno=#{pcno} and rno=#{rno}
+		update review set content=#{content}, rating=#{rating} where pcno=#{pcno} and rno=#{rno}
 	</update>
 	
 	<update id="delete" parameterType="review">
@@ -33,5 +34,9 @@
 	
 	<select id="select" parameterType="integer" resultType="review">
 		select * from review where rno=#{rno}
+	</select>
+	
+	<select id="avgRating" parameterType="integer" resultType="double">
+		select round(avg(rating),1) from review where pcno=#{pcno}
 	</select>
 </mapper>

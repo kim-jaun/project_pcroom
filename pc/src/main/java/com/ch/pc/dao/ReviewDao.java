@@ -22,4 +22,6 @@ public interface ReviewDao {
 
 	int getTotal(Review review);
 
+	double avgRating(int pcno);
+
 }

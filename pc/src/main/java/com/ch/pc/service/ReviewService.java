@@ -23,4 +23,6 @@ public interface ReviewService {
 
 	int getTotal(Review review);
 
+	double avgRating(int pcno);
+
 }

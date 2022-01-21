@@ -1,5 +1,7 @@
 package com.ch.pc.model;
 
+import java.sql.Date;
+
 
 public class Reservation {
 	private int reserveno;
@@ -7,14 +9,16 @@ public class Reservation {
 	private int pcno;
 	private int reservetime;	
 	private String starttime;
+	private String endtime;
 	private String reserveSeatPosition;
 	private String expiration;
+	private Date reg_date;
 	public int getReserveno() {
 		return reserveno;
 	}
 	public void setReserveno(int reserveno) {
 		this.reserveno = reserveno;
-	} 
+	}
 	public int getMno() {
 		return mno;
 	}
@@ -39,6 +43,12 @@ public class Reservation {
 	public void setStarttime(String starttime) {
 		this.starttime = starttime;
 	}
+	public String getEndtime() {
+		return endtime;
+	}
+	public void setEndtime(String endtime) {
+		this.endtime = endtime;
+	}
 	public String getReserveSeatPosition() {
 		return reserveSeatPosition;
 	}
@@ -50,5 +60,11 @@ public class Reservation {
 	}
 	public void setExpiration(String expiration) {
 		this.expiration = expiration;
+	}
+	public Date getReg_date() {
+		return reg_date;
+	}
+	public void setReg_date(Date reg_date) {
+		this.reg_date = reg_date;
 	}
 }

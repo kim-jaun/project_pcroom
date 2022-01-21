@@ -6,10 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
+<script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
+<script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
-	$(function seatSize2() {
+$(function() {
 		var width = ${pc.seatlow};
 		var height = ${pc.seatcol};
 		for(var i = 1; i <= width; i++) {
@@ -28,6 +32,9 @@
 			$("." + trim).addClass('btn');
 			$("#" + trim).removeAttr('disabled');	
 		}
+
+	 	
+	 	
 	 	$('.seatLabel2').on('click', function(){
 			if ($(this).hasClass("active")) { 
 			// active class 제거
@@ -38,26 +45,63 @@
 				$(this).addClass('active');
 			}
 		});
-	 // 현재시간 기준 예약 시간 설정
+	
+		
+	 	// 현재시간 기준 예약 시간 설정
 	 	var hour = ${now_hour};
 	 	var min = ${now_min};
 	 	for (var i = hour; i < 24; i++) {
 	 		if(min == 0) {
-	 			$('#starttime').append('<option value=' + i + ':00/>' + i + ':00');
-	 			$('#starttime').append('<option value=' + i + ':30/>' + i + ':30');
-	 			$('#endtime').append('<option value=' + (i+1) + ':30/>' + (i+1) + ':30');
-	 			$('#endtime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
+	 			$('#starttime').append('<option value=' + i + ':00>' + i + ':00');
+	 			$('#starttime').append('<option value=' + i + ':30>' + i + ':30');
 	 		} else {
-	 			$('#starttime').append('<option value=' + i + ':30/>' + i + ':30');
-	 			$('#starttime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
-	 			$('#endtime').append('<option value=' + (i+1) + ':00/>' + (i+1) + ':00');
-	 			$('#endtime').append('<option value=' + (i+1) + ':30/>' + (i+1) + ':30');
+	 			$('#starttime').append('<option value=' + i + ':30>' + i + ':30');
+	 			$('#starttime').append('<option value=' + (i+1) + ':00>' + (i+1) + ':00');
 	 		}
 	 	}
 	});
-	 
+	jQuery(document).ready(function(){
+				$('#reservetime').change(function(){
+			  $('#endtime').show();
+			  $('#endtime').empty();
+			  var starthour = $('#starttime').val().substring(0,2)
+			  var startmin = $('#starttime').val().substring(3,5)
+				if(startmin == '00'){			  
+			  	var endmin = $(this).val()
+				}else{
+				var endmin = parseInt($(this).val())+30;
+				}
+			  var endhour = parseInt(starthour)
+			  if(endmin>59){
+				  endhour = endhour + Math.floor(endmin/60)
+				  endmin = endmin%60
+				 
+			  }
+			  if(endmin<10){
+				  endmin = "0"+endmin
+			  }
+			  
+			  $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
+			    });
+	});
+	$(function() {
+		
+	if(${rlists} != null){
+	var rlists = "${rlists}";
+ 	var rr = rlists.replace('[','');
+ 	var rrr = rr.replace(']','');
+ 	var rarray = rrr.split(',');
+ 	for (var r in rarray) {
+		var rtrim = rarray[r].trim();
+		$("." + rtrim).attr('disabled','disabled');
+		$("." + rtrim).addClass('reserved');
+			} 
+		}
+	});
+	
 
-</script>
+
+</script >
 
 <style type="text/css">
 #seatChoice input {
@@ -93,23 +137,26 @@
 	border: 1px solid rgba(0, 0, 0, 0.5);
 	opacity: 1;
 }
-.reserveTiem {
-		display: flex;
-		justify-content: center;
-		align-items: center;
+.reserved {
+	color: red;
+	border-color: red;
 }
 </style>
-<body>
+</head>
+<body onload="seatSize2()">
 <form action="reservation.do">
 	<div id="seatChoice"></div>
 	
 
 	<div class="reserveTiem">
-		<select id="starttime" name="starttime" class="form-control"></select>
-		<select id="endtime" name="endtime" class="form-control"></select>
+		시작시간 : <select id="starttime" name="starttime"></select><br>
+		종료 시간 : <select id="endtime" name="endtime"></select>
 	</div>
 	
-	<select name="reservetime">
+	
+	
+	<select name="reservetime" id="reservetime">
+		<option>결제할 가격을 선택하세요</option>
 		<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
 		<option value="${fee.w3000}">3000원  ${fee.w3000 }분</option>
 		<option value="${fee.w5000}">5000원  ${fee.w5000 }분</option>

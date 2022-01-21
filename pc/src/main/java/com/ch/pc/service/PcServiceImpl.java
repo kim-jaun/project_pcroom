@@ -7,10 +7,12 @@ import org.springframework.stereotype.Service;
 
 import com.ch.pc.dao.PcDao;
 import com.ch.pc.model.Fee;
-import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
+
+import com.ch.pc.model.Keyword;
 
 @Service
 public class PcServiceImpl implements PcService {	
@@ -80,15 +82,12 @@ public class PcServiceImpl implements PcService {
 		return pd.updatePc(pc);
 	}
 
-	@Override
 	public void deletePcimage(List<Pcimage> images) {
 		for(Pcimage pi : images) {
 			pd.deletePi(pi);
 		}
-	}
-	public List<Pc> searchpc(Keyword keyword) {
-		return pd.searchpc(keyword);
-	}
+	}	
+	//
 	@Override
 	public int feeInsert(Fee fee) {
 		return pd.feeInsert(fee);
@@ -101,6 +100,26 @@ public class PcServiceImpl implements PcService {
 	public int feeUpdate(Fee fee) {
 		return pd.feeUpdate(fee);
 	}
-
+	@Override
+	public int insertReservation(Reservation reservation) {
+		return pd.insertReservation(reservation);
+	}
+	@Override
+	public List<Reservation> reserveList(int pcno) {
+		return pd.reserveList(pcno);
+	}
+	@Override
+	public List<Reservation> allReserveList() {
+		return pd.allReserveList();
+	}
+	@Override
+	public void expired(int reserveno) {
+		pd.expired(reserveno);
+		
+	}
+	@Override
+	public List<Pc> searchpc(Keyword keyword) {
+		return pd.searchpc(keyword);
+	}
 
 }

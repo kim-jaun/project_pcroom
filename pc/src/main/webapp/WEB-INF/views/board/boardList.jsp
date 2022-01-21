@@ -89,8 +89,7 @@ body {
 			</c:forEach>
 		</c:if>
 	</table>
-	<div class="paging">
-	<ul class="pagination">
+	<ul class="pagination paging">
 	<!-- 시작 페이지가 pagePerBlock보다 크면 앞에 보여줄 것이 있다 -->
 		<c:if test="${pb.startPage > pb.pagePerBlock }">
 			<li><a class="btn btn-outline-primary" href="boardList.do?pcno=${board.pcno}&pageNum=1&searchKey=${board.searchKey}&searchValue=${board.searchValue}">
@@ -114,7 +113,6 @@ body {
 				<span class="glyphicon glyphicon-forward"></span></a></li>
 		</c:if>
 	</ul>
-</div>
 </div>
 <button class="btn btn-primary btn_ok" onclick='location.href="insertForm.do?pcno=${board.pcno}&bno=0&pageNum=1"'>글쓰기</button>
 </div>

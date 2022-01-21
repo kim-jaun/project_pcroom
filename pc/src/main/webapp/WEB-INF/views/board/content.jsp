@@ -24,7 +24,9 @@
 		height: 90%;
 		border-radius: 20px;
 		background-color: white;
-		padding-left: 0;
+		padding: 50px;
+		margin-top: -7px;
+		
 	}  
 </style>
 <script type="text/javascript">
@@ -69,23 +71,20 @@
 	<div class="third">${board.reg_date }</div>
 </div>
 	<div class="table_form2">${board.content }</div>
-
-	<div>
+</div>
+	<div align="center">
 		<img class="likes" alt="" src="${imgSrc }" onclick="likesClick(${board.bno})"><span class="likes_cnt">${board.likes }</span>
-	</div>
-	</div>
-
-	<a href="boardList.do?pcno=${board.pcno}&pageNum=${pageNum }&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-primary">목록</a>
+		<br>
+	<a href="boardList.do?pcno=${board.pcno}&pageNum=${pageNum }&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-secondary btn-sm">목록</a>
 	<div>
 		<c:if test="${memberSession.id == 'admin'}">
 			<a onclick="del('${board.bno}')" class="btn btn-danger">삭제</a>
 		</c:if>
   		<c:if test="${memberSession.nick_name == nick_name}"> 
-			<a href="boardUpdateForm.do?pcno=${board.pcno}&bno=${board.bno}&pageNum=${pageNum}&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-primary">수정</a>
-			<a onclick="del('${board.bno}')" class="btn btn-danger">삭제</a>
+			<a href="boardUpdateForm.do?pcno=${board.pcno}&bno=${board.bno}&pageNum=${pageNum}&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-primary btn-sm">수정</a>
+			<a onclick="del('${board.bno}')" class="btn btn-danger btn-sm">삭제</a>
   		</c:if> 
 	</div>
-</div>
 	<div>
 		<form action="" name="frm1" id="frm1">
 			<input type="hidden" name="pcno" value="${board.pcno }">
@@ -99,8 +98,10 @@
 			</div>
 		</form>
 	</div>
+		</div>
 	<br>
 <div id="disp"></div>
+</div>
 </div>
 </body>
 </html>

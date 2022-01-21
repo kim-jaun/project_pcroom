@@ -3,10 +3,12 @@ package com.ch.pc.dao;
 import java.util.List;
 
 import com.ch.pc.model.Fee;
-import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
+
+import com.ch.pc.model.Keyword;
 
 public interface PcDao {
 	List<Pc> selectPcbnm(String pcbusinessnum);
@@ -47,12 +49,20 @@ public interface PcDao {
 
 	void deletePi(Pcimage pi);
 
-	List<Pc> searchpc(Keyword keyword);
-	
 	int feeInsert(Fee fee);
 
 	Fee selectFee(int pcno);
 
 	int feeUpdate(Fee fee);
+
+	int insertReservation(Reservation reservation);
+
+	List<Reservation> reserveList(int pcno);
+	
+	List<Reservation> allReserveList();
+
+	void expired(int reserveno);
+
+	List<Pc> searchpc(Keyword keyword);
 
 }

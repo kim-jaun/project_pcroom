@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ch.pc.model.Fee;
-import com.ch.pc.model.Keyword;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
+import com.ch.pc.model.Keyword;
 
 @Repository
 public class PcDaoImpl implements PcDao {	
@@ -84,10 +85,6 @@ public class PcDaoImpl implements PcDao {
 	public void deletePi(Pcimage pi) {
 		sst.delete("pcns.deletePi", pi);
 	}
-	@Override
-	public List<Pc> searchpc(Keyword keyword) {
-		return sst.selectList("pcns.searchpc", keyword);
-	}
 	// 요금설정
 	@Override
 	public int feeInsert(Fee fee) {
@@ -101,4 +98,25 @@ public class PcDaoImpl implements PcDao {
 	public int feeUpdate(Fee fee) {
 		return sst.update("feens.feeUpdate", fee);
 	}
+	// 예약 입력
+	@Override
+	public int insertReservation(Reservation reservation) {
+		return sst.insert("reservationns.insertReservation", reservation);
+	}
+	@Override
+	public List<Reservation> reserveList(int pcno) {
+		return sst.selectList("reservationns.reserveList", pcno);
+	}
+	public List<Reservation> allReserveList() {
+		return sst.selectList("reservationns.allReserveList");
+	}
+	@Override
+	public void expired(int reserveno) {
+		sst.update("reservationns.expired",reserveno);	
+	}
+	@Override
+	public List<Pc> searchpc(Keyword keyword) {
+		return sst.selectList("pcns.searchpc", keyword);
+	}
+
 }

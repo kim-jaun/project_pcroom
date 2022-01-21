@@ -1,3 +1,4 @@
+
 -- 회원테이블
 create table member1(
 	mno number primary key,
@@ -31,6 +32,7 @@ create table pc(
 	permit char(1) default 'n' not null,
 	pclikes number, -- 리뷰 키로 바꿔야 될듯(없애도 될듯)
 	pcinfo varchar2(4000),
+	pcintro varchar2(4000),
 	seatlow number,
     seatcol number,
 	mno number references member1,
@@ -76,6 +78,7 @@ create table fee(
 )
 
 select * from fee;
+DELETE FROM fee WHERE w100000 = 60
 
 --즐겨찾기
 drop table bookmark1;
@@ -149,10 +152,32 @@ create table reservation(
 	pcno number references pc not null,
 	reservetime number not null,	-- 몇시간동안 사용할건지
 	starttime varchar2(50) not null,
+	endtime varchar2(50) not null,
 	reserveSeatPosition varchar2(3000),
-	expiration char(1) default 'n' not null
+	expiration char(1) default 'n' not null,
+	reg_date date not null
 )
 select * from reservation;
-alter table reservation add expiration char(1) default 'n' not null;
 
+--리뷰
+create table review (
+	rno number primary key,
+	pcno number references pc not null,
+	mno number references member1 not null,
+	content varchar2(4000) not null,
+	reg_date date not null,
+	likes number not null,
+	rating number not null,
+	del char(1) default 'n' not null
+)
+drop table review;
+select * from review
 
+--리뷰 좋아요
+create table review_likes(
+	mno number references member1 not null,
+	rno number references review not null
+)
+drop table review_likes;
+select * from reservation where expiration = 'n';
+update reservation set expiration = 'y'

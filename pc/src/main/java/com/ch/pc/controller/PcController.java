@@ -3,8 +3,11 @@ package com.ch.pc.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -18,16 +21,22 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.ch.pc.model.Bookmark;
+import com.ch.pc.model.Fee;
 import com.ch.pc.model.Member1;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Pcimage;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.model.Seat;
 import com.ch.pc.service.BookmarkService;
 import com.ch.pc.service.PageBean;
 import com.ch.pc.service.PcService;
+import com.ch.pc.service.ReviewService;
 
 @Controller
 public class PcController {
+	@Autowired
+	private ReviewService rs;
+	
 	@Autowired
 	private PcService ps;
 	
@@ -99,6 +108,7 @@ public class PcController {
 		}
 		String id = memberSession.getId();
 		Pc pc = ps.select(pcno);
+		double avgRating = rs.avgRating(pcno);
 		List<Pcimage> photolist = ps.listPhoto(pcno);
 		pc.setSearchKey(pc.getSearchKey());
 		pc.setSearchValue(pc.getSearchValue());		
@@ -107,8 +117,11 @@ public class PcController {
 		if(slist != null) {
 			seatlists = slist.split(",");
 			}
+		Fee fee = ps.selectFee(pcno);
 		session.setAttribute("pcnoSession", pcno);
+		model.addAttribute("avgRating", avgRating);
 		model.addAttribute("imgSrc", imgSrc);
+		model.addAttribute("fee", fee);
 		model.addAttribute("seatlists", Arrays.toString(seatlists));
 		model.addAttribute("pc", pc);
 		model.addAttribute("photolist", photolist);
@@ -141,7 +154,36 @@ public class PcController {
 		model.addAttribute("list", list);
 		return "/main/pcDetailForm";
 	}
-
+	
+	@RequestMapping("seatInsertForm")
+	public String seatInsertForm(Model model, HttpSession session) {
+		Member1 memberSession = (Member1) session.getAttribute("memberSession");
+		Pc pc = ps.selectMno(memberSession.getMno());
+		model.addAttribute("pcno", pc.getPcno());
+		model.addAttribute("pc", pc);
+		return "/pc/seatInsertForm";
+	}
+	
+	@RequestMapping("seatInsert")
+	public String seatInsert(Pc pc, Seat seat, Fee fee, Model model) {
+		int result = 0;
+		int pcno = seat.getPcno();
+		int seatform = ps.updateSeatform(pc);
+		Seat s1 = ps.selectseat(pcno);
+		if (seat.getSeatposition() == null) {
+			result = 0;
+		} else if(s1 == null){			
+			result = ps.insertSeat(seat);
+		} else {
+			result = ps.updateSeat(seat);
+		}
+		fee.setPcno(pc.getPcno());
+		ps.feeInsert(fee);
+		
+		model.addAttribute("result", result);
+		model.addAttribute("pcno", pcno);
+		return "/pc/seatInsert";
+	}
 	@RequestMapping("seatForm")
 	public String seatForm(int pcno, Model model) {
 		model.addAttribute("pcno", pcno);
@@ -167,12 +209,6 @@ public class PcController {
 		return "/pc/seatSetting";
 	}
 	
-	@RequestMapping("reservation")
-	public String reservation(Model model) {
-		return "/pc/reservation";
-	}
-
-
 	@RequestMapping(value = "bookmark", produces = "text/html;charset=utf-8")
 	@ResponseBody
 	public String bookmark(int pcno, Model model, HttpSession session) {
@@ -245,5 +281,103 @@ public class PcController {
 		ps.insertPcimage(images);
 		model.addAttribute("result", result);
 		return "/pc/mypcUpdate";
+	}
+
+	@RequestMapping("reservationForm")
+	public String reservationForm(Model model, HttpSession session) {
+		int pcno = (Integer) session.getAttribute("pcnoSession");
+
+		String slist = ps.listSeat(pcno);
+		String[] seatlists = null;
+		if (slist != null) {
+			seatlists = slist.split(",");
+		}
+
+		Calendar now_time = Calendar.getInstance();
+
+		// now_time을 현재시간 +1로 설정, 현재 시간 정보가져오기
+		now_time.set(Calendar.HOUR_OF_DAY, now_time.get(Calendar.HOUR_OF_DAY) + 1);
+
+		SimpleDateFormat sdf = new SimpleDateFormat("HH");
+		SimpleDateFormat sdf2 = new SimpleDateFormat("mm");
+		Date now_time1 = now_time.getTime();
+		String min = sdf2.format(now_time1);
+		String hours = sdf.format(now_time1);
+		int hoursI = Integer.parseInt(hours);
+		int minI = Integer.parseInt(min);
+		System.out.println(hoursI);
+		System.out.println(minI);
+		if (minI < 30) {
+			hoursI -= 1;
+			minI = 30;
+		} else {
+			minI = 0;
+		}
+		// 예약된 자리 정보 가져오기
+		List<Reservation> reservelist = ps.reserveList(pcno);
+
+		String allReserveSeatPosition = "";
+		for (Reservation reserve : reservelist) {
+			allReserveSeatPosition += reserve.getReserveSeatPosition() + ",";
+		}
+		String[] rlists = null;
+		if (allReserveSeatPosition != null) {
+			rlists = allReserveSeatPosition.split(",");
+		}
+
+		Pc pc = ps.select(pcno);
+		Fee fee = ps.selectFee(pcno);
+		System.out.println(hoursI);
+		System.out.println(minI);
+		model.addAttribute("now_hour", hoursI);
+		model.addAttribute("now_min", minI);
+		model.addAttribute("fee", fee);
+		model.addAttribute("seatlists", Arrays.toString(seatlists));
+		model.addAttribute("rlists", Arrays.toString(rlists));
+		model.addAttribute("pc", pc);
+		return "/pc/reservationForm";
+	}
+
+	@RequestMapping("reservation")
+	public String reservation(Reservation reservation, Model model, HttpSession session) {
+		int pcno = (Integer) session.getAttribute("pcnoSession");
+		Member1 member1 = (Member1) session.getAttribute("memberSession");
+		reservation.setPcno(pcno);
+		System.out.println(reservation.getReserveSeatPosition());
+		reservation.setMno(member1.getMno());
+		int result = 0;
+		result = ps.insertReservation(reservation);
+
+		model.addAttribute("result", result);
+		return "/pc/reservation";
+	}
+
+	@RequestMapping("seatCurrent")
+	public String seatCurrent(Model model, HttpSession session) {
+		int pcno = (Integer) session.getAttribute("pcnoSession");
+
+		List<Reservation> reservelist = ps.reserveList(pcno);
+
+		String allReserveSeatPosition = "";
+		for (Reservation reserve : reservelist) {
+			allReserveSeatPosition += reserve.getReserveSeatPosition() + ",";
+		}
+		String[] rlists = null;
+		if (allReserveSeatPosition != null) {
+			rlists = allReserveSeatPosition.split(",");
+		}
+
+		String slist = ps.listSeat(pcno);
+		String[] seatlists = null;
+		if (slist != null) {
+			seatlists = slist.split(",");
+		}
+		Pc pc = ps.select(pcno);
+
+		model.addAttribute("seatlists", Arrays.toString(seatlists));
+		model.addAttribute("rlists", Arrays.toString(rlists));
+		model.addAttribute("pc", pc);
+
+		return "/pc/seatCurrent";
 	}
 }
