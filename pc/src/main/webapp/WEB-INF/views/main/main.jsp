@@ -16,7 +16,7 @@
 
 #map {
 	width: 85%;
-	height: 550px;
+	height: 700px;
 	border-radius: 20px;
 }
 
@@ -25,12 +25,16 @@ body {
 }
 
 .slide-div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
 	position: absolute;
 	left: 0px;
 	top: 0px;
 	width: 250px;
-	height: 550px;
-	background: rgba(255, 255, 255, 0.6);
+	height: 100%;
+	background: rgba(255, 255, 255, 0.8);
 	z-index: 100;
 	padding: 20px;
 	border-radius: 0 10px 10px 0;
@@ -66,6 +70,7 @@ body {
 	z-index: 100;
 	margin: 25px 2.5px;
 }
+
 .keywordbox {
 	position: absolute;
 	top: 50%;
@@ -83,13 +88,41 @@ body {
 	width: 60px;
 	margin: 2.5px;
 }
-.btn {
+.keywordgroup {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.keywords {
+	width: 100%;
+	margin-bottom: 5px;
+}
+.main_btn {
 	z-index: 100;
-	background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(44, 61, 79, 0.3);
+	border: 3px solid rgba(0, 0, 0, 0.2);
 }
 .checked {
 	border-color: rgba(255, 0, 0, 0.5);
 }
+.addr {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.btn-group {
+	width: 200px;
+	height: 35px;
+	background: url('https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png') calc(100% - 5px) center no-repeat;
+	background-size: 20px;
+	padding: 5px 30px 5px 10px;
+	border-radius: 4px;
+	outline: 0 none;
+	margin-bottom: 5px;
+}	
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"
 	type="application/javascript"></script>
@@ -206,38 +239,45 @@ function juso() {
 	<div class="mapCenter">
 		<!-- search -->
 		<div class="slide-div">
-			<form action="main.dp" name="frm" onsubmit="return juso()">
-				<select id="sido" name="sido">
-					<option value="">특별시/도</option>
-				</select> 
-				<select id="sigugun" name="sigugun">
-					<option value="">시/군/구</option>
-				</select> 
-				<select id="dong" name="dong">
-					<option value="">동/읍/면</option>
-				</select> 
-				<input type="submit">
-			</form>
-			<form action="" class="keyword">
-				<label class="keyword" for="print"><img class="checking" alt="" src="/pc/resources/images/print.png"/></label> 
-				<input type="checkbox" id="print" class="keywordbox" name="print" value="프린트"> 
-				<label class="keyword" for="duel"><img class="checking" alt="" src="/pc/resources/images/dual.png"/></label>
-				<input type="checkbox" id="duel" class="keywordbox" name="duel" value="듀얼모니터"> 
-				<label class="keyword" for="curve"><img class="checking" alt="" src="/pc/resources/images/curve.png"/></label>
-				<input type="checkbox" id="curve" class="keywordbox" name="curve" value="커브모니터"> 
-				<label class="keyword" for="crt"><img class="checking" alt="" src="/pc/resources/images/crt.png"/></label>
-				<input type="checkbox" id="crt" class="keywordbox" name="crt" value="CRT모니터"> 
-				<label class="keyword" for="atm"><img class="checking" alt="" src="/pc/resources/images/atm.png"/></label>
-				<input type="checkbox" id="atm" class="keywordbox" name="atm" value="ATM기기"> 
-				<label class="keyword" for="air"><img class="checking" alt="" src="/pc/resources/images/air.png"/></label>
-				<input type="checkbox" id="air" class="keywordbox" name="air" value="공기청정기"> 
-				<label class="keyword" for="battery"><img class="checking" alt="" src="/pc/resources/images/battery.png"/></label>
-				<input type="checkbox" id="battery" class="keywordbox" name="battery" value="스마트폰충전"> 
-				<label class="keyword" for="game"><img class="checking" alt="" src="/pc/resources/images/game.png"/></label> 
-				<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임"> 
-				<br>	
-				<input type="submit" class="btn" value="찾기">
-			</form>
+			<h4>주소 검색</h4>
+			<div>
+				<form action="main.dp" class="addr" name="frm" onsubmit="return juso()">
+					<select id="sido" class="btn-group" name="sido">
+						<option class="btn btn-primary" value="">특별시/도</option>
+					</select> 
+					<select id="sigugun" class="btn-group" name="sigugun">
+						<option class="btn btn-primary" value="">시/군/구</option>
+					</select> 
+					<select id="dong" class="btn-group" name="dong">
+						<option class="btn btn-primary" value="">동/읍/면</option>
+					</select> 
+					<input type="submit" class="btn main_btn">
+				</form>
+			</div>
+				<h4>키워드 검색</h4>
+			<div>
+				<form action="" class="keywordgroup">
+					<div class="keywords">
+						<label class="keyword" for="print"><img class="checking" alt="" src="/pc/resources/images/print.png"/></label> 
+						<input type="checkbox" id="print" class="keywordbox" name="print" value="프린트"> 
+						<label class="keyword" for="duel"><img class="checking" alt="" src="/pc/resources/images/dual.png"/></label>
+						<input type="checkbox" id="duel" class="keywordbox" name="duel" value="듀얼모니터"> 
+						<label class="keyword" for="curve"><img class="checking" alt="" src="/pc/resources/images/curve.png"/></label>
+						<input type="checkbox" id="curve" class="keywordbox" name="curve" value="커브모니터"> 
+						<label class="keyword" for="crt"><img class="checking" alt="" src="/pc/resources/images/crt.png"/></label>
+						<input type="checkbox" id="crt" class="keywordbox" name="crt" value="CRT모니터"> 
+						<label class="keyword" for="atm"><img class="checking" alt="" src="/pc/resources/images/atm.png"/></label>
+						<input type="checkbox" id="atm" class="keywordbox" name="atm" value="ATM기기"> 
+						<label class="keyword" for="air"><img class="checking" alt="" src="/pc/resources/images/air.png"/></label>
+						<input type="checkbox" id="air" class="keywordbox" name="air" value="공기청정기"> 
+						<label class="keyword" for="battery"><img class="checking" alt="" src="/pc/resources/images/battery.png"/></label>
+						<input type="checkbox" id="battery" class="keywordbox" name="battery" value="스마트폰충전"> 
+						<label class="keyword" for="game"><img class="checking" alt="" src="/pc/resources/images/game.png"/></label> 
+						<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임"> 
+					</div>
+					<input type="submit" class="btn main_btn" value="찾기">
+				</form>
+			</div>
 			<div id="dispww">
 				<c:if test="${not empty listsearch }">
 					<c:forEach var="i" items="${listsearch }">

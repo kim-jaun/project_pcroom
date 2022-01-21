@@ -41,9 +41,4 @@ public class MainController {
 	public String sessionChk() {
 		return "/main/sessionChk";
 	}
-
-	@RequestMapping("menubar")
-	public String menubar() {
-		return "/main/menubar";
-	}
 }

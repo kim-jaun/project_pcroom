@@ -10,7 +10,7 @@
 	.detailForm{
 		position: absolute;
 		width: 80%;
-		height: 550px;
+		height: 700px;
 		z-index: 100;
 		top: 0;
 		left: 10%;
@@ -29,7 +29,7 @@
 	.pcDetail_contentInner {
 		position: absolute;
 		top: 0;
-		left: 0;
+		right: 0;
 		background-color: rgba(255, 255, 255, 0.7);
 		width: 300px;
 		height: 100%;
