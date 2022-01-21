@@ -33,7 +33,7 @@ body {
 	left: 0px;
 	top: 0px;
 	width: 250px;
-	height: 100%;
+	height: 700px;
 	background: rgba(255, 255, 255, 0.8);
 	z-index: 100;
 	padding: 20px;
@@ -98,7 +98,6 @@ body {
 .keywords {
 	width: 100%;
 	margin-bottom: 5px;
-	margin-top: 5px;
 }
 .main_btn {
 	z-index: 100;
