@@ -98,6 +98,7 @@ body {
 .keywords {
 	width: 100%;
 	margin-bottom: 5px;
+	margin-top: 5px;
 }
 .main_btn {
 	z-index: 100;
