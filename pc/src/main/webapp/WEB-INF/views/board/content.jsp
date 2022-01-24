@@ -8,6 +8,10 @@
 <title>어데 피씹니까?</title>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/content.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.14.0/css/all.css"
+	integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc"
+	crossorigin="anonymous">
 <style type="text/css">
 
  	body {
@@ -28,6 +32,54 @@
 		margin-top: -7px;
 		
 	}  
+	.replyContent{
+		resize: none;
+		width: 100%;
+	}
+	.boardbtn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 50px;
+		height: 30px;
+	}
+	.total-btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: relative;
+	}
+	.listBtn {
+		position: absolute;
+		left: 0;
+	}
+	.deupbtn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: absolute;
+		right: 0;
+	}
+	.likes_cnt {
+		margin-left: -10px;
+	}
+	.likescontent {
+		margin-bottom: -30px;
+	}
+	.total_reply {
+		margin-top: 30px;
+	}
+	.reply_btn {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+	}
+	.reply_title {
+		width: 100%;
+		display: flex;
+		justify-content: flex-start;
+		margin: 5px;
+	}
 </style>
 <script type="text/javascript">
 	function del(del_bno) {
@@ -73,32 +125,36 @@
 	<div class="table_form2">${board.content }</div>
 </div>
 	<div align="center">
-		<img class="likes" alt="" src="${imgSrc }" onclick="likesClick(${board.bno})"><span class="likes_cnt">${board.likes }</span>
-		<br>
-	<a href="boardList.do?pcno=${board.pcno}&pageNum=${pageNum }&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-secondary btn-sm">목록</a>
-	<div>
-		<c:if test="${memberSession.id == 'admin'}">
-			<a onclick="del('${board.bno}')" class="btn btn-danger">삭제</a>
-		</c:if>
-  		<c:if test="${memberSession.nick_name == nick_name}"> 
-			<a href="boardUpdateForm.do?pcno=${board.pcno}&bno=${board.bno}&pageNum=${pageNum}&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="btn btn-primary btn-sm">수정</a>
-			<a onclick="del('${board.bno}')" class="btn btn-danger btn-sm">삭제</a>
-  		</c:if> 
-	</div>
-	<div>
-		<form action="" name="frm1" id="frm1">
-			<input type="hidden" name="pcno" value="${board.pcno }">
-			<input type="hidden" name="bno" value="${board.bno }">
-			<input type="hidden" name="pageNum" value="${pageNum }">
-			<input type="hidden" name="mno" value="${memberSession.mno }">
-			<div class="reply_title">댓글작성</div>
-			<textarea rows="5" cols="40" name="content"></textarea>
-			<div>
-				<input type="button" value="확인" id="rInsert" class="btn btn-primary">
-			</div>
-		</form>
-	</div>
+		<div class="likescontent">
+			<img class="likes" alt="" src="${imgSrc }" style="width: 40px; height: 40px;" onclick="likesClick(${board.bno})">
+			<span class="likes_cnt">${board.likes }</span>
 		</div>
+		<div class="total-btn">
+			<a href="boardList.do?pcno=${board.pcno}&pageNum=${pageNum }&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="listBtn boardbtn btn btn-secondary btn-sm">목록</a>
+			<div class="deupbtn">
+				<c:if test="${memberSession.id == 'admin'}">
+					<a onclick="del('${board.bno}')" class="boardbtn btn btn-danger"><i class="far fa-trash-alt fa-lg"></i></a>
+				</c:if>
+		  		<c:if test="${memberSession.nick_name == nick_name}"> 
+					<a href="boardUpdateForm.do?pcno=${board.pcno}&bno=${board.bno}&pageNum=${pageNum}&searchKey=${board.searchKey}&searchValue=${board.searchValue}" class="boardbtn btn btn-primary btn-sm"><i class="far fa-edit fa-lg"></i></a>
+					<a onclick="del('${board.bno}')" class="boardbtn btn btn-danger btn-sm"><i class="far fa-trash-alt fa-lg"></i></a>
+		  		</c:if> 
+			</div>
+		</div>
+		<div class="total_reply">
+			<form action="" name="frm1" id="frm1">
+				<input type="hidden" name="pcno" value="${board.pcno }">
+				<input type="hidden" name="bno" value="${board.bno }">
+				<input type="hidden" name="pageNum" value="${pageNum }">
+				<input type="hidden" name="mno" value="${memberSession.mno }">
+				<div class="reply_title">댓글작성</div>
+				<textarea class="replyContent" rows="5" cols="80" name="content"></textarea>
+				<div class="reply_btn">
+					<input type="button" value="확인" id="rInsert" class="btn btn-primary">
+				</div>
+			</form>
+		</div>
+	</div>
 	<br>
 <div id="disp"></div>
 </div>

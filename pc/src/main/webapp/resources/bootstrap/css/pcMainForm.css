@@ -16,7 +16,6 @@ body {
 	height: 90%;
 	border-radius: 20px;
 	background-color: white;
-	padding-left: 0;
 }
 
 .bookmark_pcname {
@@ -101,9 +100,6 @@ div.right {
 
 #review {
 	width: 100%;
-}
-.btn-reserve {
-	margin: 10px;
 }
 .bookmark {
 	margin-top: 10px;

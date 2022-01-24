@@ -95,6 +95,11 @@
 		width: 200px;
 		top: 0;
 	}
+	.seatbtn {
+		width: 90%;
+		margin: 0 5%;
+		margin-top: 20px;
+	}
 </style>
 <c:set var="path" value="${pageContext.request.contextPath }"></c:set>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
@@ -172,6 +177,7 @@
 				
 				<!-- pc방 info -->
 				<div class="pcContent">
+					<input type="button" onclick='location.href="reservationForm.do"' class="seatbtn btn btn-primary btn-reserve" value="좌석예약">
 					<hr>
 					<div class="pccontentde pcNum">
 						<div class="pccontentline">

@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
 <%-- <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">   --%>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
@@ -32,6 +33,22 @@
 .pccontentde {
 	margin-top: 0px;
 	padding: 5px 10px; 
+}
+.bookmark_pcname {
+	width: 100%;
+	align-items: center;
+	margin-left: 20px;
+	margin-bottom: 10px;
+}
+.total_content {
+	padding: 20px;
+}
+.btn-between {
+	margin: 0 5px;
+}
+.startBottom {
+	margin-bottom: -5px;
+	margin-right: 10px;
 }
 </style>
 <script type="text/javascript">
@@ -94,16 +111,29 @@
 <div class="total_content">
 	<!-- 북마크 -->
 	<div class="bookmark_pcname">
-	<div class="pcLikes">
-		<c:if test="${id != null}">
-			<c:if test="${id != 'admin'}">
-				<img class="bookmark" onclick="bookmarkClick(${pc.pcno})" alt=""
-					src="${imgSrc}" width="30px" height="30px">
+		<div class="pcLikes">
+			<c:if test="${id != null}">
+				<c:if test="${id != 'admin'}">
+					<img class="bookmark" onclick="bookmarkClick(${pc.pcno})" alt=""
+						src="${imgSrc}" width="30px" height="30px">
+				</c:if>
+			</c:if>
+		</div>
+		<!-- 북마크 끝 -->
+		<h3>${pc.pcname }</h3><h6 class="startBottom"><i class="fas fa-star"></i>${avgRating }</h6>
+		<c:if test="${id == 'admin'}">
+			<c:if test="${pc.permit == 'n' }">
+				<button onclick="permit(${pc.pcno})" class="btn-between btn btn-primary">승인</button>
+			</c:if>
+			<c:if test="${pc.permit == 'y' }">
+				<span class="btn-between admissionPc">승인완료</span>
 			</c:if>
 		</c:if>
-	</div>
-	<!-- 북마크 끝 -->
-	<h3>${pc.pcname }&nbsp;&nbsp;${avgRating }</h3>
+		<button class="btn-between btn btn-primary btn-reserve" onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
+		<c:if test="${id == 'admin'}">
+			<button class="btn-between btn btn-primary" onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
+		</c:if>
+		<button onclick='location.href="reservationForm.do"' class="btn-between btn btn-primary btn-reserve">좌석예약</button>
 	</div>
 	<div class="left" align="center">
 		<div id="carousel-example-generic" class="carousel slide"
@@ -162,29 +192,6 @@
 				</div>
 			</div>
 		</div>
-		<c:if test="${id == 'admin'}">
-			<c:if test="${pc.permit == 'n' }">
-				<button onclick="permit(${pc.pcno})" class="btn btn-primary">승인</button>
-			</c:if>
-			<c:if test="${pc.permit == 'y' }">
-				<button class="btn btn-primary">승인완료</button>
-			</c:if>
-		</c:if>
-		<div>
-			<button class="btn btn-primary btn-reserve" onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
-			<div>
-				<c:if test="${id == 'admin'}">
-					<button class="btn btn-primary" onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
-				</c:if>
-			</div>
-		</div>
-		<div>
-			<button onclick='location.href="reservationForm.do"' class="btn btn-primary btn-reserve">좌석예약</button>
-		</div>
-		<c:if test="${memberSession.mno == pc.mno }">
-			<button class="btn btn-primary" onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
-			<button class="btn btn-primary" onclick='location.href="feeUpdateForm.do"'>요금수정</button>
-		</c:if>
 	</div>
 	<div class="right" align="center">
 		<div id="review"></div>		

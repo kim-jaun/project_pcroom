@@ -221,6 +221,18 @@
 .origin_content {
 	font-size: 15px;
 }
+.rightTitle {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	position: relative;
+	
+}
+.reviewBtn {
+	position: absolute;
+	right: 5%;
+	top: -5px;
+}
 </style>
 </head>
 <body>
@@ -263,7 +275,10 @@
 				</form>
 			</div>
 		</div>
-		<h4>리뷰</h4>
+		<div class="rightTitle">
+			<h4>리뷰</h4>
+			<button id="popup_open" class="reviewBtn btn btn-primary">리뷰 등록</button>
+		</div>
 		<div class="reviewList">
 				<c:if test="${empty list }">
 					<div>댓글이 없습니다.</div>
@@ -352,6 +367,6 @@
 		</c:if>
 	</ul>
 	<div id="mask"></div>
-	<button id="popup_open" class="btn btn-primary">리뷰 등록</button>
+	
 </body>
 </html>
