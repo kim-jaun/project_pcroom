@@ -14,7 +14,6 @@
 		z-index: 100;
 		top: 0;
 		right: 7.5%;
-		
 	}
 	.detailForm .pcDetail_form {
 		height:100%;
@@ -54,21 +53,24 @@
 		left: 15px;
 	}
 	.close {
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		position: absolute; 
-		height: 20px;
-		width: 20px;
+		height: 30px;
+		width: 30px;
 		top: 0;
-		right: 5;
-		margin-top: -15px;
+		left: -30;
+		margin-top: 10px;
+		background-color: rgba(255, 255, 255, 0.7);
 	}
 	.pcStar {
 		position: absolute;
 		right: 10%;
-		bottom: 10px;
 	}
-	.pcInfo {
-		margin-top: 20px;
-		padding: 15px; 
+	.pccontentde {
+		margin-top: 0px;
+		padding: 5px 10px; 
 	}
 	.item {
 	width: 100%;
@@ -78,6 +80,20 @@
 	}
 	.startpoint {
 		font-size: 15px;
+	}
+	.pccontenticon {
+		color: rgba(0, 0, 0, 0.5);
+		margin-right: 20px;
+	}
+	.pccontentline {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-left: -10px;
+	}
+	.contentpc {
+		width: 200px;
+		top: 0;
 	}
 </style>
 <c:set var="path" value="${pageContext.request.contextPath }"></c:set>
@@ -155,8 +171,35 @@
 				<!-- pc방 사진 끝 -->
 				
 				<!-- pc방 info -->
-				<div class="pcInfo">
-					<span>${pc.pcinfo }</span>
+				<div class="pcContent">
+					<hr>
+					<div class="pccontentde pcNum">
+						<div class="pccontentline">
+							<i class="pccontenticon fas fa-phone-square-alt"></i>
+							<div class="contentpc">${pc.pcpno }</div>
+						</div>
+					</div>
+					<hr>
+					<div class="pccontentde pcAddr">
+						<div class="pccontentline">
+							<i class="pccontenticon fas fa-map-marked-alt"></i>
+							<div class="contentpc">${pc.pcaddr }</div>
+						</div>
+					</div>
+					<hr>
+					<div class="pccontentde pcInfo">
+						<div class="pccontentline">
+							<i class="pccontenticon fas fa-envelope-open-text"></i>
+							<div class="contentpc">${pc.pcinfo }</div>
+						</div>
+					</div>
+					<hr>
+					<div class="pccontentde pcIntro">
+						<div class="pccontentline">
+							<i class="pccontenticon fas fa-info-circle"></i>
+							<div class="contentpc">${pc.pcintro }</div>
+						</div>
+					</div>
 				</div>
 		</div>
 	</form>
