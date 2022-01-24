@@ -56,7 +56,7 @@
 <div class="total_content">
 <div class="navi_admin"> 
 	<ul class="sidebar">
-		<li><a href="updateForm.do">회원정보 수정</a></li>
+		<li><a href="passChkForm.do">회원정보 수정</a></li>
 		<li><a href="reserveList.do">예매내역</a></li>
 		<li><a href="mybookmark.do">즐겨찾기</a></li>
 		<c:if test="">

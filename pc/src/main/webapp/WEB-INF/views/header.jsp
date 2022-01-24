@@ -113,6 +113,12 @@ caption {
 .btn-register {
 	margin-left: 10px;
 }
+.dropdown-content {
+	background-color: #2C3D4F;
+}
+.dropdown-content a{
+	font-size: 15px;
+}
 </style>
 </head>
 <!-- pageContext.request.contextPath : 프로젝트 명 -->

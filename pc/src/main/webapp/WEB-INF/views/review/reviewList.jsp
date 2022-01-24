@@ -226,12 +226,17 @@
 	justify-content: center;
 	width: 100%;
 	position: relative;
-	
 }
 .reviewBtn {
 	position: absolute;
 	right: 5%;
 	top: -5px;
+}
+.reviewText {
+	resize: none;
+}
+.reBtns {
+	margin-top: 15px;
 }
 </style>
 </head>
@@ -265,11 +270,10 @@
 					</div>
 					리뷰 작성
 					<div class="review_title" id="tr_a">
-						<textarea rows="5" cols="40" name="content" placeholder="리뷰를 남겨주세요.pc방과 관련없는 내용은 제재를 받을 수 있습니다."></textarea>
+						<textarea class="reviewText" rows="5" cols="40" name="content" placeholder="리뷰를 남겨주세요.pc방과 관련없는 내용은 제재를 받을 수 있습니다."></textarea>
 					</div>
-					<div id="btn_b">
-						<input type="button" value="확인" id="wInsert"
-							class="btn btn-primary"> &nbsp;&nbsp;
+					<div class="reBtns" id="btn_b">
+						<input type="button" value="확인" id="wInsert" class="btn btn-primary"> &nbsp;&nbsp;
 						<button id="popup_close" class="btn btn-primary">닫기</button>
 					</div>
 				</form>

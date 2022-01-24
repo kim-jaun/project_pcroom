@@ -92,7 +92,7 @@ $(function() {
  	var rarray = rrr.split(',');
  	for (var r in rarray) {
 		var rtrim = rarray[r].trim();
-		$("." + rtrim).attr('disabled','disabled');
+		$("#" + rtrim).attr('disabled','disabled');
 		$("." + rtrim).addClass('reserved');
 			} 
 		}
@@ -103,6 +103,22 @@ $(function() {
 </script >
 
 <style type="text/css">
+body {
+	background-color: #2c3e50;
+}
+.content_center{
+	display: flex;
+	justify-content: center;
+	position: relative;
+	}
+.total_content{
+	width: 90%; 
+	height: 90%;
+	border-radius: 20px;
+	background-color: white;
+	margin-top: 0;
+	padding-top: 20px;
+}
 #seatChoice input {
 	position: absolute;
 	top: 50%;
@@ -140,29 +156,36 @@ $(function() {
 	color: red;
 	border-color: red;
 }
+.seatLabel2.active {
+	background-color: rgba(0, 50, 100, 0.5);
+}
 </style>
 </head>
 <body onload="seatSize2()">
-<form action="reservation.do">
-	<div id="seatChoice"></div>
-	
-
-	<div class="reserveTiem">
-		시작시간 : <select id="starttime" name="starttime"></select><br>
-		종료 시간 : <select id="endtime" name="endtime"></select>
+<div class="content_center">
+	<div class="total_content">
+		<form action="reservation.do">
+			<div id="seatChoice"></div>
+			
+		
+			<div class="reserveTiem">
+				시작시간 : <select id="starttime" name="starttime"></select><br>
+				종료 시간 : <select id="endtime" name="endtime"></select>
+			</div>
+			
+			<select name="reservetime" id="reservetime">
+				<option>결제할 가격을 선택하세요</option>
+				<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
+				<option value="${fee.w3000}">3000원  ${fee.w3000 }분</option>
+				<option value="${fee.w5000}">5000원  ${fee.w5000 }분</option>
+				<option value="${fee.w10000}">10000원  ${fee.w10000 }분</option>
+				<option value="${fee.w50000}">50000원  ${fee.w50000 }분</option>
+				<option value="${fee.w100000}">100000원  ${fee.w100000 }분</option>
+			</select>
+			
+			<input type="submit" value="예약" class="btn btn-primary btn-sm">
+		</form>
 	</div>
-	
-	<select name="reservetime" id="reservetime">
-		<option>결제할 가격을 선택하세요</option>
-		<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
-		<option value="${fee.w3000}">3000원  ${fee.w3000 }분</option>
-		<option value="${fee.w5000}">5000원  ${fee.w5000 }분</option>
-		<option value="${fee.w10000}">10000원  ${fee.w10000 }분</option>
-		<option value="${fee.w50000}">50000원  ${fee.w50000 }분</option>
-		<option value="${fee.w100000}">100000원  ${fee.w100000 }분</option>
-	</select>
-	
-	<input type="submit" value="예약" class="btn btn-primary btn-sm">
-</form>
+</div>
 </body>
 </html>

@@ -28,6 +28,9 @@
 		margin-top: 0;
 		padding-top: 20px;
 	}
+	.subject_css {
+		width: 100%;
+	}
 </style>
 </head>
 <body>
