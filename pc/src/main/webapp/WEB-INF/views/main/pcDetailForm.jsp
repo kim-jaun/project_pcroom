@@ -46,7 +46,8 @@
 		padding: 0 15px;
 		position: relative;
 		font-size: 20px;
-		margin: 10px 0;
+		margin: 15px 0;
+		margin-top: 20px;
 	}
 	.pcLikes {
 		position: absolute;
@@ -58,7 +59,7 @@
 		width: 20px;
 		top: 0;
 		right: 5;
-		margin-top: -7px;
+		margin-top: -15px;
 	}
 	.pcStar {
 		position: absolute;
@@ -122,7 +123,7 @@
 					<!-- 북마크 끝 -->
 					<a class="pcName nav-link" href="pcMainForm.do?pcno=${pc.pcno }">${pc.pcname}</a>
 					<div class="pcStar">
-						<span class="startpoint"><i class="fas fa-star"></i> ${pc.pclikes }</span>
+						<span class="startpoint"><i class="fas fa-star"></i>${avgRating}</span>
 					</div>
 					<div class="close"><i class="fas fa-times"></i></div>
 				</div>

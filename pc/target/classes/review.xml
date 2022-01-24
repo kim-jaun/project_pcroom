@@ -37,6 +37,6 @@
 	</select>
 	
 	<select id="avgRating" parameterType="integer" resultType="double">
-		select round(avg(rating),1) from review where pcno=#{pcno}
+		select nvl(round(avg(rating),1),0) from review where pcno=#{pcno}
 	</select>
 </mapper>

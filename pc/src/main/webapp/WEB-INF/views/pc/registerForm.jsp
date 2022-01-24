@@ -114,10 +114,6 @@ function fn_selectInfo() {
 					<input placeholder="pc방 내부사진" type="file" name="pcimage" required="required" multiple="multiple" readonly="readonly" class="form-control" style="width:500px;">
 				</div>
 				<p>
-				<div class="join_content">
-					<input type="text" name="pcpno" required="required" title="전화형식 3-3,4-4" pattern="\d{3}-\d{3,4}-\d{4}" placeholder="010-1111-1111" class="form-control" style="width:500px;">
-				</div>
-				<p>
 				<div>
 				<div class="join_content content_id">
 					<input type="text" name="pcaddr" id="pcaddr" required="required" placeholder="주소" style="width:500px" readonly="readonly" class="form-control">

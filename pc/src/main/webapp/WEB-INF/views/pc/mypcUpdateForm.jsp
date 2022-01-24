@@ -129,11 +129,6 @@ function fn_selectInfo() {
 			<div class="join_content">
 				<input type="file" name="pcimage" required="required" multiple="multiple" readonly="readonly" class="form-control">
 			</div>
-			<div>전화번호</div>
-			<div class="join_content">
-				<input type="tel" name="pcpno" required="required" title="전화형식 3-3/4-4" pattern="\d{3}-\d{3,4}-\d{4}"
-					placeholder="010-1111-1111" value="${pc.pcpno }" class="form-control">
-			</div>
 			<div>
 			<div>주소</div>
 			<div class="join_content content_id">

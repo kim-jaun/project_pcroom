@@ -1,8 +1,6 @@
 package com.ch.pc.service;
 
-import lombok.Data;
 
-@Data
 public class PageBean {
 	private int currentPage;
 	private int rowPerPage;
@@ -25,4 +23,60 @@ public class PageBean {
 		}
 	}
 
+	public int getCurrentPage() {
+		return currentPage;
+	}
+
+	public void setCurrentPage(int currentPage) {
+		this.currentPage = currentPage;
+	}
+
+	public int getRowPerPage() {
+		return rowPerPage;
+	}
+
+	public void setRowPerPage(int rowPerPage) {
+		this.rowPerPage = rowPerPage;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public int getTotalPage() {
+		return totalPage;
+	}
+
+	public void setTotalPage(int totalPage) {
+		this.totalPage = totalPage;
+	}
+
+	public int getPagePerBlock() {
+		return pagePerBlock;
+	}
+
+	public void setPagePerBlock(int pagePerBlock) {
+		this.pagePerBlock = pagePerBlock;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+	
 }

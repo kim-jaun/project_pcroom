@@ -33,6 +33,34 @@
 	.seatLabel.active{
 		background-color: rgba(255, 255, 255, 0.8);
 	}
+	body {
+	background-color: #2c3e50;
+}
+
+.content_center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.total_content {
+	width: 90%;
+	height: 90%;
+	border-radius: 20px;
+	background-color: white;
+	padding-left: 0;
+}
+div.left {
+	width: 20%;
+	float: left;
+	border-right: 1px solid black;
+}
+
+div.right {
+	width: 80%;
+	float: right;
+}
 </style>
 <script type="text/javascript">
 function seatSize() {
@@ -61,7 +89,10 @@ function seatSize() {
 
 </head>
 <body onload="seatSize()">
+<div class="content_center">
+<div class="total_content">
 	<form action="seatInsert.do" name="frm" method="post">	
+	<div class="left">
 	<h2>요금설정</h2>
 				<div>
 					1000원 <input type="number" placeholder="" name="w1000">분
@@ -81,7 +112,8 @@ function seatSize() {
 				<div>
 					100000원 <input type="number" placeholder="" name="w100000">분
 				</div>
-	
+	</div>
+	<div class="right">
 	<h2>좌석설정</h2>
 	<span>피씨방 좌석 구조</span>
 	<select name="seatlow">
@@ -102,6 +134,9 @@ function seatSize() {
 	
 	
 	<input type="submit" value="저장">
+	</div>
 	</form>
+</div>
+</div>
 </body>
 </html>

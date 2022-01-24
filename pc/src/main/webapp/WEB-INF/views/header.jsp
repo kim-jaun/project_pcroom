@@ -160,7 +160,6 @@ caption {
 						</c:if>
 						<c:if test="${sessionScope.memberSession.permitConfirm == 0}">
 									<button class="btn btn-secondary btn-register btn-sm">승인대기 중..</button>
-									<button class="btn btn-secondary btn-register btn-sm" onclick='location.href = "seatInsertForm.do"'>좌석 및 금액 설정</button>
 								</c:if>
 						<c:if test="${sessionScope.memberSession.permitConfirm == 1}">
 							<button class="btn btn-secondary btn-register btn-sm"

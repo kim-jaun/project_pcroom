@@ -40,6 +40,7 @@ public class ReviewDaoImpl implements ReviewDao {
 	}
 
 	public double avgRating(int pcno) {
+		System.out.println("sst="+sst);
 		return sst.selectOne("reviewns.avgRating", pcno);
 	}
 }

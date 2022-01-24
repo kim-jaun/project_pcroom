@@ -5,13 +5,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>어데 피씹니까?</title>
 </head>
 <body>
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
-			alert("가맹문의가 완료되었습니다.");
-			location.href = "main.do";
+ 			alert("가맹문의가 완료되었습니다. 좌석배치와 요금설정을 해주세요.");
+			location.href = "seatInsertForm.do";
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">

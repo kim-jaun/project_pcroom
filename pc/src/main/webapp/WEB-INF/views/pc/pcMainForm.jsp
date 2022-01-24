@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
-<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
+<%-- <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">   --%>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
@@ -58,7 +58,7 @@
 	} 
 	$(function() {
 		// 현재 게시글에 해당하는 댓글을 가져와서 보여줘라
-		$('#review').load('reviewList.do?pcno=${pc.pcno}&pcname=${pc.pcname }&pageNum=${pageNum}');
+		$('#review').load('reviewList.do?pcno=${pc.pcno}&pageNum=${pageNum}');
 	});
 	$(function() {
 		$('#seatCurrent').load('seatCurrent.do')
@@ -124,8 +124,7 @@
 			</c:if>
 		</c:if>
 		<div>
-			<button class="btn btn-primary" onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
-			<button class="btn btn-primary" onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>
+			<button class="btn btn-primary btn-reserve" onclick='location.href="boardList.do?pcno=${pc.pcno}"'>게시판</button>
 			<div>
 				<c:if test="${id == 'admin'}">
 					<button class="btn btn-primary" onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
@@ -133,7 +132,7 @@
 			</div>
 		</div>
 		<div>
-			<button onclick='location.href="reservationForm.do"'>좌석예약</button>
+			<button onclick='location.href="reservationForm.do"' class="btn btn-primary btn-reserve">좌석예약</button>
 		</div>
 		<c:if test="${memberSession.mno == pc.mno }">
 			<button class="btn btn-primary" onclick='location.href="seatForm.do?pcno=${pc.pcno}"'>좌석배치 수정</button>

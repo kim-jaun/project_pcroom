@@ -55,9 +55,9 @@ public class PcController {
 		
 		pc.setPcno(ps.givePcno()); // 일련번호 부여
 		List<Pc> pcbnm = ps.selectPcbnm(pc.getPcbusinessnum()); // 중복된 사업자번호 등록 방지
-		List<Pc> pcpno = ps.selectPcpno(pc.getPcpno()); // 중복된 전화번호 등록 방지
+//		List<Pc> pcpno = ps.selectPcpno(pc.getPcpno()); // 중복된 전화번호 등록 방지
 		String real = session.getServletContext().getRealPath("/resources/upload");
-		if (pcbnm.isEmpty() && pcpno.isEmpty()) {			
+		if (pcbnm.isEmpty()/* && pcpno.isEmpty() */) {			
 			List<MultipartFile> list = mr.getFiles("pcimage");
 			List<Pcimage> images = new ArrayList<Pcimage>();
 			for (MultipartFile mf : list) {
@@ -72,6 +72,7 @@ public class PcController {
 				pc.setImagename(fileName);
 			}
 			pc.setMno(memberSession.getMno());
+			pc.setPcpno(memberSession.getPhone());
 			result = ps.insertPc(pc);
 			ps.insertPcimage(images);
 			// 가맹점 문의 후 바로 헤더에서 승인이 안된걸 확인하기 위해
@@ -109,6 +110,7 @@ public class PcController {
 		String id = memberSession.getId();
 		Pc pc = ps.select(pcno);
 		double avgRating = rs.avgRating(pcno);
+
 		List<Pcimage> photolist = ps.listPhoto(pcno);
 		pc.setSearchKey(pc.getSearchKey());
 		pc.setSearchValue(pc.getSearchValue());		
@@ -134,6 +136,7 @@ public class PcController {
 	public String pcDetailForm(int pcno, Model model, HttpSession session) {
 		Pc pc = ps.select(pcno);
 		List<Pcimage> list = ps.listPhoto(pcno);
+		double avgRating = rs.avgRating(pcno);
 		
 		//이 아이디가 북마크 했는지 안했는지 구분
 		String imgSrc = "";
@@ -148,7 +151,7 @@ public class PcController {
 				imgSrc = "/pc/resources/images/bookmark_off.png";
 			}
 		}
-		
+		model.addAttribute("avgRating", avgRating);
 		model.addAttribute("imgSrc", imgSrc);
 		model.addAttribute("pc", pc);
 		model.addAttribute("list", list);
