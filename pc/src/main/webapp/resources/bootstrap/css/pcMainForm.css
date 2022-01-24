@@ -33,6 +33,7 @@ div.left {
 	width: 50%;
 	float: left;
 	border-right: 1px solid black;
+/* 	margin-left: 20px; */
 }
 
 div.right {
@@ -104,21 +105,13 @@ div.right {
 .btn-reserve {
 	margin: 10px;
 }
-.pccontenticon {
-	color: rgba(0, 0, 0, 0.5);
-	margin-right: 20px;
+.bookmark {
+	margin-top: 10px;
 }
-.pccontentline {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-left: -10px;
+.star {
+	vertical-align: bottom;
 }
-.contentpc {
-	width: 200px;
-	top: 0;
-}
-.pccontentde {
-	margin-top: 0px;
-	padding: 5px 10px; 
+.pcmain {
+	font-size: 15px;
+	font-weight: bold;
 }

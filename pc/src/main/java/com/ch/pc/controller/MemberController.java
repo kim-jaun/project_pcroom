@@ -3,6 +3,7 @@ package com.ch.pc.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ch.pc.model.Member1;
 import com.ch.pc.model.Pc;
+import com.ch.pc.model.Reservation;
 import com.ch.pc.service.MemberService;
+import com.ch.pc.service.PageBean;
 import com.ch.pc.service.PcService;
+import com.ch.pc.service.ReservationService;
 
 @Controller
 public class MemberController {
@@ -30,6 +34,8 @@ public class MemberController {
 	private JavaMailSender jMailSender;
 	@Autowired
 	private PcService ps;
+	@Autowired
+	private ReservationService rs;
 	
 	@RequestMapping("insertMember")
 	public String insertMember(HttpServletRequest request) {
@@ -304,5 +310,33 @@ public class MemberController {
 		model.addAttribute("result", result);
 		model.addAttribute("pageNum", pageNum);
 		return "/admin/memberDelete";
+	}
+	
+	@RequestMapping("reserveList")
+	public String reserveList(Reservation reservation, Pc pc, HttpSession session, Model model, String pageNum) {
+		Member1 memberSession = (Member1)session.getAttribute("memberSession");
+		int mno = memberSession.getMno();
+		System.out.println("mno:"+mno);
+		
+//		System.out.println("pcname:"+pcname);
+		 
+//		int  rowPerPage = 10;
+//		if (pageNum == null || pageNum.equals("")) pageNum="1";
+//		int currentPage = Integer.parseInt(pageNum);
+//		int total = rs.getTotal(mno);
+//		int startRow = (currentPage - 1) * rowPerPage + 1;
+//		int endRow = startRow + rowPerPage - 1;
+//		reservation.setStartRow(startRow);
+//		reservation.setEndRow(endRow);
+		List<Pc> rList = rs.rList(mno);
+//		System.out.println("rList:"+rList);
+//		PageBean pb = new PageBean(currentPage, rowPerPage, total);
+		
+//		model.addAttribute("pcname", pcname);
+		model.addAttribute("mno", mno);
+		model.addAttribute("list", rList);
+		model.addAttribute("pageNum", pageNum);
+//		model.addAttribute("pb", pb);
+		return "/member/reverseList";
 	}
 }

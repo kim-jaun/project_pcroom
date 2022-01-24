@@ -9,107 +9,131 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/registerForm.css">
 <script type="text/javascript" src="resources/bootstrap/js/jquery.js"></script>
 <style type="text/css">
-	input[type="image"] { 
-		border: 1px solid;
-		width: 100px;
-		height: 120px;
-	}
-	.color {
-		color:red;
-	}
-	.a {
-		display: inline-block
-	}
-	.b {
-		display: inline-block
-	}
-	.c {
-		display: inline-block
-	}
-	body {
-		background-color: #2c3e50;
-	}
-	.total_content{
-		width: 90%; 
-		height: 90%;
-		border-radius: 20px;
-		background-color: white;
-	}
-	.content_center{
-		display: flex;
-		justify-content: center;
-		position: relative;
-		}
-	.btn_ok {
-		margin: 30px;
-	}
-	.btn-primary {
-		margin-left: 5px;
-	}
-	.form-control {
-		width: 500px;
-		border: none;
-		background-color: white;
-		border-bottom: 1px solid #2c3e50;
-		margin-bottom: 10px;
-	}
-	h3 {
-		margin-bottom: 20px;
-	}
+input[type="image"] {
+	border: 1px solid;
+	width: 100px;
+	height: 120px;
+}
+
+.color {
+	color: red;
+}
+
+.a {
+	display: inline-block
+}
+
+.b {
+	display: inline-block
+}
+
+.c {
+	display: inline-block
+}
+
+body {
+	background-color: #2c3e50;
+}
+
+.total_content {
+	width: 90%;
+	height: 90%;
+	border-radius: 20px;
+	background-color: white;
+}
+
+.content_center {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+.btn_ok {
+	margin: 30px;
+}
+
+.btn-primary {
+	margin-left: 5px;
+}
+
+.form-control {
+	width: 500px;
+	border: none;
+	background-color: white;
+	border-bottom: 1px solid #2c3e50;
+	margin-bottom: 10px;
+}
+
+h3 {
+	margin-bottom: 20px;
+}
+	.navi_admin{
+	float: left;
+/* 	margin-top: 50px; */
+	width: 200px;
+	margin-left: -50px;
+	margin-right: 30px;
+}
 </style>
 <script type="text/javascript">
-function upload() { // 업로드 안했을경우
- 	if (!frm.pcimage.value) {
- 		alert("사진을 넣어주세요.");
- 		frm.pcimage.focus();
- 		return false;
- 	}
- 	else if(!frm.pcinfo.value) {
- 		alert("정보 입력!")
-		frm.pcimage.focus();
- 		return false;
- 	}
- }
-$(document).ready(function() {
-	$("input[name='info']").on("click", function(e) {
-		e.preventDefault();
-		fn_chkInfo($(this));
-		
-	});
-});
-
-function fn_chkInfo(obj) {
-	if(obj.attr("class") == "_checked color") {
-		obj.removeClass("_checked color");
-	} else {
-		obj.addClass("_checked color");
-	}
-}
-
-function fn_selectInfo() {
-	var str = "";
-	var strId = "";
-	
-	$("input[name='info']").each(function(index, element) {
-		if($(this).attr("class") == "_checked color") {
-			str += ((str.length>0) ? "," : "") + $(this).val().trim();
-			strId +=((strId.length>0) ? "," : "") + $(this).attr("id");
+	function upload() { // 업로드 안했을경우
+		if (!frm.pcimage.value) {
+			alert("사진을 넣어주세요.");
+			frm.pcimage.focus();
+			return false;
+		} else if (!frm.pcinfo.value) {
+			alert("정보 입력!")
+			frm.pcimage.focus();
+			return false;
 		}
-	});
-	var selectContent = str;
-	if(selectContent.length > 30) {
-		selectContent = str.substring(0,30) + "...";
 	}
-	$("#selectInfoList").text(selectContent);
-	document.getElementById("pcinfo").value = selectContent;
-	/* $("#divInfoLayer").hide();  */
-}
+	$(document).ready(function() {
+		$("input[name='info']").on("click", function(e) {
+			e.preventDefault();
+			fn_chkInfo($(this));
 
+		});
+	});
+
+	function fn_chkInfo(obj) {
+		if (obj.attr("class") == "_checked color") {
+			obj.removeClass("_checked color");
+		} else {
+			obj.addClass("_checked color");
+		}
+	}
+
+	function fn_selectInfo() {
+		var str = "";
+		var strId = "";
+
+		$("input[name='info']").each(function(index, element) {
+			if ($(this).attr("class") == "_checked color") {
+				str += ((str.length > 0) ? "," : "") + $(this).val().trim();
+				strId += ((strId.length > 0) ? "," : "") + $(this).attr("id");
+			}
+		});
+		var selectContent = str;
+		if (selectContent.length > 30) {
+			selectContent = str.substring(0, 30) + "...";
+		}
+		$("#selectInfoList").text(selectContent);
+		document.getElementById("pcinfo").value = str;
+		/* $("#divInfoLayer").hide(); */
+	}
 </script>
 </head>
 <body>
 <div class="content_center">
 	<div class="total_content" align="center">
+<div class="navi_admin"> 
+	<ul class="sidebar">
+		<li><a href="updateForm.do">회원정보 수정</a></li>
+		<li><a href="reserveList.do">예매내역</a></li>
+		<li><a href="mybookmark.do">즐겨찾기</a></li>
+		<li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
+	</ul>
+</div>
 		<form action="mypcUpdate.do" name="frm" method="post" onsubmit="return upload()" enctype="multipart/form-data">
 		<input type="hidden" name="pcno" value="${pc.pcno }">
 		<input type="hidden" name="mno" value="${mno }">
@@ -125,6 +149,11 @@ function fn_selectInfo() {
 			<div class="join_content">
 				<input type="text" name="pcname" value="${pc.pcname }" required="required" class="form-control">
 			</div>
+			<div>pc방 전화번호</div>
+			<div class="join_content">
+				<input type="tel" name="pcpno" value="${pc.pcpno }" required="required" pattern="010-\d{3,4}-\d{4}"
+						placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control">
+			</div>
 			<div>pc방 사진</div>
 			<div class="join_content">
 				<input type="file" name="pcimage" required="required" multiple="multiple" readonly="readonly" class="form-control">
@@ -138,12 +167,16 @@ function fn_selectInfo() {
 			</div>
 				<div id="map" style="width:500px; height:300px; margin-top:10px; display:block;"></div>
 			</div>
-			<p>
-			<div class="join_content">
-			정보
+			<br>
+			정보(수정 전)		
 			<div class="service-cont">
-				<a href="#" class="service-tit"> 
-					<strong id="selectInfoList">${pc.pcinfo }</strong>
+				<a class="service-tit" style="width:500px"> 
+					<strong id="selectInfoList1">${pc.pcinfo }</strong>			
+				</a>
+				<br>
+				정보(수정 후)
+				<a class="service-tit" style="width:500px"> 
+					<strong id="selectInfoList"></strong>				
 				</a>
 				<div id="divInfoLayer" class="layer-service">
 					<p>정보 선택</p>
@@ -188,17 +221,13 @@ function fn_selectInfo() {
 					모바일게임
 					</div>	
 					<div>
-						<span> 
-						
-						</span>
 						<button type="button" onclick="fn_selectInfo()" class="btn btn-primary">확인</button>
 					</div>
 				</div>
 			</div>
-			</div>
 			<p>
 			<div class="form-group">
-				<div>pc방 이름</div>
+				<div>pc방 소개</div>
 				<textarea rows="7" cols="50" name="pcintro" class="form-control" required="required">${pc.pcintro }</textarea>
 			</div>
 			<div>
@@ -208,7 +237,7 @@ function fn_selectInfo() {
 			</div>
 			</div>
 			<div align="center">
-			<button id="submit" type="submit" class="btn btn-primary btn_ok">확인</button>
+			<button id="submit" type="submit" class="btn btn-primary btn_ok">수정</button>
 			</div>
 		</form>
 	</div>

@@ -20,7 +20,7 @@ select * from member1;
 
 -- pc테이블
 drop table pc;
-
+select * from pc;
 create table pc(
 	pcno number primary key,
 	pcbusinessnum varchar2(20) not null,

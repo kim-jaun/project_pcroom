@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ch.pc.model.Fee;
-import com.ch.pc.model.Member1;
 import com.ch.pc.service.PcService;
 	
 @Controller

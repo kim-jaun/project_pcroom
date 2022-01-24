@@ -26,7 +26,7 @@ body {
 </style>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/insertForm.css">
 <link rel="stylesheet" href="${path}/resources/ckeditor/contents.css">
-<script type="text/javascript" src="${path}/resources/ckeditor/ckeditor.js" ></script>
+<script type="text/javascript" src="${path}/resources/ckeditor/ckeditor.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
 </head>
 <body>

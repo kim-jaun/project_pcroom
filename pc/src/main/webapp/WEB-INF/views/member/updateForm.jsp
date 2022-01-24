@@ -83,6 +83,12 @@ li a:hover:not(.current) {
 	.btn_ok {
 		margin: 30px;
 	}
+	.navi_admin{
+	float: left;
+/* 	margin-top: 50px; */
+	width: 200px;
+	margin-left: -50px;
+}
 </style>
 <script type="text/javascript">
 function chk() {
@@ -171,6 +177,7 @@ function chk4() { // 이메일 중복체크
 		<li><a href="updateForm.do">회원정보 수정</a></li>
 		<li><a href="reserveList.do">예매내역</a></li>
 		<li><a href="mybookmark.do">즐겨찾기</a></li>
+		<li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
 	</ul>
 </div>
 <div class="form_line">

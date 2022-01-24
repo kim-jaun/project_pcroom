@@ -121,5 +121,5 @@ public class PcServiceImpl implements PcService {
 	public List<Pc> searchpc(Keyword keyword) {
 		return pd.searchpc(keyword);
 	}
-
+	
 }

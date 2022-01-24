@@ -46,6 +46,13 @@
 	.form-control {
 		width: 500px;
 	}
+	.service-tit {
+    display: block;
+    width: 500px;
+    height: 26px;
+    border: 1px solid #000000;
+    text-decoration-line: none;
+}
 </style>
 <script type="text/javascript">
 function upload() { // 업로드 안했을경우
@@ -91,8 +98,8 @@ function fn_selectInfo() {
 		selectContent = str.substring(0,30) + "...";
 	}
 	$("#selectInfoList").text(selectContent);
-	document.getElementById("pcinfo").value = selectContent;
-	/* $("#divInfoLayer").hide();  */
+	document.getElementById("pcinfo").value = str;
+	/* $("#divInfoLayer").hide(); */
 }
 </script>
 </head>
@@ -108,6 +115,11 @@ function fn_selectInfo() {
 				<p>
 				<div class="join_content">
 					<input placeholder="pc방 이름" type="text" name="pcname" required="required" class="form-control" style="width:500px;">
+				</div>
+				<p>
+				<div class="join_content">
+				<input type="tel" name="pcpno" required="required" pattern="010-\d{3,4}-\d{4}"
+						placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control">
 				</div>
 				<p>
 				<div class="join_content">

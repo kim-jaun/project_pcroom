@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
-<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
+<%-- <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">   --%>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
@@ -51,15 +51,31 @@
 	background-color: white;
 	padding-left: 0;
 }
-div.left {
-	width: 20%;
-	float: left;
-	border-right: 1px solid black;
+.form-control {
+	width: 80px;
+	height: 30px;
 }
-
-div.right {
-	width: 80%;
-	float: right;
+.won {
+	display: flex;
+	justify-content: center;
+}
+.btn-ok {
+	margin: 10px;
+}
+.won-1 {
+	margin-left: 19px;
+}
+.won-2 {
+	margin-left: 18px;
+}
+.won-3 {
+	margin-left: 19px;
+}
+.won-4{
+ 	margin-left: -9px; 
+}
+.won-5 {
+ 	margin-left: -18px; 
 }
 </style>
 <script type="text/javascript">
@@ -90,31 +106,36 @@ function seatSize() {
 </head>
 <body onload="seatSize()">
 <div class="content_center">
-<div class="total_content">
+<div class="total_content" align="center">
 	<form action="seatInsert.do" name="frm" method="post">	
-	<div class="left">
-	<h2>요금설정</h2>
-				<div>
-					1000원 <input type="number" placeholder="" name="w1000">분
+		<h4>요금설정</h4>
+				<div class="won">
+					<div>1000원</div>
+					<input type="number" placeholder="" name="w1000" class="form-control won-1">분
 				</div>
-				<div>
-					3000원 <input type="number" placeholder="" name="w3000">분
+				<div class="won">
+					<div>3000원</div>
+					<input type="number" placeholder="" name="w3000" class="form-control won-1">분
 				</div>
-				<div>
-					5000원 <input type="number" placeholder="" name="w5000">분
+				<div class="won">
+					<div>5000원</div>
+					<input type="number" placeholder="" name="w5000" class="form-control won-1">분
 				</div>
-				<div>
-					10000원 <input type="number" placeholder="" name="w10000">분
+				<div class="won">
+					<div class="won-4">10000원</div>
+					<input type="number" placeholder="" name="w10000" class="form-control won-2">분
 				</div>
-				<div>
-					50000원 <input type="number" placeholder="" name="w50000">분
+				<div class="won">
+					<div class="won-4">50000원</div>
+					<input type="number" placeholder="" name="w50000" class="form-control won-2">분
 				</div>
-				<div>
-					100000원 <input type="number" placeholder="" name="w100000">분
+				<div class="won">
+					<div class="won-5">100000원</div>
+					<input type="number" placeholder="" name="w100000" class="form-control won-3">분
 				</div>
-	</div>
-	<div class="right">
-	<h2>좌석설정</h2>
+<!--  				<hr> -->
+				<br><br>
+	<h4>좌석설정</h4>
 	<span>피씨방 좌석 구조</span>
 	<select name="seatlow">
  		<option value=${pc.seatlow }>현재 값(${pc.seatlow })</option>
@@ -128,13 +149,12 @@ function seatSize() {
 			<option value=${j }>${j }</option>
 		</c:forTokens>
 	</select>
-	<input type="button" onclick="seatSize()" value="좌석 배치">
+	<input type="button" onclick="seatSize()" value="좌석 배치" class="btn btn-primary btn-sm">
 	<div id="seatPosition"></div>
 	<input type="hidden" name="pcno" value="${pcno }">
 	
 	
-	<input type="submit" value="저장">
-	</div>
+	<input type="submit" value="저장" class="btn btn-primary btn-ok">
 	</form>
 </div>
 </div>

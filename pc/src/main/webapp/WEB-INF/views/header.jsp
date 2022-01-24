@@ -121,10 +121,10 @@ caption {
 <%-- <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
 <script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>--%>
-<link rel="stylesheet" type="text/css"
-	href="${path}/resources/bootstrap/css/pc.css">
-<link rel="stylesheet" type="text/css"
-	href="${path}/resources/bootstrap/css/bootstrap(1).css">
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/pc.css">
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
+<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min(1).css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css" integrity="sha384-HzLeBuhoNPvSl5KYnjx0BT+WB0QEEqLprO+NBkkk5gbc67FTaL7XIGa2w1L0Xbgc" crossorigin="anonymous">
 <body>
 	<nav class="total">
 		<div class="logo">

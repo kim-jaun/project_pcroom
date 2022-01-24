@@ -18,4 +18,15 @@
 	<update id="expired">
 		update reservation set expiration = 'y' where reserveno=#{reserveno}
 	</update>
+	
+ 	<!-- 예매내역 -->
+ 	<select id="getTotal" parameterType="integer" resultType="reservation">
+ 		select count(*) from reservation where mno=#{mno}
+ 	</select>
+ 	<select id="rList" parameterType="reservation" resultType="reservation">
+<!--  		select * from (select a.*, rowNum rn from (select * from reservation
+			order by reg_date desc)a) where rn between #{startRow} and #{endRow} -->
+			select * from reservation where mno=#{mno}
+ 	</select>
+
 </mapper>

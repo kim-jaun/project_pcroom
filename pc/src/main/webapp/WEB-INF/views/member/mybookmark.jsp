@@ -42,11 +42,13 @@
 .title {
 	margin-left: 30px;
 }
-.navi_admin{
+	.navi_admin{
 	float: left;
+/* 	margin-top: 50px; */
+	width: 200px;
+	margin-left: -50px;
 	margin-right: 30px;
 }
-
 </style>
 </head>
 <body>
@@ -57,6 +59,9 @@
 		<li><a href="updateForm.do">회원정보 수정</a></li>
 		<li><a href="reserveList.do">예매내역</a></li>
 		<li><a href="mybookmark.do">즐겨찾기</a></li>
+		<c:if test="">
+		<li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
+		</c:if>
 	</ul>
 </div>
 	<h5 class="title">즐겨찾기한 pc방 목록  : ${total }개</h5>

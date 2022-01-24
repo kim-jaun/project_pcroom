@@ -167,10 +167,10 @@
 	text-align: center;
 }
 .review_likes{
-	width: 45px;
+/* 	width: 50px; */
 /* 	font-size: 12px; */
-	height: 25px;
-	margin: 0 1px;
+	height: 30px;
+	margin: 10px 1px;
 }
 .review_list{
 	display: flex;
@@ -187,11 +187,11 @@
 	display:flex;
 	width: 100%;
 	align-items: flex-end;
-/* 	fonr-size: 6px; */
+ 	fonr-size: 6px; 
 }
 .review_reg_date{
 	margin-left: 5px;
-/* 	font-size: 4px; */
+ 	font-size: 4px; 
 }
  .reviewList {
   	width: 90%;  
@@ -199,11 +199,11 @@
 .review_nick{
 	color: black;
 	font-weight: bold;
-	font-size: 10px;
+	font-size: 13px;
 }
 .btn_size {
-	width: 35px;
-	height: 23px;
+  	width: 43px;  
+  	height: 27px; 
 }
 .paging {
 	display: flex;
@@ -217,6 +217,9 @@
 .review_star_off {
      color:#ccc;
      font-size:13px;
+}
+.origin_content {
+	font-size: 15px;
 }
 </style>
 </head>

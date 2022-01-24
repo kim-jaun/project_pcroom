@@ -5,12 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
+<title>어데 피씹니까?</title>
+<%-- <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">   --%>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
 $(function() {
@@ -153,8 +152,6 @@ $(function() {
 		종료 시간 : <select id="endtime" name="endtime"></select>
 	</div>
 	
-	
-	
 	<select name="reservetime" id="reservetime">
 		<option>결제할 가격을 선택하세요</option>
 		<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
@@ -165,7 +162,7 @@ $(function() {
 		<option value="${fee.w100000}">100000원  ${fee.w100000 }분</option>
 	</select>
 	
-	<input type="submit" value="예약">
+	<input type="submit" value="예약" class="btn btn-primary btn-sm">
 </form>
 </body>
 </html>

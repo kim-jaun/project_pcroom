@@ -11,6 +11,29 @@
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/pcMainForm.css">
+<style type="text/css">
+.pcContent {
+	width: 90%;
+}
+.pccontenticon {
+	color: rgba(0, 0, 0, 0.5);
+	margin-right: 20px;
+}
+.pccontentline {
+	display: flex;
+	align-items: center;
+}
+.contentpc {
+	display: flex;
+	justify-content: flex-start;
+	width: 70%;
+	top: 0;
+}
+.pccontentde {
+	margin-top: 0px;
+	padding: 5px 10px; 
+}
+</style>
 <script type="text/javascript">
 	// 가맹점 승인(관리자만)
 	function permit(p_pcno){

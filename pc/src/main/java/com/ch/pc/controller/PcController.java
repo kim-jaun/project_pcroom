@@ -55,9 +55,9 @@ public class PcController {
 		
 		pc.setPcno(ps.givePcno()); // 일련번호 부여
 		List<Pc> pcbnm = ps.selectPcbnm(pc.getPcbusinessnum()); // 중복된 사업자번호 등록 방지
-//		List<Pc> pcpno = ps.selectPcpno(pc.getPcpno()); // 중복된 전화번호 등록 방지
+		List<Pc> pcpno = ps.selectPcpno(pc.getPcpno()); // 중복된 전화번호 등록 방지
 		String real = session.getServletContext().getRealPath("/resources/upload");
-		if (pcbnm.isEmpty()/* && pcpno.isEmpty() */) {			
+		if (pcbnm.isEmpty() && pcpno.isEmpty() ) {			
 			List<MultipartFile> list = mr.getFiles("pcimage");
 			List<Pcimage> images = new ArrayList<Pcimage>();
 			for (MultipartFile mf : list) {
@@ -72,7 +72,6 @@ public class PcController {
 				pc.setImagename(fileName);
 			}
 			pc.setMno(memberSession.getMno());
-			pc.setPcpno(memberSession.getPhone());
 			result = ps.insertPc(pc);
 			ps.insertPcimage(images);
 			// 가맹점 문의 후 바로 헤더에서 승인이 안된걸 확인하기 위해
@@ -171,17 +170,17 @@ public class PcController {
 	public String seatInsert(Pc pc, Seat seat, Fee fee, Model model) {
 		int result = 0;
 		int pcno = seat.getPcno();
+		fee.setPcno(pc.getPcno());
 		int seatform = ps.updateSeatform(pc);
 		Seat s1 = ps.selectseat(pcno);
-		if (seat.getSeatposition() == null) {
+		if (seat.getSeatposition() == null || fee.getW1000() == 0 || fee.getW3000() == 0 || fee.getW5000() == 0 || fee.getW10000() == 0 || fee.getW50000() == 0 || fee.getW100000() == 0) {
 			result = 0;
 		} else if(s1 == null){			
 			result = ps.insertSeat(seat);
+			ps.feeInsert(fee);
 		} else {
 			result = ps.updateSeat(seat);
 		}
-		fee.setPcno(pc.getPcno());
-		ps.feeInsert(fee);
 		
 		model.addAttribute("result", result);
 		model.addAttribute("pcno", pcno);
@@ -346,7 +345,6 @@ public class PcController {
 		int pcno = (Integer) session.getAttribute("pcnoSession");
 		Member1 member1 = (Member1) session.getAttribute("memberSession");
 		reservation.setPcno(pcno);
-		System.out.println(reservation.getReserveSeatPosition());
 		reservation.setMno(member1.getMno());
 		int result = 0;
 		result = ps.insertReservation(reservation);

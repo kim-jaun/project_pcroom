@@ -1,6 +1,8 @@
 package com.ch.pc.service;
 
+import lombok.Data;
 
+@Data
 public class PageBean {
 	private int currentPage;
 	private int rowPerPage;
@@ -78,5 +80,5 @@ public class PageBean {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-	
+
 }
