@@ -109,12 +109,36 @@
 				<span class="sr-only">Next</span>
 			</a>
 		</div>
-		<div>주소</div>
-		<div>${pc.pcaddr }</div>
-		<div>정보</div>
-		<div>${pc.pcinfo }</div>
-		<div>pc방 소개</div>
-		<div>${pc.pcintro }</div>
+		<div class="pcContent">
+			<hr>
+			<div class="pccontentde pcNum">
+				<div class="pccontentline">
+					<i class="pccontenticon fas fa-phone-square-alt"></i>
+					<div class="contentpc">${pc.pcpno }</div>
+				</div>
+			</div>
+			<hr>
+			<div class="pccontentde pcAddr">
+				<div class="pccontentline">
+					<i class="pccontenticon fas fa-map-marked-alt"></i>
+					<div class="contentpc">${pc.pcaddr }</div>
+				</div>
+			</div>
+			<hr>
+			<div class="pccontentde pcInfo">
+				<div class="pccontentline">
+					<i class="pccontenticon fas fa-envelope-open-text"></i>
+					<div class="contentpc">${pc.pcinfo }</div>
+				</div>
+			</div>
+			<hr>
+			<div class="pccontentde pcIntro">
+				<div class="pccontentline">
+					<i class="pccontenticon fas fa-info-circle"></i>
+					<div class="contentpc">${pc.pcintro }</div>
+				</div>
+			</div>
+		</div>
 		<c:if test="${id == 'admin'}">
 			<c:if test="${pc.permit == 'n' }">
 				<button onclick="permit(${pc.pcno})" class="btn btn-primary">승인</button>

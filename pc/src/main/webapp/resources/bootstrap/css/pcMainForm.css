@@ -104,3 +104,21 @@ div.right {
 .btn-reserve {
 	margin: 10px;
 }
+.pccontenticon {
+	color: rgba(0, 0, 0, 0.5);
+	margin-right: 20px;
+}
+.pccontentline {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: -10px;
+}
+.contentpc {
+	width: 200px;
+	top: 0;
+}
+.pccontentde {
+	margin-top: 0px;
+	padding: 5px 10px; 
+}
