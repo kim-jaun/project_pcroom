@@ -177,7 +177,7 @@
 				
 				<!-- pc방 info -->
 				<div class="pcContent">
-					<input type="button" onclick='location.href="reservationForm.do"' class="seatbtn btn btn-primary btn-reserve" value="좌석예약">
+					<input type="button" onclick='location.href="reservationForm.do?pcno=${pc.pcno}"' class="seatbtn btn btn-primary btn-reserve" value="좌석예약">
 					<hr>
 					<div class="pccontentde pcNum">
 						<div class="pccontentline">

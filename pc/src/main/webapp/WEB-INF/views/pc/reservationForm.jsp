@@ -12,6 +12,16 @@
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript">
+function chk() {
+	if (!$("input:checked[Name='reserveSeatPosition']").is(":checked")){
+		alert("좌석을 한자리 이상 선택하세요");
+		return false; 
+		}
+	if(!frm.endtime.value) {
+		alert("시간을 체크하세요")
+		return false;
+	}
+}
 $(function() {
 		var width = ${pc.seatlow};
 		var height = ${pc.seatcol};
@@ -34,15 +44,19 @@ $(function() {
 
 	 	
 	 	
-	 	$('.seatLabel2').on('click', function(){
-			if ($(this).hasClass("active")) { 
-			// active class 제거
-				$(this).removeClass("active");
-			}
-			else {
-	    	// active class 추가
-				$(this).addClass('active');
-			}
+	 	$('.seatLabel2.btn').on('click', function(){
+	 		if ($(this).hasClass("active")) { 
+				// active class 제거
+				if(!$(this).hasClass("reserved")){
+					$(this).removeClass("active");
+				}
+				}
+				else {
+		    	// active class 추가
+		    	if(!$(this).hasClass("reserved")){
+					$(this).addClass('active');
+		    	}
+				}
 		});
 	
 		
@@ -59,66 +73,73 @@ $(function() {
 	 		}
 	 	}
 	});
-	jQuery(document).ready(function(){
-				$('#reservetime').change(function(){
-			  $('#endtime').show();
-			  $('#endtime').empty();
-			  var starthour = $('#starttime').val().substring(0,2)
-			  var startmin = $('#starttime').val().substring(3,5)
-				if(startmin == '00'){			  
-			  	var endmin = $(this).val()
-				}else{
-				var endmin = parseInt($(this).val())+30;
-				}
-			  var endhour = parseInt(starthour)
-			  if(endmin>59){
-				  endhour = endhour + Math.floor(endmin/60)
-				  endmin = endmin%60
-				 
-			  }
-			  if(endmin<10){
-				  endmin = "0"+endmin
-			  }
-			  
-			  $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
-			    });
-	});
-	$(function() {
-		
-	if(${rlists} != null){
+jQuery(document).ready(function(){
+	
+	
+	
+	$('#reservetime').change(function(){
+  $('#endtime').show();
+  $('#endtime').empty();
+  var starthour = $('#starttime').val().substring(0,2)
+  var startmin = $('#starttime').val().substring(3,5)
+	if(startmin == '00'){			  
+  	var endmin = $(this).val()
+	}else{
+	var endmin = parseInt($(this).val())+30;
+	}
+  var endhour = parseInt(starthour)
+  if(endmin>59){
+	  endhour = endhour + Math.floor(endmin/60)
+	  endmin = endmin%60
+	 
+  }
+  if(endmin<10){
+	  endmin = "0"+endmin
+  }
+  $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
+    });
+	
+	$('#starttime').change(function(){
+		  $('#endtime').show();
+		  $('#endtime').empty();
+		  var starthour = $('#starttime').val().substring(0,2)
+		  var startmin = $('#starttime').val().substring(3,5)
+			if(startmin == '00'){			  
+		  	var endmin = $('#reservetime').val()
+			}else{
+			var endmin = parseInt($('#reservetime').val())+30;
+			}
+		  var endhour = parseInt(starthour)
+		  if(endmin>59){
+			  endhour = endhour + Math.floor(endmin/60)
+			  endmin = endmin%60
+			 
+		  }
+		  if(endmin<10){
+			  endmin = "0"+endmin
+		  }
+		  $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
+		    });		
+});
+$(function() {		
+	if(${rlists} != null){ 
 	var rlists = "${rlists}";
- 	var rr = rlists.replace('[','');
+ 	var rr = rlists.replace('[',''); 
  	var rrr = rr.replace(']','');
  	var rarray = rrr.split(',');
  	for (var r in rarray) {
 		var rtrim = rarray[r].trim();
-		$("#" + rtrim).attr('disabled','disabled');
 		$("." + rtrim).addClass('reserved');
-			} 
+		$("." + rtrim).removeAttr('for');
+			}  
 		}
-	});
+}); 
 	
 
 
 </script >
 
 <style type="text/css">
-body {
-	background-color: #2c3e50;
-}
-.content_center{
-	display: flex;
-	justify-content: center;
-	position: relative;
-	}
-.total_content{
-	width: 90%; 
-	height: 90%;
-	border-radius: 20px;
-	background-color: white;
-	margin-top: 0;
-	padding-top: 20px;
-}
 #seatChoice input {
 	position: absolute;
 	top: 50%;
@@ -140,9 +161,9 @@ body {
 	opacity: 0;
 }
 
-.seatLabel2.active {
-	background-color: rgba(255, 255, 255, 0.8);
-}
+.seatLabel2.active{
+		background-color: rgba(0, 50, 100, 0.5);
+	}
 
 .seatLabel2.btn {
 	font-size: 13px;
@@ -156,36 +177,29 @@ body {
 	color: red;
 	border-color: red;
 }
-.seatLabel2.active {
-	background-color: rgba(0, 50, 100, 0.5);
-}
 </style>
 </head>
 <body onload="seatSize2()">
-<div class="content_center">
-	<div class="total_content">
-		<form action="reservation.do">
-			<div id="seatChoice"></div>
-			
-		
-			<div class="reserveTiem">
-				시작시간 : <select id="starttime" name="starttime"></select><br>
-				종료 시간 : <select id="endtime" name="endtime"></select>
-			</div>
-			
-			<select name="reservetime" id="reservetime">
-				<option>결제할 가격을 선택하세요</option>
-				<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
-				<option value="${fee.w3000}">3000원  ${fee.w3000 }분</option>
-				<option value="${fee.w5000}">5000원  ${fee.w5000 }분</option>
-				<option value="${fee.w10000}">10000원  ${fee.w10000 }분</option>
-				<option value="${fee.w50000}">50000원  ${fee.w50000 }분</option>
-				<option value="${fee.w100000}">100000원  ${fee.w100000 }분</option>
-			</select>
-			
-			<input type="submit" value="예약" class="btn btn-primary btn-sm">
-		</form>
+<form action="reservation.do" name="frm" onsubmit="return chk()">
+	<div id="seatChoice"></div>
+	
+
+	<div class="reserveTiem">
+		시작시간 : <select id="starttime" name="starttime"></select><br>
+		종료 시간 : <select id="endtime" name="endtime"></select>
 	</div>
-</div>
+	
+	<select name="reservetime" id="reservetime">
+		<option>요금 선택</option>
+		<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
+		<option value="${fee.w3000}">3000원  ${fee.w3000 }분</option>
+		<option value="${fee.w5000}">5000원  ${fee.w5000 }분</option>
+		<option value="${fee.w10000}">10000원  ${fee.w10000 }분</option>
+		<option value="${fee.w50000}">50000원  ${fee.w50000 }분</option>
+		<option value="${fee.w100000}">100000원  ${fee.w100000 }분</option>
+	</select>
+	
+	<input type="submit" value="예약" class="btn btn-primary btn-sm">
+</form>
 </body>
 </html>

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>어데 피씹니까?</title>
-<link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">  
+<%-- <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap.min.css">   --%>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/jquery.js"></script>
 <script type="text/javascript" src="${path}/resources/bootstrap/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${path}/resources/bootstrap/css/bootstrap(1).css">
@@ -33,6 +33,28 @@
 	.seatLabel.active{
 		background-color: rgba(255, 255, 255, 0.8);
 	}
+	body {
+		background-color: #2c3e50;
+	}
+	.content_center{
+		display: flex;
+		justify-content: center;
+		position: relative;
+		}
+	.total_content{
+		width: 90%; 
+		height: 90%;
+		border-radius: 20px;
+		background-color: white;
+	}
+		.navi_admin{
+		float: left;
+	/* 	margin-top: 50px; */
+		width: 200px;
+		margin-left: -50px;
+		margin-right: 30px;
+		z-index: 100;
+	}
 </style>
 <script type="text/javascript">
 function seatSize() {
@@ -58,9 +80,27 @@ function seatSize() {
 	});
 };
 </script>
-
 </head>
 <body onload="seatSize()">
+<div class="content_center">
+<div class="total_content">
+<div class="navi_admin"> 
+	<ul class="sidebar">
+         <li><a href="updateForm.do">회원정보 수정</a></li>
+         <li><a href="reserveList.do">예매내역</a></li>
+         <li><a href="mybookmark.do">즐겨찾기</a></li>
+            <c:if test="${memberSession.identity == '점주' }">
+               <li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
+               <li><a href="seatForm.do?pcno=${pc.pcno}">좌석배치 수정</a></li>
+               <c:if test="${f1 == 'null' }">
+               <li><a href="feeInsertForm.do">요금 수정</a></li>
+               </c:if>
+               <c:if test="${f1 != 'null' }">
+               <li><a href="feeUpdateForm.do">요금 수정</a></li>
+               </c:if>
+            </c:if>
+   </ul>
+</div>
 	<form action="seatSetting.do" name="frm" method="post">	
 	<span>피씨방 좌석 구조</span>
 	<select name="seatlow">
@@ -80,5 +120,7 @@ function seatSize() {
 	<input type="hidden" name="pcno" value="${pcno }">
 	<input type="submit" value="저장">
 	</form>
+</div>
+</div>
 </body>
 </html>

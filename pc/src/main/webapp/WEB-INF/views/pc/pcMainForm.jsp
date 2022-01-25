@@ -133,7 +133,7 @@
 		<c:if test="${id == 'admin'}">
 			<button class="btn-between btn btn-primary" onclick="location.href='pcList.do?pageNum=${pageNum}'">목록</button>
 		</c:if>
-		<button onclick='location.href="reservationForm.do"' class="btn-between btn btn-primary btn-reserve">좌석예약</button>
+		<button onclick='location.href="reservationForm.do?pcno=${pc.pcno}"' class="btn-between btn btn-primary btn-reserve">좌석예약</button>
 	</div>
 	<div class="left" align="center">
 		<div id="carousel-example-generic" class="carousel slide"

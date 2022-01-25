@@ -240,7 +240,7 @@ function juso() {
 		<!-- search -->
 		<div class="slide-div">
 			
-			<form action="mainSearch.do" class="keywordgroup" onsubmit="return juso()">
+			<form action="" class="keywordgroup" onsubmit="return juso()">
 			<div class="addr">
 				<h4>주소 검색</h4>
 					<select id="sido" class="btn-group" name="sido">
@@ -354,7 +354,7 @@ function juso() {
 		</script>
 	<!-- map script 끝 -->
 	<!-- 마커생성 -->
-	<c:forEach var="pc" items="${list }">
+	<c:forEach var="pc" items="${listsearch }">
 		<script type="text/javascript">	
 			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
 			    markerPosition = new kakao.maps.LatLng('${pc.pclati}', '${pc.pclongi}'); // 마커가 표시될 위치입니다

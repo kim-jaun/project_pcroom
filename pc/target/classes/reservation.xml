@@ -23,10 +23,12 @@
  	<select id="getTotal" parameterType="integer" resultType="reservation">
  		select count(*) from reservation where mno=#{mno}
  	</select>
- 	<select id="rList" parameterType="reservation" resultType="reservation">
-<!--  		select * from (select a.*, rowNum rn from (select * from reservation
-			order by reg_date desc)a) where rn between #{startRow} and #{endRow} -->
-			select * from reservation where mno=#{mno}
+ 	<select id="nList" parameterType="reservation" resultType="reservation">
+		select r.*, p.pcname  from reservation r, pc p where r.pcno=p.pcno and r.mno=#{mno} and expiration = 'n' order by r.reg_date
+ 	</select>
+ 	
+ 	<select id="yList" parameterType="reservation" resultType="reservation">
+		select r.*, p.pcname  from reservation r, pc p where r.pcno=p.pcno and r.mno=#{mno} and expiration = 'y' order by r.reg_date
  	</select>
 
 </mapper>

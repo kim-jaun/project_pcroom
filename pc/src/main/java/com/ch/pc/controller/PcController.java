@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -233,8 +234,15 @@ public class PcController {
 	}
 	
 	@RequestMapping("mybookmark")
-	public String mybookmark(Bookmark bookmark, Pc pc, Model model, HttpSession session, String pageNum) {
+	public String mybookmark(Bookmark bookmark, Model model, HttpSession session, String pageNum) {
 		Member1 memberSession = (Member1)session.getAttribute("memberSession");
+		 Pc pc = ps.selectMno(memberSession.getMno());
+	     if(pc != null) {
+		     int pcno = pc.getPcno();
+		     Fee f1 = ps.selectFee(pcno);
+	    	 model.addAttribute("pc",pc);
+	    	 model.addAttribute("f1", f1);
+	     }	  	     
 		int mno = memberSession.getMno();
 		int  rowPerPage = 4;
 		if (pageNum == null || pageNum.equals("")) pageNum="1";
@@ -286,8 +294,7 @@ public class PcController {
 	}
 
 	@RequestMapping("reservationForm")
-	public String reservationForm(Model model, HttpSession session) {
-		int pcno = (Integer) session.getAttribute("pcnoSession");
+	public String reservationForm(int pcno, Model model, HttpSession session) {
 
 		String slist = ps.listSeat(pcno);
 		String[] seatlists = null;
@@ -329,8 +336,7 @@ public class PcController {
 
 		Pc pc = ps.select(pcno);
 		Fee fee = ps.selectFee(pcno);
-		System.out.println(hoursI);
-		System.out.println(minI);
+
 		model.addAttribute("now_hour", hoursI);
 		model.addAttribute("now_min", minI);
 		model.addAttribute("fee", fee);
@@ -347,8 +353,24 @@ public class PcController {
 		reservation.setPcno(pcno);
 		reservation.setMno(member1.getMno());
 		int result = 0;
-		result = ps.insertReservation(reservation);
-
+		LocalTime now = LocalTime.now();
+		int currentmin = now.getMinute();
+		int currentHour = now.getHour();		
+		String startTime = reservation.getStarttime();
+		String hour = startTime.substring(0, 2);
+		String min = startTime.substring(3, 5);
+		int ihour = Integer.parseInt(hour);
+		int imin = Integer.parseInt(min);
+		int hourToMin = ihour*60;
+		int currentHourToMin = currentHour*60;
+		
+		if(hourToMin + imin <= currentHourToMin+currentmin) {
+			result = -1;
+		}else {
+			result = ps.insertReservation(reservation);
+		}
+		
+		
 		model.addAttribute("result", result);
 		return "/pc/reservation";
 	}

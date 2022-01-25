@@ -18,11 +18,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ch.pc.model.Fee;
 import com.ch.pc.model.Member1;
 import com.ch.pc.model.Pc;
 import com.ch.pc.model.Reservation;
 import com.ch.pc.service.MemberService;
-import com.ch.pc.service.PageBean;
 import com.ch.pc.service.PcService;
 import com.ch.pc.service.ReservationService;
 
@@ -219,7 +219,16 @@ public class MemberController {
 		return "/member/findPw";
 	}
 	@RequestMapping("passChkForm")
-	public String passChkForm() {
+	public String passChkForm(Model model, HttpSession session) {
+		 Member1 memberSession = (Member1)session.getAttribute("memberSession");      
+		 Pc pc = ps.selectMno(memberSession.getMno());
+	     if(pc != null) {
+		     int pcno = pc.getPcno();
+		     Fee f1 = ps.selectFee(pcno);
+	    	 model.addAttribute("pc",pc);
+	    	 model.addAttribute("f1", f1);
+	     }	  	     
+	     model.addAttribute("memberSession", memberSession);
 		return "/member/passChkForm";
 	}
 	@RequestMapping("passChk")
@@ -234,11 +243,17 @@ public class MemberController {
 	}
 	@RequestMapping("updateForm")
 	public String updateForm(Model model, HttpSession session) {
-		Member1 member = (Member1)session.getAttribute("memberSession");
-
-		model.addAttribute("member", member);
-		return "/member/updateForm";
-	}
+	      Member1 member = (Member1)session.getAttribute("memberSession");
+	      Pc pc = ps.selectMno(member.getMno());
+		     if(pc != null) {
+			     int pcno = pc.getPcno();
+			     Fee f1 = ps.selectFee(pcno);
+		    	 model.addAttribute("pc",pc);
+		    	 model.addAttribute("f1", f1);
+		     }	  	     
+	      model.addAttribute("member", member);
+	      return "/member/updateForm";
+	   }
 	@RequestMapping(value = "confirmNick_name2", produces = "text/html;charset=utf-8") 
 	@ResponseBody
 	public String confirmNick_name2(String nick_name, HttpSession session) {
@@ -313,30 +328,23 @@ public class MemberController {
 	}
 	
 	@RequestMapping("reserveList")
-	public String reserveList(Reservation reservation, Pc pc, HttpSession session, Model model, String pageNum) {
+	public String reserveList(Reservation reservation, HttpSession session, Model model, String pageNum) {
 		Member1 memberSession = (Member1)session.getAttribute("memberSession");
+		 Pc pc = ps.selectMno(memberSession.getMno());
+	     if(pc != null) {
+		     int pcno = pc.getPcno();
+		     Fee f1 = ps.selectFee(pcno);
+	    	 model.addAttribute("pc",pc);
+	    	 model.addAttribute("f1", f1);
+	     }	  	     
 		int mno = memberSession.getMno();
-		System.out.println("mno:"+mno);
-		
-//		System.out.println("pcname:"+pcname);
-		 
-//		int  rowPerPage = 10;
-//		if (pageNum == null || pageNum.equals("")) pageNum="1";
-//		int currentPage = Integer.parseInt(pageNum);
-//		int total = rs.getTotal(mno);
-//		int startRow = (currentPage - 1) * rowPerPage + 1;
-//		int endRow = startRow + rowPerPage - 1;
-//		reservation.setStartRow(startRow);
-//		reservation.setEndRow(endRow);
-		List<Pc> rList = rs.rList(mno);
-//		System.out.println("rList:"+rList);
-//		PageBean pb = new PageBean(currentPage, rowPerPage, total);
-		
-//		model.addAttribute("pcname", pcname);
+		List<Reservation> nList = rs.nList(mno);
+		List<Reservation> yList = rs.yList(mno);
 		model.addAttribute("mno", mno);
-		model.addAttribute("list", rList);
+		model.addAttribute("nList", nList);
+		model.addAttribute("yList", yList);
 		model.addAttribute("pageNum", pageNum);
-//		model.addAttribute("pb", pb);
-		return "/member/reverseList";
+		
+		return "/member/reserveList";
 	}
 }

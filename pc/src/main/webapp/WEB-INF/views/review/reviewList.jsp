@@ -31,6 +31,7 @@
 			$.post('wInsert.do',sendData, function(data) {
 				alert("댓글이 작성 되었습니다");
 				$('#review').html(data);
+				location.reload();
 				frm1.content.value="";// 작성했던 댓글 삭제
 			});	 	 
 			$('#popup_wrap').css("display", "none");
@@ -44,6 +45,7 @@
 		$.post('wDelete.do', sendData, function(data) {
 			alert("리뷰가 삭제 되었습니다");
 			$('#review').html(data);
+			location.reload();
 		});
 	}
 	function wUpdate(pcno,rno) {

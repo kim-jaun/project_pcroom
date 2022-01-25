@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ch.pc.dao.ReservationDao;
-import com.ch.pc.model.Pc;
 import com.ch.pc.model.Reservation;
 
 @Service
@@ -18,11 +17,10 @@ public class ReservationServiceImpl implements ReservationService {
 	public int getTotal(int mno) {
 		return rd.getTotal(mno);
 	}
-//	public List<Pc> rList(Reservation reservation) {
-//		return rd.rList(reservation);
-//	}
-	@Override
-	public List<Pc> rList(int mno) {
-		return rd.rList(mno);
+	public List<Reservation> nList(int mno) {
+		return rd.nList(mno);
+	}
+	public List<Reservation> yList(int mno) {
+		return rd.yList(mno);
 	}
 }

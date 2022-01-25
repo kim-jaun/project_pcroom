@@ -31,7 +31,7 @@
 		border: 1px solid rgba(0, 0, 0, 0.5); 
 	}
 	.seatLabel.active{
-		background-color: rgba(255, 255, 255, 0.8);
+		background-color: rgba(0, 50, 100, 0.5);
 	}
 	body {
 	background-color: #2c3e50;

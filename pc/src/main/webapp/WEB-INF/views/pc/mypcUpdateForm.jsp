@@ -128,11 +128,20 @@ h3 {
 	<div class="total_content" align="center">
 <div class="navi_admin"> 
 	<ul class="sidebar">
-		<li><a href="updateForm.do">회원정보 수정</a></li>
-		<li><a href="reserveList.do">예매내역</a></li>
-		<li><a href="mybookmark.do">즐겨찾기</a></li>
-		<li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
-	</ul>
+         <li><a href="updateForm.do">회원정보 수정</a></li>
+         <li><a href="reserveList.do">예매내역</a></li>
+         <li><a href="mybookmark.do">즐겨찾기</a></li>
+          	<c:if test="${memberSession.identity == '점주' }">
+               <li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
+               <li><a href="seatForm.do?pcno=${pc.pcno}">좌석배치 수정</a></li>
+               <c:if test="${f1 == 'null' }">
+               <li><a href="feeInsertForm.do?pcno=${pc.pcno}">요금 입력</a></li>
+               </c:if>
+               <c:if test="${f1 != 'null' }">
+               <li><a href="feeUpdateForm.do?pcno=${pc.pcno}">요금 수정</a></li>
+               </c:if>
+            </c:if>
+   </ul>
 </div>
 		<form action="mypcUpdate.do" name="frm" method="post" onsubmit="return upload()" enctype="multipart/form-data">
 		<input type="hidden" name="pcno" value="${pc.pcno }">

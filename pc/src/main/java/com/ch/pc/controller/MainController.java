@@ -34,6 +34,19 @@ public class MainController {
 		return "/main/main";
 	}
 	
+	@RequestMapping("mainSearch")
+	public String mainSearch(Location location, Model model, Keyword keyword) {		
+		if(location.getSido() == null || location.getSido().equals("")) {
+			location.setSido("서울특별시");
+			location.setSigugun("이대역");
+			location.setDong("pc방");
+		}
+		List<Pc> listsearch = ps.searchpc(keyword);
+		model.addAttribute("listsearch", listsearch);
+		model.addAttribute("location", location);
+		return "/main/mainSearch";
+	}
+	
 	@RequestMapping("sessionChk")
 	public String sessionChk() {
 		return "/main/sessionChk";

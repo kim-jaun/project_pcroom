@@ -19,6 +19,12 @@
 			alert("예약이 실패했습니다.");
 			history.back();
 		</script>
-	</c:if>		
+	</c:if>	
+	<c:if test="${result == -1 }">
+		<script type="text/javascript">
+			alert("시간이 오래되어 다시설정하십시오");
+			history.back();
+		</script>
+	</c:if>			
 </body>
 </html>
