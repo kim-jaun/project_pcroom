@@ -11,7 +11,7 @@
 	<c:if test="${result > 0 }">
 		<script type="text/javascript">
 			alert("요금 수정이 완료되었습니다.");
-			location.href = "pcMainForm.do?pcno=${pcno}";
+			location.href = "feeUpdateForm.do?pcno=${pcno}";
 		</script>
 	</c:if>
 	<c:if test="${result == 0 }">

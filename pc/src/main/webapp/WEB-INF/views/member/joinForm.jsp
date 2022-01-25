@@ -46,6 +46,10 @@ function chk() { // 중복체크를 하지 않으면 넘어가지 않도록 설�
 		alert("이메일를 확인해주세요.");
 		return false;
 	}
+	if (!frm.file.value) {
+	      alert("사진을 넣어주세요.");
+	      return false;
+	}
 } 
 </script>
 <script type="text/javascript">

@@ -35,7 +35,7 @@
 			<beans:ref bean="lc"/>
 		</interceptor>
 		<interceptor>
-			<mapping path="/main.do"/>
+			<mapping path="/*"/>
 			<beans:ref bean="er"/>
 		</interceptor>
 	</interceptors>

@@ -47,13 +47,30 @@
 		border-radius: 20px;
 		background-color: white;
 	}
-		.navi_admin{
+	.navi_admin{
 		float: left;
 	/* 	margin-top: 50px; */
 		width: 200px;
 		margin-left: -50px;
 		margin-right: 30px;
 		z-index: 100;
+	}
+	.seat-content {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		flex-direction: column;
+		width: 80%;
+		height: 90%;
+		margin-left: 20px;
+	}
+	.seatLabel.active{
+		background-color: rgba(0, 50, 100, 0.5);
+	}
+	.seat-btn {
+		margin-top: 20px;
+		width: 150px;
+		right: 0;
 	}
 </style>
 <script type="text/javascript">
@@ -82,45 +99,46 @@ function seatSize() {
 </script>
 </head>
 <body onload="seatSize()">
-<div class="content_center">
-<div class="total_content">
-<div class="navi_admin"> 
-	<ul class="sidebar">
-         <li><a href="updateForm.do">회원정보 수정</a></li>
-         <li><a href="reserveList.do">예매내역</a></li>
-         <li><a href="mybookmark.do">즐겨찾기</a></li>
-            <c:if test="${memberSession.identity == '점주' }">
-               <li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
-               <li><a href="seatForm.do?pcno=${pc.pcno}">좌석배치 수정</a></li>
-               <c:if test="${f1 == 'null' }">
-               <li><a href="feeInsertForm.do">요금 수정</a></li>
-               </c:if>
-               <c:if test="${f1 != 'null' }">
-               <li><a href="feeUpdateForm.do">요금 수정</a></li>
-               </c:if>
-            </c:if>
-   </ul>
-</div>
-	<form action="seatSetting.do" name="frm" method="post">	
-	<span>피씨방 좌석 구조</span>
-	<select name="seatlow">
- 		<option value=${pc.seatlow }>현재 값(${pc.seatlow })</option>
-		<c:forTokens var="i" items="10,15,20,25,30" delims=",">
-			<option value=${i }>${i }</option>
-		</c:forTokens>
-	</select>
-	<select name="seatcol">
- 		<option value=${pc.seatcol }>현재 값(${pc.seatcol })</option>
-		<c:forTokens var="j" items="10,15,20,25,30" delims=",">
-			<option value=${j }>${j }</option>
-		</c:forTokens>
-	</select>
-	<input type="button" onclick="seatSize()" value="좌석 배치">
-	<div id="seatPosition"></div>
-	<input type="hidden" name="pcno" value="${pcno }">
-	<input type="submit" value="저장">
-	</form>
-</div>
-</div>
+	<div class="content_center">
+		<div class="total_content">
+			<div class="navi_admin">
+				<ul class="sidebar">
+					<li><a href="passChkForm.do">회원정보 수정</a></li>
+					<li><a href="reserveList.do">예매내역</a></li>
+					<li><a href="mybookmark.do">즐겨찾기</a></li>
+					<c:if test="${memberSession.identity == '점주' }">
+						<li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
+						<li><a href="seatForm.do?pcno=${pc.pcno}">좌석배치 수정</a></li>
+						<c:if test="${f1 == 'null' }">
+							<li><a href="feeInsertForm.do">요금 수정</a></li>
+						</c:if>
+						<c:if test="${f1 != 'null' }">
+							<li><a href="feeUpdateForm.do">요금 수정</a></li>
+						</c:if>
+					</c:if>
+				</ul>
+			</div>
+			<div class="seat-content">
+				<h3>좌석 배치 수정</h3>
+				<form action="seatSetting.do" name="frm" method="post">
+					<span>피씨방 좌석 구조</span> <select name="seatlow">
+						<option value=${pc.seatlow }>현재 값(${pc.seatlow })</option>
+						<c:forTokens var="i" items="10,15,20,25,30" delims=",">
+							<option value=${i }>${i }</option>
+						</c:forTokens>
+					</select> <select name="seatcol">
+						<option value=${pc.seatcol }>현재 값(${pc.seatcol })</option>
+						<c:forTokens var="j" items="10,15,20,25,30" delims=",">
+							<option value=${j }>${j }</option>
+						</c:forTokens>
+					</select> 
+					<input type="button" onclick="seatSize()" value="좌석 배치">
+					<div id="seatPosition"></div>
+					<input type="hidden" name="pcno" value="${pcno }"> 
+					<input class="btn btn-primary seat-btn" type="submit" value="저장">
+				</form>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

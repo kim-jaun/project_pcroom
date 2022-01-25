@@ -74,53 +74,65 @@ $(function() {
 	 	}
 	});
 jQuery(document).ready(function(){
-	
-	
-	
-	$('#reservetime').change(function(){
-  $('#endtime').show();
-  $('#endtime').empty();
-  var starthour = $('#starttime').val().substring(0,2)
-  var startmin = $('#starttime').val().substring(3,5)
-	if(startmin == '00'){			  
-  	var endmin = $(this).val()
-	}else{
-	var endmin = parseInt($(this).val())+30;
-	}
-  var endhour = parseInt(starthour)
-  if(endmin>59){
-	  endhour = endhour + Math.floor(endmin/60)
-	  endmin = endmin%60
-	 
-  }
-  if(endmin<10){
-	  endmin = "0"+endmin
-  }
-  $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
-    });
-	
-	$('#starttime').change(function(){
-		  $('#endtime').show();
-		  $('#endtime').empty();
-		  var starthour = $('#starttime').val().substring(0,2)
-		  var startmin = $('#starttime').val().substring(3,5)
-			if(startmin == '00'){			  
-		  	var endmin = $('#reservetime').val()
-			}else{
-			var endmin = parseInt($('#reservetime').val())+30;
-			}
-		  var endhour = parseInt(starthour)
-		  if(endmin>59){
-			  endhour = endhour + Math.floor(endmin/60)
-			  endmin = endmin%60
-			 
-		  }
-		  if(endmin<10){
-			  endmin = "0"+endmin
-		  }
-		  $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
-		    });		
-});
+	   
+	   
+	   
+	   $('#reservetime').change(function(){
+	  $('#endtime').show();
+	  $('#endtime').empty();
+	  var starthour = $('#starttime').val().substring(0,2)
+	  var startmin = $('#starttime').val().substring(3,5)
+	   if(startmin == '00'){           
+	     var endmin = $(this).val()
+	   }else{
+	   var endmin = parseInt($(this).val())+30;
+	   }
+	  var endhour = parseInt(starthour)
+	  if(endmin>59){
+	     endhour = endhour + Math.floor(endmin/60)
+	     endmin = endmin%60
+	    
+	  }
+	  if(endhour>=24){
+	     endhour = endhour%24
+	  }
+	  if(endhour<10){
+	     endhour = "0"+endhour
+	  }
+	  if(endmin<10){
+	     endmin = "0"+endmin
+	  }
+	  $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
+	    });
+	   
+	   $('#starttime').change(function(){
+	        $('#endtime').show();
+	        $('#endtime').empty();
+	        var starthour = $('#starttime').val().substring(0,2)
+	        var startmin = $('#starttime').val().substring(3,5)
+	         if(startmin == '00'){           
+	           var endmin = $('#reservetime').val()
+	         }else{
+	         var endmin = parseInt($('#reservetime').val())+30;
+	         }
+	        var endhour = parseInt(starthour)
+	        if(endmin>59){
+	           endhour = endhour + Math.floor(endmin/60)
+	           endmin = endmin%60
+	          
+	        }
+	        if(endhour>=24){
+	           endhour = endhour%24
+	        }
+	        if(endhour<10){
+	           endhour = "0"+endhour
+	        }
+	        if(endmin<10){
+	           endmin = "0"+endmin
+	        }
+	        $('#endtime').append('<option value="'+endhour+":"+endmin+'"/>'+endhour+":"+endmin);
+	          });      
+	});
 $(function() {		
 	if(${rlists} != null){ 
 	var rlists = "${rlists}";
@@ -140,6 +152,26 @@ $(function() {
 </script >
 
 <style type="text/css">
+body {
+	background-color: #2c3e50;
+}
+
+.content_center {
+	display: flex;
+	justify-content: center;
+	position: relative;
+}
+
+.total_content {
+	width: 90%;
+	height: 90%;
+	border-radius: 20px;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
 #seatChoice input {
 	position: absolute;
 	top: 50%;
@@ -177,29 +209,52 @@ $(function() {
 	color: red;
 	border-color: red;
 }
+#starttime {
+	margin-right: 30px;
+}
+.reserveTiem {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 10px 0;
+}
+.select-boxs {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.select-btn {
+	margin: 5px 10px;
+}
 </style>
 </head>
 <body onload="seatSize2()">
-<form action="reservation.do" name="frm" onsubmit="return chk()">
-	<div id="seatChoice"></div>
-	
-
-	<div class="reserveTiem">
-		시작시간 : <select id="starttime" name="starttime"></select><br>
-		종료 시간 : <select id="endtime" name="endtime"></select>
+	<div class="content_center">
+		<div class="total_content">
+			<h3>좌석 예약</h3>
+			<form action="reservation.do" name="frm" onsubmit="return chk()">
+				<div id="seatChoice"></div>
+				
+			
+				<div class="reserveTiem">
+					시작시간 : <select id="starttime" name="starttime"></select>
+					종료 시간 : <select id="endtime" name="endtime"></select>
+				</div>
+				<div class="select-boxs">
+					<select name="reservetime" id="reservetime">
+						<option>요금 선택</option>
+						<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
+						<option value="${fee.w3000}">3000원  ${fee.w3000 }분</option>
+						<option value="${fee.w5000}">5000원  ${fee.w5000 }분</option>
+						<option value="${fee.w10000}">10000원  ${fee.w10000 }분</option>
+						<option value="${fee.w50000}">50000원  ${fee.w50000 }분</option>
+						<option value="${fee.w100000}">100000원  ${fee.w100000 }분</option>
+					</select>
+					
+					<input type="submit" value="예약" class="btn btn-primary btn-sm select-btn">
+				</div>
+			</form>
+		</div>
 	</div>
-	
-	<select name="reservetime" id="reservetime">
-		<option>요금 선택</option>
-		<option value="${fee.w1000}">1000원  ${fee.w1000 }분</option>
-		<option value="${fee.w3000}">3000원  ${fee.w3000 }분</option>
-		<option value="${fee.w5000}">5000원  ${fee.w5000 }분</option>
-		<option value="${fee.w10000}">10000원  ${fee.w10000 }분</option>
-		<option value="${fee.w50000}">50000원  ${fee.w50000 }분</option>
-		<option value="${fee.w100000}">100000원  ${fee.w100000 }분</option>
-	</select>
-	
-	<input type="submit" value="예약" class="btn btn-primary btn-sm">
-</form>
 </body>
 </html>

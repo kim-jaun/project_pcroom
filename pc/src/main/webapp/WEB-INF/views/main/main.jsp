@@ -123,6 +123,19 @@ body {
 	outline: 0 none;
 	margin-bottom: 5px;
 }	
+.keyword-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+.keyword-btn {
+	width: 150px;
+	margin-top: 20px;
+}
+.addr {
+	margin-bottom: 30px;
+}
 </style>
 <script src="https://code.jquery.com/jquery-latest.min.js"
 	type="application/javascript"></script>
@@ -240,7 +253,7 @@ function juso() {
 		<!-- search -->
 		<div class="slide-div">
 			
-			<form action="mainSearch.do" class="keywordgroup" onsubmit="return juso()">
+			<form action="main.do" class="keywordgroup" onsubmit="return juso()">
 			<div class="addr">
 				<h4>주소 검색</h4>
 					<select id="sido" class="btn-group" name="sido">
@@ -254,27 +267,26 @@ function juso() {
 					</select> 
 			</div>
 				<h4>키워드 검색</h4>
-			<div>
-					<div class="keywords">
-						<label class="keyword" for="print"><img class="checking" alt="" src="/pc/resources/images/print.png"/></label> 
-						<input type="checkbox" id="print" class="keywordbox" name="print" value="프린트"> 
-						<label class="keyword" for="duel"><img class="checking" alt="" src="/pc/resources/images/dual.png"/></label>
-						<input type="checkbox" id="duel" class="keywordbox" name="duel" value="듀얼모니터"> 
-						<label class="keyword" for="curve"><img class="checking" alt="" src="/pc/resources/images/curve.png"/></label>
-						<input type="checkbox" id="curve" class="keywordbox" name="curve" value="커브모니터"> 
-						<label class="keyword" for="crt"><img class="checking" alt="" src="/pc/resources/images/crt.png"/></label>
-						<input type="checkbox" id="crt" class="keywordbox" name="crt" value="CRT모니터"> 
-						<label class="keyword" for="atm"><img class="checking" alt="" src="/pc/resources/images/atm.png"/></label>
-						<input type="checkbox" id="atm" class="keywordbox" name="atm" value="ATM기기"> 
-						<label class="keyword" for="air"><img class="checking" alt="" src="/pc/resources/images/air.png"/></label>
-						<input type="checkbox" id="air" class="keywordbox" name="air" value="공기청정기"> 
-						<label class="keyword" for="battery"><img class="checking" alt="" src="/pc/resources/images/battery.png"/></label>
-						<input type="checkbox" id="battery" class="keywordbox" name="battery" value="스마트폰충전"> 
-						<label class="keyword" for="game"><img class="checking" alt="" src="/pc/resources/images/game.png"/></label> 
-						<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임"> 
-					</div>
-					<input type="submit" class="btn" value="찾기">
-				
+			<div class="keyword-box">
+				<div class="keywords">
+					<label class="keyword" for="print"><img class="checking" alt="" src="/pc/resources/images/print.png"/></label> 
+					<input type="checkbox" id="print" class="keywordbox" name="print" value="프린트"> 
+					<label class="keyword" for="duel"><img class="checking" alt="" src="/pc/resources/images/dual.png"/></label>
+					<input type="checkbox" id="duel" class="keywordbox" name="duel" value="듀얼모니터"> 
+					<label class="keyword" for="curve"><img class="checking" alt="" src="/pc/resources/images/curve.png"/></label>
+					<input type="checkbox" id="curve" class="keywordbox" name="curve" value="커브모니터"> 
+					<label class="keyword" for="crt"><img class="checking" alt="" src="/pc/resources/images/crt.png"/></label>
+					<input type="checkbox" id="crt" class="keywordbox" name="crt" value="CRT모니터"> 
+					<label class="keyword" for="atm"><img class="checking" alt="" src="/pc/resources/images/atm.png"/></label>
+					<input type="checkbox" id="atm" class="keywordbox" name="atm" value="ATM기기"> 
+					<label class="keyword" for="air"><img class="checking" alt="" src="/pc/resources/images/air.png"/></label>
+					<input type="checkbox" id="air" class="keywordbox" name="air" value="공기청정기"> 
+					<label class="keyword" for="battery"><img class="checking" alt="" src="/pc/resources/images/battery.png"/></label>
+					<input type="checkbox" id="battery" class="keywordbox" name="battery" value="스마트폰충전"> 
+					<label class="keyword" for="game"><img class="checking" alt="" src="/pc/resources/images/game.png"/></label> 
+					<input type="checkbox" id="game" class="keywordbox" name="game" value="모바일게임"> 
+				</div>
+				<input type="submit" class="btn btn-primary keyword-btn" value="찾기">
 			</div>
 			</form>
 		</div>
@@ -354,7 +366,7 @@ function juso() {
 		</script>
 	<!-- map script 끝 -->
 	<!-- 마커생성 -->
-	<c:forEach var="pc" items="${list }">
+	<c:forEach var="pc" items="${listsearch }">
 		<script type="text/javascript">	
 			var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
 			    markerPosition = new kakao.maps.LatLng('${pc.pclati}', '${pc.pclongi}'); // 마커가 표시될 위치입니다

@@ -74,6 +74,15 @@ h3 {
 	margin-left: -50px;
 	margin-right: 30px;
 }
+.main-content {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+/* 	flex-direction: column; */
+	width: 80%;
+	height: 90%;
+	margin-left: 20px;
+}
 </style>
 <script type="text/javascript">
 	function upload() { // 업로드 안했을경우
@@ -126,129 +135,131 @@ h3 {
 <body>
 <div class="content_center">
 	<div class="total_content" align="center">
-<div class="navi_admin"> 
-	<ul class="sidebar">
-         <li><a href="updateForm.do">회원정보 수정</a></li>
-         <li><a href="reserveList.do">예매내역</a></li>
-         <li><a href="mybookmark.do">즐겨찾기</a></li>
-          	<c:if test="${memberSession.identity == '점주' }">
-               <li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
-               <li><a href="seatForm.do?pcno=${pc.pcno}">좌석배치 수정</a></li>
-               <c:if test="${f1 == 'null' }">
-               <li><a href="feeInsertForm.do?pcno=${pc.pcno}">요금 입력</a></li>
-               </c:if>
-               <c:if test="${f1 != 'null' }">
-               <li><a href="feeUpdateForm.do?pcno=${pc.pcno}">요금 수정</a></li>
-               </c:if>
-            </c:if>
-   </ul>
-</div>
-		<form action="mypcUpdate.do" name="frm" method="post" onsubmit="return upload()" enctype="multipart/form-data">
-		<input type="hidden" name="pcno" value="${pc.pcno }">
-		<input type="hidden" name="mno" value="${mno }">
-		<input type="hidden" name="pclati" value="${pc.pclati }">
-		<input type="hidden" name="pclongi" value="${pc.pclongi }">
-			<div class="join_total">
-			<div class="title_size">가맹점 수정</div>
-			<div>사업자등록번호</div>
-			<div class="join_content">
-				<input type="text" name="pcbusinessnum" value="${pc.pcbusinessnum }" readonly="readonly" class="form-control">
-			</div>
-			<div>pc방 이름</div>
-			<div class="join_content">
-				<input type="text" name="pcname" value="${pc.pcname }" required="required" class="form-control">
-			</div>
-			<div>pc방 전화번호</div>
-			<div class="join_content">
-				<input type="tel" name="pcpno" value="${pc.pcpno }" required="required" pattern="010-\d{3,4}-\d{4}"
-						placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control">
-			</div>
-			<div>pc방 사진</div>
-			<div class="join_content">
-				<input type="file" name="pcimage" required="required" multiple="multiple" readonly="readonly" class="form-control">
-			</div>
-			<div>
-			<div>주소</div>
-			<div class="join_content content_id">
-				<input type="text" name="pcaddr" id="pcaddr" required="required" value="${pc.pcaddr }" class="form-control"
-					placeholder="주소" readonly="readonly">
-				<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-primary"><br>
-			</div>
-				<div id="map" style="width:500px; height:300px; margin-top:10px; display:block;"></div>
-			</div>
-			<br>
-			정보(수정 전)		
-			<div class="service-cont">
-				<a class="service-tit" style="width:500px"> 
-					<strong id="selectInfoList1">${pc.pcinfo }</strong>			
-				</a>
-				<br>
-				정보(수정 후)
-				<a class="service-tit" style="width:500px"> 
-					<strong id="selectInfoList"></strong>				
-				</a>
-				<div id="divInfoLayer" class="layer-service">
-					<p>정보 선택</p>
-					<div class="a">									
-					<input type="image" src="/pc/resources/images/print.png" name="info" value="프린트">
-					<p>
-					프린트
-					</div>	
-					<div class="a">	
-					<input type="image" src="/pc/resources/images/dual.png" name="info" value="듀얼모니터">
-					<p>
-					듀얼모니터
-					</div>	
-					<div class="a">	
-					<input type="image" src="/pc/resources/images/curve.png" name="info" value="커브모니터">
-					<p>
-					커브모니터
-					</div>	
-					<div class="b">	
-					<input type="image" src="/pc/resources/images/crt.png" name="info" value="CRT모니터">
-					<p>
-					CRT모니터
-					</div>	
-					<div class="b">	
-					<input type="image" src="/pc/resources/images/atm.png" name="info" value="ATM기기">
-					<p>
-					ATM기기
-					</div>	
-					<div class="b">	
-					<input type="image" src="/pc/resources/images/air.png" name="info" value="공기청정기">
-					<p>
-					공기청정기
-					</div>	
-					<div class="c">	
-					<input type="image" src="/pc/resources/images/battery.png" name="info" value="스마트폰충전">
-					<p>
-					스마트폰충전
-					</div>	
-					<div class="c">	
-					<input type="image" src="/pc/resources/images/game.png" name="info" value="모바일게임">
-					<p>
-					모바일게임
-					</div>	
+		<div class="navi_admin"> 
+			<ul class="sidebar">
+				<li><a href="passChkForm.do">회원정보 수정</a></li>
+				<li><a href="reserveList.do">예매내역</a></li>
+				<li><a href="mybookmark.do">즐겨찾기</a></li>
+				<c:if test="${memberSession.identity == '점주' }">
+					<li><a href="mypcUpdateForm.do">가맹점 수정</a></li>
+					<li><a href="seatForm.do?pcno=${pc.pcno}">좌석배치 수정</a></li>
+					<c:if test="${f1 == 'null' }">
+						<li><a href="feeInsertForm.do?pcno=${pc.pcno}">요금 입력</a></li>
+					</c:if>
+					<c:if test="${f1 != 'null' }">
+						<li><a href="feeUpdateForm.do?pcno=${pc.pcno}">요금 수정</a></li>
+					</c:if>
+				</c:if>
+			</ul>
+		</div>
+		<div class="main-content">
+			<form action="mypcUpdate.do" name="frm" method="post" onsubmit="return upload()" enctype="multipart/form-data">
+				<input type="hidden" name="pcno" value="${pc.pcno }">
+				<input type="hidden" name="mno" value="${mno }">
+				<input type="hidden" name="pclati" value="${pc.pclati }">
+				<input type="hidden" name="pclongi" value="${pc.pclongi }">
+				<div class="join_total">
+					<div class="title_size">가맹점 수정</div>
+					<div>사업자등록번호</div>
+					<div class="join_content">
+						<input type="text" name="pcbusinessnum" value="${pc.pcbusinessnum }" readonly="readonly" class="form-control">
+					</div>
+					<div>pc방 이름</div>
+					<div class="join_content">
+						<input type="text" name="pcname" value="${pc.pcname }" required="required" class="form-control">
+					</div>
+					<div>pc방 전화번호</div>
+					<div class="join_content">
+						<input type="tel" name="pcpno" value="${pc.pcpno }" required="required" pattern="010-\d{3,4}-\d{4}"
+								placeholder="ex)010-1111-1111" title="전화형식 010-숫자3/4-숫자4" class="form-control">
+					</div>
+					<div>pc방 사진</div>
+					<div class="join_content">
+						<input type="file" name="pcimage" required="required" multiple="multiple" readonly="readonly" class="form-control">
+					</div>
 					<div>
-						<button type="button" onclick="fn_selectInfo()" class="btn btn-primary">확인</button>
+						<div>주소</div>
+						<div class="join_content content_id">
+							<input type="text" name="pcaddr" id="pcaddr" required="required" value="${pc.pcaddr }" class="form-control"
+								placeholder="주소" readonly="readonly">
+							<input type="button" onclick="sample5_execDaumPostcode()" value="주소 검색" class="btn btn-primary"><br>
+						</div>
+						<div id="map" style="width:500px; height:300px; margin-top:10px; display:block;"></div>
+					</div>
+					<br>
+					정보(수정 전)		
+					<div class="service-cont">
+						<a class="service-tit" style="width:500px"> 
+							<strong id="selectInfoList1">${pc.pcinfo }</strong>			
+						</a>
+						<br>
+						정보(수정 후)
+						<a class="service-tit" style="width:500px"> 
+							<strong id="selectInfoList"></strong>				
+						</a>
+						<div id="divInfoLayer" class="layer-service">
+							<p>정보 선택</p>
+							<div class="a">									
+								<input type="image" src="/pc/resources/images/print.png" name="info" value="프린트">
+							<p>
+							프린트
+							</div>	
+							<div class="a">	
+								<input type="image" src="/pc/resources/images/dual.png" name="info" value="듀얼모니터">
+							<p>
+							듀얼모니터
+							</div>	
+							<div class="a">	
+								<input type="image" src="/pc/resources/images/curve.png" name="info" value="커브모니터">
+							<p>
+							커브모니터
+							</div>	
+							<div class="b">	
+								<input type="image" src="/pc/resources/images/crt.png" name="info" value="CRT모니터">
+							<p>
+							CRT모니터
+							</div>	
+							<div class="b">	
+								<input type="image" src="/pc/resources/images/atm.png" name="info" value="ATM기기">
+							<p>
+							ATM기기
+							</div>	
+							<div class="b">	
+								<input type="image" src="/pc/resources/images/air.png" name="info" value="공기청정기">
+							<p>
+							공기청정기
+							</div>	
+							<div class="c">	
+								<input type="image" src="/pc/resources/images/battery.png" name="info" value="스마트폰충전">
+							<p>
+							스마트폰충전
+							</div>	
+							<div class="c">	
+								<input type="image" src="/pc/resources/images/game.png" name="info" value="모바일게임">
+							<p>
+							모바일게임
+							</div>	
+							<div>
+								<button type="button" onclick="fn_selectInfo()" class="btn btn-primary">확인</button>
+							</div>
+						</div>
+					</div>
+					<p>
+					<div class="form-group">
+						<div>pc방 소개</div>
+						<textarea rows="7" cols="50" name="pcintro" class="form-control" required="required">${pc.pcintro }</textarea>
+					</div>
+					<div>
+						<input type="hidden" name="pclati" id="pclati"> 
+						<input type="hidden" name="pclongi" id="pclongi"> 
+						<input type="hidden" name="pcinfo" id="pcinfo">
 					</div>
 				</div>
-			</div>
-			<p>
-			<div class="form-group">
-				<div>pc방 소개</div>
-				<textarea rows="7" cols="50" name="pcintro" class="form-control" required="required">${pc.pcintro }</textarea>
-			</div>
-			<div>
-				<input type="hidden" name="pclati" id="pclati"> 
-				<input type="hidden" name="pclongi" id="pclongi"> 
-				<input type="hidden" name="pcinfo" id="pcinfo">
-			</div>
-			</div>
-			<div align="center">
-			<button id="submit" type="submit" class="btn btn-primary btn_ok">수정</button>
-			</div>
-		</form>
+				<div align="center">
+					<button id="submit" type="submit" class="btn btn-primary btn_ok">수정</button>
+				</div>
+			</form>
+		</div>
 	</div>
 </div>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

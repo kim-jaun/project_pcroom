@@ -21,31 +21,17 @@ public class MainController {
 	@RequestMapping("main")
 	public String main(Location location, Model model, Keyword keyword) {		
 		
-		if(location.getSido() == null) {
+		if(location.getSido() == null || location.getSido().equals("")) {
 			location.setSido("서울특별시");
 			location.setSigugun("이대역");
 		}
 		List<Pc> listsearch = ps.searchpc(keyword);
 		System.out.println(listsearch);
 		model.addAttribute("listsearch", listsearch);
-		List<Pc> list = ps.listMap();
-		model.addAttribute("list", list);
 		model.addAttribute("location", location);
 		return "/main/main";
 	}
 	
-	@RequestMapping("mainSearch")
-	public String mainSearch(Location location, Model model, Keyword keyword) {		
-		if(location.getSido() == null || location.getSido().equals("")) {
-			location.setSido("서울특별시");
-			location.setSigugun("이대역");
-			location.setDong("pc방");
-		}
-		List<Pc> listsearch = ps.searchpc(keyword);
-		model.addAttribute("listsearch", listsearch);
-		model.addAttribute("location", location);
-		return "/main/mainSearch";
-	}
 	
 	@RequestMapping("sessionChk")
 	public String sessionChk() {
