@@ -17,24 +17,6 @@ public class FeeController {
 	@Autowired
 	private PcService ps;
 	
-	@RequestMapping("feeInsertForm")
-	public String feeInsertForm(Model model) {
-		return "/fee/feeInsertForm";
-	}
-	
-	@RequestMapping("feeInsert")
-	public String feeInsert(Fee fee, Model model, HttpSession session) {
-		Member1 member = (Member1)session.getAttribute("memberSession");
-		Pc pc = ps.selectMno(member.getMno());
-	    int pcno = pc.getPcno();
-		fee.setPcno(pcno);
-		int result = 0;
-		result = ps.feeInsert(fee);
-		model.addAttribute("pcno",pcno);
-		model.addAttribute("result", result);
-		return "/fee/feeInsert";
-	}
-	
 	@RequestMapping("feeUpdateForm")
 	public String feeUpdate(Model model, HttpSession session) {
 		Member1 member = (Member1)session.getAttribute("memberSession");
@@ -52,10 +34,14 @@ public class FeeController {
 		Pc pc = ps.selectMno(member.getMno());
 	    int pcno = pc.getPcno();
 	    Fee f1 = ps.selectFee(pcno);
-	     
-		fee.setPcno(pcno);
-		int result = 0;
-		result = ps.feeUpdate(fee);
+	    fee.setPcno(pcno);
+	    int result = 0;
+	    
+	    if(f1 == null) {
+	    	result = ps.feeInsert(fee);
+	    } else {	    	
+	    	result = ps.feeUpdate(fee);
+	    }
 		model.addAttribute("pcno",pcno);
 		model.addAttribute("result", result);
 		return "/fee/feeUpdate";

@@ -47,12 +47,15 @@
 		width: 500px;
 	}
 	.service-tit {
-    display: block;
-    width: 500px;
-    height: 26px;
-    border: 1px solid #000000;
-    text-decoration-line: none;
-}
+	    display: block;
+	    width: 500px;
+	    height: 26px;
+	    border: 1px solid #000000;
+	    text-decoration-line: none;
+	}
+	.hide-keyword {
+		display: none;
+	}
 </style>
 <script type="text/javascript">
 function upload() { // 업로드 안했을경우
@@ -140,7 +143,7 @@ function fn_selectInfo() {
 						<a href="#" class="service-tit">
 							<strong id="selectInfoList"></strong>
 						</a>
-						<div id="divInfoLayer" class="layer-service">
+						<div id="divInfoLayer" class="layer-service hide-keyword">
 							<p>정보 선택</p>	
 							<div class="a">									
 							<input type="image" src="/pc/resources/images/print.png" name="info" value="프린트">
